@@ -11,6 +11,8 @@ class ViewSecondHandMachine extends ViewRecord
 {
     protected static string $resource = SecondHandMachineResource::class;
 
+    protected string $view = 'filament.employee.resources.second-hand-machines.pages.view-second-hand-machine';
+
     protected function getHeaderActions(): array
     {
         return [];

@@ -24,10 +24,7 @@ class SecondHandMachineResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    public static function infolist(Schema $schema): Schema
-    {
-        return SecondHandMachineInfolist::configure($schema);
-    }
+
 
     public static function table(Table $table): Table
     {
