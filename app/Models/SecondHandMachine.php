@@ -7,35 +7,35 @@ namespace App\Models;
 use App\Enums\Status;
 use App\Enums\Tax;
 use Database\Factories\SecondHandMachineFactory;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+#[Fillable([
+    'codigo',
+    'nombre',
+    'coste',
+    'observaciones_compra',
+    'modelo',
+    'numero_serie',
+    'precio_venta',
+    'tax',
+    'horas_trabajo',
+    'descripcion',
+    'estado',
+    'taller_reparacion',
+    'fotos',
+    'adjuntos',
+    'brand_id',
+    'responsable_compra_id',
+    'cliente_compra_id',
+    'family_id',
+])]
 class SecondHandMachine extends Model
 {
     /** @use HasFactory<SecondHandMachineFactory> */
     use HasFactory;
-
-    protected $fillable = [
-        'codigo',
-        'nombre',
-        'coste',
-        'observaciones_compra',
-        'modelo',
-        'numero_serie',
-        'precio_venta',
-        'tax',
-        'horas_trabajo',
-        'descripcion',
-        'estado',
-        'taller_reparacion',
-        'fotos',
-        'adjuntos',
-        'brand_id',
-        'responsable_compra_id',
-        'cliente_compra_id',
-        'family_id',
-    ];
 
     protected $casts = [
         'coste' => 'decimal:2',
