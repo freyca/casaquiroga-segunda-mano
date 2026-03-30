@@ -16,26 +16,35 @@ class SecondHandMachinesTable
     {
         return $table
             ->columns([
-                TextColumn::make('codigo')
-                    ->searchable(),
                 TextColumn::make('nombre')
+                    ->limit(20)
+                    ->tooltip(fn($state) => $state)
                     ->searchable(),
+
                 TextColumn::make('coste')
-                    ->numeric()
+                    ->money('EUR')
                     ->sortable(),
-                TextColumn::make('family.id')
-                    ->searchable(),
-                TextColumn::make('brand.id')
-                    ->searchable(),
+
                 TextColumn::make('precio_venta')
-                    ->numeric()
+                    ->money('EUR')
                     ->sortable(),
+
+                TextColumn::make('family.nombre')
+                    ->label('Familia')
+                    ->searchable()
+                    ->sortable(),
+
+                TextColumn::make('brand.nombre')
+                    ->label('Marca')
+                    ->sortable()
+                    ->searchable(),
+
                 TextColumn::make('tax')
+                    ->label('IVA')
                     ->badge(),
-                TextColumn::make('horas_trabajo')
-                    ->numeric()
-                    ->sortable(),
+
                 TextColumn::make('estado')
+                    ->sortable()
                     ->badge()
                     ->searchable(),
             ])

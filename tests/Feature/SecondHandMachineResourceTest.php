@@ -7,6 +7,9 @@ use App\Filament\Admin\Resources\SecondHandMachines\Pages\CreateSecondHandMachin
 use App\Filament\Admin\Resources\SecondHandMachines\Pages\EditSecondHandMachine;
 use App\Models\SecondHandMachine;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\UploadedFile;
+
 use function Pest\Livewire\livewire;
 
 uses(LazilyRefreshDatabase::class);
@@ -48,5 +51,29 @@ describe('SecondHandMachineResource', function () {
             ->assertNotified();
 
         expect($machine->refresh()->nombre)->toBe('New Name');
+    });
+
+    it('can upload photos and attachments', function () {
+        Storage::fake('public');
+
+        $photo = UploadedFile::fake()->image('photo.jpg');
+        $pdf = UploadedFile::fake()->create('manual.pdf', 100, 'application/pdf');
+
+        $data = SecondHandMachine::factory()->make()->toArray();
+        unset($data['id'], $data['created_at'], $data['updated_at']);
+        $data['fotos'] = [$photo];
+        $data['adjuntos'] = [$pdf];
+
+        livewire(CreateSecondHandMachine::class)
+            ->fillForm($data)
+            ->call('create')
+            ->assertHasNoFormErrors()
+            ->assertNotified();
+
+        $machine = SecondHandMachine::latest()->first();
+        expect($machine->fotos)->not->toBeEmpty();
+        expect($machine->adjuntos)->not->toBeEmpty();
+        Storage::disk('public')->assertExists($machine->fotos[0]);
+        Storage::disk('public')->assertExists($machine->adjuntos[0]);
     });
 });
