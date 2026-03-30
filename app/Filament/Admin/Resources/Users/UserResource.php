@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Resources\Admin\Users;
+namespace App\Filament\Admin\Resources\Users;
 
-use App\Filament\Resources\Admin\Users\Pages\CreateUser;
-use App\Filament\Resources\Admin\Users\Pages\EditUser;
-use App\Filament\Resources\Admin\Users\Pages\ListUsers;
-use App\Filament\Resources\Admin\Users\Schemas\UserForm;
-use App\Filament\Resources\Admin\Users\Tables\UsersTable;
+use App\Filament\Admin\Resources\Users\Pages\CreateUser;
+use App\Filament\Admin\Resources\Users\Pages\EditUser;
+use App\Filament\Admin\Resources\Users\Pages\ListUsers;
+use App\Filament\Admin\Resources\Users\Schemas\UserForm;
+use App\Filament\Admin\Resources\Users\Tables\UsersTable;
 use App\Models\User;
 use BackedEnum;
 use Filament\Resources\Resource;

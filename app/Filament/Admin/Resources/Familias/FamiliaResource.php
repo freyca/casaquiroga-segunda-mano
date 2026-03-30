@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Resources\Admin\Familias;
+namespace App\Filament\Admin\Resources\Familias;
 
-use App\Filament\Resources\Admin\Familias\Pages\CreateFamilia;
-use App\Filament\Resources\Admin\Familias\Pages\EditFamilia;
-use App\Filament\Resources\Admin\Familias\Pages\ListFamilias;
-use App\Filament\Resources\Admin\Familias\Schemas\FamiliaForm;
-use App\Filament\Resources\Admin\Familias\Tables\FamiliasTable;
+use App\Filament\Admin\Resources\Familias\Pages\CreateFamilia;
+use App\Filament\Admin\Resources\Familias\Pages\EditFamilia;
+use App\Filament\Admin\Resources\Familias\Pages\ListFamilias;
+use App\Filament\Admin\Resources\Familias\Schemas\FamiliaForm;
+use App\Filament\Admin\Resources\Familias\Tables\FamiliasTable;
 use App\Models\Familia;
 use BackedEnum;
 use Filament\Resources\Resource;

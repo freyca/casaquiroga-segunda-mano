@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Resources\Admin\SecondHandMachines;
+namespace App\Filament\Admin\Resources\SecondHandMachines;
 
-use App\Filament\Resources\Admin\SecondHandMachines\Pages\CreateSecondHandMachine;
-use App\Filament\Resources\Admin\SecondHandMachines\Pages\EditSecondHandMachine;
-use App\Filament\Resources\Admin\SecondHandMachines\Pages\ListSecondHandMachines;
-use App\Filament\Resources\Admin\SecondHandMachines\Schemas\SecondHandMachineForm;
-use App\Filament\Resources\Admin\SecondHandMachines\Tables\SecondHandMachinesTable;
+use App\Filament\Admin\Resources\SecondHandMachines\Pages\CreateSecondHandMachine;
+use App\Filament\Admin\Resources\SecondHandMachines\Pages\EditSecondHandMachine;
+use App\Filament\Admin\Resources\SecondHandMachines\Pages\ListSecondHandMachines;
+use App\Filament\Admin\Resources\SecondHandMachines\Schemas\SecondHandMachineForm;
+use App\Filament\Admin\Resources\SecondHandMachines\Tables\SecondHandMachinesTable;
 use App\Models\SecondHandMachine;
 use BackedEnum;
 use Filament\Resources\Resource;

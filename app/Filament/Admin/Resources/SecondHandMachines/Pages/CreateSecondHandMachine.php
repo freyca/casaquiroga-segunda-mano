@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Resources\Admin\SecondHandMachines\Pages;
+namespace App\Filament\Admin\Resources\SecondHandMachines\Pages;
 
-use App\Filament\Resources\Admin\SecondHandMachines\SecondHandMachineResource;
+use App\Filament\Admin\Resources\SecondHandMachines\SecondHandMachineResource;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateSecondHandMachine extends CreateRecord

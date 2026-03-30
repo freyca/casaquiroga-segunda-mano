@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Resources\Admin\SecondHandMachines\Schemas;
+namespace App\Filament\Admin\Resources\SecondHandMachines\Schemas;
 
 use App\Enums\Status;
 use App\Enums\Tax;
