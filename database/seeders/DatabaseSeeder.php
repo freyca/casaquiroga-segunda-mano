@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
-use App\Models\Familia;
-use App\Models\Marca;
+use App\Models\Brand;
+use App\Models\Family;
 use App\Models\SecondHandMachine;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -22,9 +22,9 @@ class DatabaseSeeder extends Seeder
     {
         User::factory(10)->create();
 
-        Familia::factory(3)->create();
+        Family::factory(3)->create();
 
-        Marca::factory(3)->create();
+        Brand::factory(3)->create();
 
         SecondHandMachine::factory(10)->create();
     }

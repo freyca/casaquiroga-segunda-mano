@@ -31,10 +31,10 @@ class SecondHandMachine extends Model
         'taller_reparacion',
         'fotos',             // JSON array of paths
         'adjuntos',          // JSON array of paths
-        'marca_id',
+        'brand_id',
         'responsable_compra_id',
         'cliente_compra_id',
-        'familia_id',
+        'family_id',
     ];
 
     protected $casts = [
@@ -60,11 +60,11 @@ class SecondHandMachine extends Model
 
     public function familia(): BelongsTo
     {
-        return $this->belongsTo(Familia::class);
+        return $this->belongsTo(Family::class);
     }
 
     public function marca(): BelongsTo
     {
-        return $this->belongsTo(Marca::class);
+        return $this->belongsTo(Brand::class);
     }
 }

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Models\Familia;
+use App\Models\Marca;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Familia>
+ * @extends Factory<Marca>
  */
-class FamiliaFactory extends Factory
+class BrandFactory extends Factory
 {
     /**
      * Define the model's default state.

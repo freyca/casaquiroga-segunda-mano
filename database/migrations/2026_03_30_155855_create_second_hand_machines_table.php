@@ -28,8 +28,8 @@ return new class extends Migration
             $table->text('observaciones_compra')->nullable();
 
             // Machine details
-            $table->foreignId('familia_id')->nullable()->constrained('familias')->nullOnDelete();
-            $table->foreignId('marca_id')->nullable()->constrained('marcas')->nullOnDelete();
+            $table->foreignId('family_id')->nullable()->constrained('families')->nullOnDelete();
+            $table->foreignId('brand_id')->nullable()->constrained('brands')->nullOnDelete();
             $table->string('modelo')->nullable();
             $table->string('numero_serie')->nullable()->unique();
 
