@@ -13,17 +13,13 @@ class SecondHandMachinesTable
     {
         return $table
             ->columns([
-                TextColumn::make('codigo')
-                    ->searchable(),
                 TextColumn::make('nombre')
-                    ->searchable(),
-                TextColumn::make('familia.nombre')
                     ->searchable(),
                 TextColumn::make('marca.nombre')
                     ->searchable(),
-                TextColumn::make('modelo')
+                TextColumn::make('familia.nombre')
                     ->searchable(),
-                TextColumn::make('numero_serie')
+                TextColumn::make('modelo')
                     ->searchable(),
                 TextColumn::make('precio_venta')
                     ->numeric()
