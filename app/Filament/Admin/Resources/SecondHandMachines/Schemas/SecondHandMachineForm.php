@@ -25,10 +25,10 @@ class SecondHandMachineForm
                     ->numeric()
                     ->default(null),
                 Select::make('responsable_compra_id')
-                    ->relationship('responsableCompra', 'name')
+                    ->relationship('seller', 'name')
                     ->default(null),
                 Select::make('cliente_compra_id')
-                    ->relationship('clienteCompra', 'name')
+                    ->relationship('customer', 'name')
                     ->default(null),
                 Textarea::make('observaciones_compra')
                     ->default(null)
