@@ -8,7 +8,7 @@ use App\Models\Familia;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Familia>
+ * @extends Factory<Family>
  */
 class FamilyFactory extends Factory
 {

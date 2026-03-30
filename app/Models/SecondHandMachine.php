@@ -48,22 +48,22 @@ class SecondHandMachine extends Model
         'adjuntos' => 'array',
     ];
 
-    public function responsableCompra(): BelongsTo
+    public function seller(): BelongsTo
     {
         return $this->belongsTo(User::class, 'responsable_compra_id');
     }
 
-    public function clienteCompra(): BelongsTo
+    public function customer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'cliente_compra_id');
     }
 
-    public function familia(): BelongsTo
+    public function family(): BelongsTo
     {
         return $this->belongsTo(Family::class);
     }
 
-    public function marca(): BelongsTo
+    public function brand(): BelongsTo
     {
         return $this->belongsTo(Brand::class);
     }
