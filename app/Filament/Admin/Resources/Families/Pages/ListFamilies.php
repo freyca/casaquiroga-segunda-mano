@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Admin\Resources\Familias\Pages;
+namespace App\Filament\Admin\Resources\Families\Pages;
 
-use App\Filament\Admin\Resources\Familias\FamiliaResource;
+use App\Filament\Admin\Resources\Families\FamilyResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
-class ListFamilias extends ListRecords
+class ListFamilies extends ListRecords
 {
-    protected static string $resource = FamiliaResource::class;
+    protected static string $resource = FamilyResource::class;
 
     protected function getHeaderActions(): array
     {

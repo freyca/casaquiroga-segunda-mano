@@ -15,9 +15,9 @@ class SecondHandMachinesTable
             ->columns([
                 TextColumn::make('nombre')
                     ->searchable(),
-                TextColumn::make('marca.nombre')
+                TextColumn::make('brand.nombre')
                     ->searchable(),
-                TextColumn::make('familia.nombre')
+                TextColumn::make('family.nombre')
                     ->searchable(),
                 TextColumn::make('modelo')
                     ->searchable(),

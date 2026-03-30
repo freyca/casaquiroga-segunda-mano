@@ -23,9 +23,9 @@ class SecondHandMachinesTable
                 TextColumn::make('coste')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('familia.id')
+                TextColumn::make('family.id')
                     ->searchable(),
-                TextColumn::make('marca.id')
+                TextColumn::make('brand.id')
                     ->searchable(),
                 TextColumn::make('precio_venta')
                     ->numeric()

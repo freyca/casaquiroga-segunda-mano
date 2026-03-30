@@ -33,11 +33,11 @@ class SecondHandMachineForm
                 Textarea::make('observaciones_compra')
                     ->default(null)
                     ->columnSpanFull(),
-                Select::make('familia_id')
-                    ->relationship('familia', 'nombre')
+                Select::make('family_id')
+                    ->relationship('family', 'nombre')
                     ->default(null),
-                Select::make('marca_id')
-                    ->relationship('marca', 'nombre')
+                Select::make('brand_id')
+                    ->relationship('brand', 'nombre')
                     ->default(null),
                 TextInput::make('modelo')
                     ->default(null),
