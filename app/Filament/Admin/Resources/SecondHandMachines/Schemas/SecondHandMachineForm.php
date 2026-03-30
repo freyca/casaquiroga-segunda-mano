@@ -34,10 +34,10 @@ class SecondHandMachineForm
                     ->default(null)
                     ->columnSpanFull(),
                 Select::make('familia_id')
-                    ->relationship('familia', 'id')
+                    ->relationship('familia', 'nombre')
                     ->default(null),
                 Select::make('marca_id')
-                    ->relationship('marca', 'id')
+                    ->relationship('marca', 'nombre')
                     ->default(null),
                 TextInput::make('modelo')
                     ->default(null),

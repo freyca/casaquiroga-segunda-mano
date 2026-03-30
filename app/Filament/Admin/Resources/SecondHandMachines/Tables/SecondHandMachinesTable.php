@@ -23,42 +23,21 @@ class SecondHandMachinesTable
                 TextColumn::make('coste')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('responsableCompra.name')
-                    ->searchable(),
-                TextColumn::make('clienteCompra.name')
-                    ->searchable(),
                 TextColumn::make('familia.id')
                     ->searchable(),
                 TextColumn::make('marca.id')
                     ->searchable(),
-                TextColumn::make('modelo')
-                    ->searchable(),
-                TextColumn::make('numero_serie')
-                    ->searchable(),
                 TextColumn::make('precio_venta')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('taller_reparacion')
-                    ->numeric()
-                    ->sortable(),
                 TextColumn::make('tax')
-                    ->badge()
-                    ->numeric()
-                    ->sortable(),
+                    ->badge(),
                 TextColumn::make('horas_trabajo')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('estado')
                     ->badge()
                     ->searchable(),
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
