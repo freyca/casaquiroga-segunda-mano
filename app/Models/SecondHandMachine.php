@@ -29,8 +29,8 @@ class SecondHandMachine extends Model
         'descripcion',
         'estado',
         'taller_reparacion',
-        'fotos',             // JSON array of paths
-        'adjuntos',          // JSON array of paths
+        'fotos',
+        'adjuntos',
         'brand_id',
         'responsable_compra_id',
         'cliente_compra_id',
