@@ -15,12 +15,4 @@ class Family extends Model
 {
     /** @use HasFactory<FamilyFactory> */
     use HasFactory;
-
-    /**
-     * @return HasMany<SecondHandMachine, $this>
-     */
-    public function secondHandMachines(): HasMany
-    {
-        return $this->hasMany(SecondHandMachine::class);
-    }
 }

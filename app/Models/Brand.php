@@ -15,12 +15,4 @@ class Brand extends Model
 {
     /** @use HasFactory<BrandFactory> */
     use HasFactory;
-
-    /**
-     * @return HasMany<SecondHandMachine, $this>
-     */
-    public function secondHandMachines(): HasMany
-    {
-        return $this->hasMany(SecondHandMachine::class);
-    }
 }

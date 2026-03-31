@@ -7,6 +7,7 @@ namespace App\Filament\Employee\Resources\SecondHandMachines\Tables;
 use App\Enums\Status;
 use App\Enums\Tax;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
@@ -33,26 +34,29 @@ class SecondHandMachinesTable
                     ->badge()
                     ->searchable(),
             ])
-            ->filters([
-                SelectFilter::make('estado')
-                    ->options(
-                        collect(Status::cases()) // @phpstan-ignore-line
-                            ->mapWithKeys(fn ($case) => [
-                                $case->value => $case->getLabel(),
-                            ])
-                            ->toArray()
-                    ),
+            ->filters(
+                [
+                    SelectFilter::make('estado')
+                        ->options(
+                            collect(Status::cases()) // @phpstan-ignore-line
+                                ->mapWithKeys(fn($case) => [
+                                    $case->value => $case->getLabel(),
+                                ])
+                                ->toArray()
+                        ),
 
-                SelectFilter::make('tax')
-                    ->options(
-                        collect(Tax::cases()) // @phpstan-ignore-line
-                            ->mapWithKeys(fn ($case) => [
-                                $case->value => $case->getLabel(),
-                            ])
-                            ->toArray()
-                    ),
+                    SelectFilter::make('tax')
+                        ->options(
+                            collect(Tax::cases()) // @phpstan-ignore-line
+                                ->mapWithKeys(fn($case) => [
+                                    $case->value => $case->getLabel(),
+                                ])
+                                ->toArray()
+                        ),
 
-            ])
+                ],
+                layout: FiltersLayout::Modal
+            )
             ->recordActions([])
             ->toolbarActions([]);
     }

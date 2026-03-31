@@ -29,12 +29,4 @@ class Notes extends Model
     {
         return $this->belongsTo(User::class);
     }
-
-    /**
-     * @return BelongsTo<SecondHandMachine, $this>
-     */
-    public function secondHandMachine(): BelongsTo
-    {
-        return $this->belongsTo(SecondHandMachine::class);
-    }
 }
