@@ -33,7 +33,7 @@ describe('Employee SecondHandMachineResource', function () {
     });
 
     it('can view the second hand machine', function () {
-        $machine = SecondHandMachine::factory()->create(['estado' => 'disponible']);
+        $machine = SecondHandMachine::factory()->create(['sell_status' => 'disponible']);
 
         livewire(ViewSecondHandMachine::class, ['record' => $machine->id])
             ->assertOk();
@@ -41,7 +41,7 @@ describe('Employee SecondHandMachineResource', function () {
 
     it('can edit status and create a note', function () {
         $machine = SecondHandMachine::factory()->create([
-            'estado' => 'disponible',
+            'sell_status' => 'disponible',
         ]);
 
         $livewire = livewire(ViewSecondHandMachine::class, [
@@ -54,18 +54,18 @@ describe('Employee SecondHandMachineResource', function () {
 
         $livewire->assertMountedActionModalSee([
             'new_note',
-            'estado',
+            'sell_status',
         ]);
 
         $livewire->fillForm([
-            'estado' => Status::Vendida,
+            'sell_status' => Status::Vendida,
             'new_note' => 'Nueva nota de prueba',
         ])
             ->callMountedAction();
 
         $machine->refresh();
 
-        expect($machine->estado)->toBe(Status::Vendida);
+        expect($machine->sell_status)->toBe(Status::Vendida);
 
         $note = $machine->notes->last();
 

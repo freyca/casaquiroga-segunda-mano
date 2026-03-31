@@ -25,23 +25,23 @@ return new class extends Migration
             $table->decimal('coste', 10, 2)->nullable();
             $table->foreignId('responsable_compra_id')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('cliente_compra_id')->nullable()->constrained('users')->nullOnDelete();
-            $table->text('observaciones_compra')->nullable();
+            $table->text('purchase_notes')->nullable();
 
             // Machine details
             $table->foreignId('family_id')->nullable()->constrained('families')->nullOnDelete();
             $table->foreignId('brand_id')->nullable()->constrained('brands')->nullOnDelete();
             $table->string('modelo')->nullable();
-            $table->string('numero_serie')->nullable()->unique();
+            $table->string('serial_number')->nullable()->unique();
 
             // Sale info
-            $table->decimal('precio_venta', 10, 2)->nullable();
+            $table->decimal('selling_price', 10, 2)->nullable();
             $table->decimal('taller_reparacion', 10, 2)->nullable();
             $table->tinyInteger('tax')->default(Tax::Zero->value);
 
             // Extra
-            $table->integer('horas_trabajo')->nullable();
+            $table->integer('work_hours')->nullable();
             $table->text('description')->nullable();
-            $table->string('estado')->default(Status::Disponible->value);
+            $table->string('sell_status')->default(Status::Disponible->value);
 
             // Files
             $table->json('fotos')->nullable();

@@ -24,7 +24,7 @@ class ViewSecondHandMachine extends ViewRecord
         return [
             EditAction::make()
                 ->before(function (SecondHandMachine $record) {
-                    $this->previous_status = $record->estado;
+                    $this->previous_status = $record->sell_status;
                 })
                 ->after(function (SecondHandMachine $record, array $data) {
                     AfterEditAction::saveNote($record, $data, $this->previous_status); // @phpstan-ignore-line

@@ -55,7 +55,7 @@ class SecondHandMachineForm
                     TextInput::make('modelo')
                         ->default(null),
 
-                    TextInput::make('numero_serie')
+                    TextInput::make('serial_number')
                         ->default(null),
 
                     TextInput::make('coste')
@@ -70,7 +70,7 @@ class SecondHandMachineForm
                         ->step(0.01)
                         ->default(null),
 
-                    TextInput::make('horas_trabajo')
+                    TextInput::make('work_hours')
                         ->numeric()
                         ->default(null),
 
@@ -100,14 +100,14 @@ class SecondHandMachineForm
                     ->collapsible(),
 
                 Section::make('Información venta')->schema([
-                    ToggleButtons::make('estado')
+                    ToggleButtons::make('sell_status')
                         ->options(Status::class)
                         ->default(Status::Disponible)
                         ->inline()
                         ->columnSpanFull()
                         ->required(),
 
-                    TextInput::make('precio_venta')
+                    TextInput::make('selling_price')
                         ->numeric()
                         ->suffix('€')
                         ->step(0.01)
@@ -134,7 +134,7 @@ class SecondHandMachineForm
                             )->getComponents()
                         ),
 
-                    Textarea::make('observaciones_compra')
+                    Textarea::make('purchase_notes')
                         ->default(null)
                         ->columnSpanFull(),
                 ])

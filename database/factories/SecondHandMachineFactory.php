@@ -41,7 +41,7 @@ class SecondHandMachineFactory extends Factory
                     ->value('id')
                     ?? User::factory()->user()->create()->id;
             },
-            'observaciones_compra' => $this->faker->optional()->sentence(),
+            'purchase_notes' => $this->faker->optional()->sentence(),
             'family_id' => Family::query()
                 ->inRandomOrder()
                 ->value('id')
@@ -51,13 +51,13 @@ class SecondHandMachineFactory extends Factory
                 ->value('id')
                 ?? Brand::factory()->create()->id,
             'modelo' => strtoupper($this->faker->bothify('MOD-??##')),
-            'numero_serie' => strtoupper($this->faker->unique()->bothify('SN-????####')),
+            'serial_number' => strtoupper($this->faker->unique()->bothify('SN-????####')),
             'taller_reparacion' => $this->faker->randomFloat(2, 1000, 80000),
-            'precio_venta' => $this->faker->randomFloat(2, 1000, 80000),
+            'selling_price' => $this->faker->randomFloat(2, 1000, 80000),
             'tax' => $this->faker->randomElement(Tax::cases()),
-            'horas_trabajo' => $this->faker->numberBetween(0, 10000),
+            'work_hours' => $this->faker->numberBetween(0, 10000),
             'description' => $this->faker->optional()->paragraph(),
-            'estado' => $this->faker->randomElement(Status::cases()),
+            'sell_status' => $this->faker->randomElement(Status::cases()),
             'fotos' => null,
             'adjuntos' => null,
         ];
@@ -66,14 +66,14 @@ class SecondHandMachineFactory extends Factory
     public function disponible(): static
     {
         return $this->state(fn() => [
-            'estado' => Status::Disponible,
+            'sell_status' => Status::Disponible,
         ]);
     }
 
     public function vendida(): static
     {
         return $this->state(fn() => [
-            'estado' => Status::Vendida,
+            'sell_status' => Status::Vendida,
         ]);
     }
 

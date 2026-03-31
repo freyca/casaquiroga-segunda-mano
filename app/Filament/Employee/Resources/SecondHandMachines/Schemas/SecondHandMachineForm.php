@@ -15,7 +15,7 @@ class SecondHandMachineForm
     {
         return $schema
             ->components([
-                ToggleButtons::make('estado')
+                ToggleButtons::make('sell_status')
                     ->label('Estado')
                     ->options(Status::class)
                     ->required()

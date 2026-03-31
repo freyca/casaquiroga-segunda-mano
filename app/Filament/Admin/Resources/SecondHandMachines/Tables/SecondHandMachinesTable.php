@@ -18,14 +18,14 @@ class SecondHandMachinesTable
             ->columns([
                 TextColumn::make('name')
                     ->limit(20)
-                    ->tooltip(fn ($state) => $state)
+                    ->tooltip(fn($state) => $state)
                     ->searchable(),
 
                 TextColumn::make('coste')
                     ->money('EUR')
                     ->sortable(),
 
-                TextColumn::make('precio_venta')
+                TextColumn::make('selling_price')
                     ->money('EUR')
                     ->sortable(),
 
@@ -43,7 +43,7 @@ class SecondHandMachinesTable
                     ->label('IVA')
                     ->badge(),
 
-                TextColumn::make('estado')
+                TextColumn::make('sell_status')
                     ->sortable()
                     ->badge()
                     ->searchable(),

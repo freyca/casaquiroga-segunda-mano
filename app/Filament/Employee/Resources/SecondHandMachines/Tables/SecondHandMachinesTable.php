@@ -25,21 +25,21 @@ class SecondHandMachinesTable
                     ->searchable(),
                 TextColumn::make('modelo')
                     ->searchable(),
-                TextColumn::make('precio_venta')
+                TextColumn::make('selling_price')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('tax')
                     ->badge(),
-                TextColumn::make('estado')
+                TextColumn::make('sell_status')
                     ->badge()
                     ->searchable(),
             ])
             ->filters(
                 [
-                    SelectFilter::make('estado')
+                    SelectFilter::make('sell_status')
                         ->options(
                             collect(Status::cases()) // @phpstan-ignore-line
-                                ->mapWithKeys(fn ($case) => [
+                                ->mapWithKeys(fn($case) => [
                                     $case->value => $case->getLabel(),
                                 ])
                                 ->toArray()
@@ -48,7 +48,7 @@ class SecondHandMachinesTable
                     SelectFilter::make('tax')
                         ->options(
                             collect(Tax::cases()) // @phpstan-ignore-line
-                                ->mapWithKeys(fn ($case) => [
+                                ->mapWithKeys(fn($case) => [
                                     $case->value => $case->getLabel(),
                                 ])
                                 ->toArray()
