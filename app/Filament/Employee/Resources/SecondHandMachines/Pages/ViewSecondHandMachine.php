@@ -13,6 +13,16 @@ class ViewSecondHandMachine extends ViewRecord
 
     protected string $view = 'filament.employee.resources.second-hand-machines.pages.view-second-hand-machine';
 
+    public function getTitle(): string
+    {
+        return '';
+    }
+
+    public function getBreadcrumb(): string
+    {
+        return $this->record->nombre ?? parent::getBreadcrumb();
+    }
+
     protected function getHeaderActions(): array
     {
         return [];

@@ -10,18 +10,28 @@ use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Panel;
 use Filament\PanelProvider;
+use Filament\Support\Assets\Css;
 use Filament\Support\Colors\Color;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\Facades\File;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class EmployeePanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
+        $cssFile = $this->getAppCssFile();
+
+        if ($cssFile) {
+            $panel->assets([
+                Css::make('app-css', asset('build/assets/'.$cssFile)),
+            ]);
+        }
+
         return $panel
             ->id('employee')
             ->path('employee')
@@ -48,5 +58,16 @@ class EmployeePanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ]);
+    }
+
+    private function getAppCssFile(): ?string
+    {
+        $cssFiles = File::glob(public_path('build/assets/app-*.css'));
+
+        if (empty($cssFiles)) {
+            return null;
+        }
+
+        return basename($cssFiles[0]);
     }
 }
