@@ -29,7 +29,7 @@ class SecondHandMachineForm
                     TextInput::make('name')
                         ->required(),
 
-                    TextInput::make('codigo')
+                    TextInput::make('identifier_code')
                         ->required(),
 
                     Select::make('family_id')
@@ -52,19 +52,19 @@ class SecondHandMachineForm
                             )->getComponents()
                         ),
 
-                    TextInput::make('modelo')
+                    TextInput::make('model')
                         ->default(null),
 
                     TextInput::make('serial_number')
                         ->default(null),
 
-                    TextInput::make('coste')
+                    TextInput::make('purchase_cost')
                         ->numeric()
                         ->suffix('€')
                         ->step(0.01)
                         ->default(null),
 
-                    TextInput::make('taller_reparacion')
+                    TextInput::make('repair_workshop')
                         ->numeric()
                         ->suffix('€')
                         ->step(0.01)
@@ -83,14 +83,14 @@ class SecondHandMachineForm
                     ->collapsible(),
 
                 Section::make('Adjuntos')->schema([
-                    FileUpload::make('fotos')
+                    FileUpload::make('photos')
                         ->image()
                         ->multiple()
                         ->directory('secondhandmachines/photos')
                         ->visibility('public')
                         ->panelLayout('grid'),
 
-                    FileUpload::make('adjuntos')
+                    FileUpload::make('attachments')
                         ->multiple()
                         ->directory('secondhandmachines/attachments')
                         ->visibility('public')
@@ -119,12 +119,12 @@ class SecondHandMachineForm
                         ->required()
                         ->default(0),
 
-                    Select::make('responsable_compra_id')
+                    Select::make('employee_id')
                         ->label('Vendedor')
                         ->relationship('seller', 'name')
                         ->default(null),
 
-                    Select::make('cliente_compra_id')
+                    Select::make('customer_id')
                         ->label('Cliente')
                         ->relationship('customer', 'name')
                         ->default(null)

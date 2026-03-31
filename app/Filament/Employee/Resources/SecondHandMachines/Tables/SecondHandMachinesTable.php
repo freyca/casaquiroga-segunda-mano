@@ -23,7 +23,7 @@ class SecondHandMachinesTable
                     ->searchable(),
                 TextColumn::make('family.name')
                     ->searchable(),
-                TextColumn::make('modelo')
+                TextColumn::make('model')
                     ->searchable(),
                 TextColumn::make('selling_price')
                     ->numeric()

@@ -24,17 +24,17 @@ class SecondHandMachineFactory extends Factory
     public function definition(): array
     {
         return [
-            'codigo' => strtoupper($this->faker->bothify('MAQ-####??')),
+            'identifier_code' => strtoupper($this->faker->bothify('MAQ-####??')),
             'name' => $this->faker->words(3, true),
-            'coste' => $this->faker->randomFloat(2, 500, 50000),
-            'responsable_compra_id' => function () {
+            'purchase_cost' => $this->faker->randomFloat(2, 500, 50000),
+            'employee_id' => function () {
                 return User::query()
                     ->where('role', Role::Employee)
                     ->inRandomOrder()
                     ->value('id')
                     ?? User::factory()->employee()->create()->id;
             },
-            'cliente_compra_id' => function () {
+            'customer_id' => function () {
                 return User::query()
                     ->where('role', Role::User)
                     ->inRandomOrder()
@@ -50,16 +50,16 @@ class SecondHandMachineFactory extends Factory
                 ->inRandomOrder()
                 ->value('id')
                 ?? Brand::factory()->create()->id,
-            'modelo' => strtoupper($this->faker->bothify('MOD-??##')),
+            'model' => strtoupper($this->faker->bothify('MOD-??##')),
             'serial_number' => strtoupper($this->faker->unique()->bothify('SN-????####')),
-            'taller_reparacion' => $this->faker->randomFloat(2, 1000, 80000),
+            'repair_workshop' => $this->faker->randomFloat(2, 1000, 80000),
             'selling_price' => $this->faker->randomFloat(2, 1000, 80000),
             'tax' => $this->faker->randomElement(Tax::cases()),
             'work_hours' => $this->faker->numberBetween(0, 10000),
             'description' => $this->faker->optional()->paragraph(),
             'sell_status' => $this->faker->randomElement(SellStatus::cases()),
-            'fotos' => null,
-            'adjuntos' => null,
+            'photos' => null,
+            'attachments' => null,
         ];
     }
 

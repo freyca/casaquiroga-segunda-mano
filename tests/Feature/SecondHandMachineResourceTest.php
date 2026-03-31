@@ -28,7 +28,7 @@ describe('SecondHandMachineResource', function () {
 
         unset($data['id'], $data['created_at'], $data['updated_at']);
 
-        expect(SecondHandMachine::where('codigo', $data['codigo'])->exists())->toBeFalse();
+        expect(SecondHandMachine::where('identifier_code', $data['identifier_code'])->exists())->toBeFalse();
 
         livewire(CreateSecondHandMachine::class)
             ->fillForm($data)
@@ -36,7 +36,7 @@ describe('SecondHandMachineResource', function () {
             ->assertHasNoFormErrors()
             ->assertNotified();
 
-        expect(SecondHandMachine::where('codigo', $data['codigo'])->exists())->toBeTrue();
+        expect(SecondHandMachine::where('identifier_code', $data['identifier_code'])->exists())->toBeTrue();
     });
 
     it('can edit a second hand machine', function () {
@@ -61,8 +61,8 @@ describe('SecondHandMachineResource', function () {
 
         $data = SecondHandMachine::factory()->make()->toArray();
         unset($data['id'], $data['created_at'], $data['updated_at']);
-        $data['fotos'] = [$photo];
-        $data['adjuntos'] = [$pdf];
+        $data['photos'] = [$photo];
+        $data['attachments'] = [$pdf];
 
         livewire(CreateSecondHandMachine::class)
             ->fillForm($data)
@@ -71,9 +71,9 @@ describe('SecondHandMachineResource', function () {
             ->assertNotified();
 
         $machine = SecondHandMachine::latest()->first();
-        expect($machine->fotos)->not->toBeEmpty();
-        expect($machine->adjuntos)->not->toBeEmpty();
-        Storage::disk('public')->assertExists($machine->fotos[0]);
-        Storage::disk('public')->assertExists($machine->adjuntos[0]);
+        expect($machine->photos)->not->toBeEmpty();
+        expect($machine->attachments)->not->toBeEmpty();
+        Storage::disk('public')->assertExists($machine->photos[0]);
+        Storage::disk('public')->assertExists($machine->attachments[0]);
     });
 });

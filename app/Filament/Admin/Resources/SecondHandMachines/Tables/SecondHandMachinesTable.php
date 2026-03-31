@@ -21,7 +21,7 @@ class SecondHandMachinesTable
                     ->tooltip(fn($state) => $state)
                     ->searchable(),
 
-                TextColumn::make('coste')
+                TextColumn::make('purchase_cost')
                     ->money('EUR')
                     ->sortable(),
 

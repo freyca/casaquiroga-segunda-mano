@@ -14,23 +14,23 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[Fillable([
-    'codigo',
+    'identifier_code',
     'name',
-    'coste',
+    'purchase_cost',
     'purchase_notes',
-    'modelo',
+    'model',
     'serial_number',
     'selling_price',
     'tax',
     'work_hours',
     'description',
     'sell_status',
-    'taller_reparacion',
-    'fotos',
-    'adjuntos',
+    'repair_workshop',
+    'photos',
+    'attachments',
     'brand_id',
-    'responsable_compra_id',
-    'cliente_compra_id',
+    'employee_id',
+    'customer_id',
     'family_id',
 ])]
 class SecondHandMachine extends Model
@@ -39,14 +39,14 @@ class SecondHandMachine extends Model
     use HasFactory;
 
     protected $casts = [
-        'coste' => 'decimal:2',
+        'purchase_cost' => 'decimal:2',
         'selling_price' => 'decimal:2',
-        'taller_reparacion' => 'decimal:2',
+        'repair_workshop' => 'decimal:2',
         'tax' => Tax::class,
         'sell_status' => SellStatus::class,
         'work_hours' => 'integer',
-        'fotos' => 'array',
-        'adjuntos' => 'array',
+        'photos' => 'array',
+        'attachments' => 'array',
     ];
 
     /**
@@ -54,7 +54,7 @@ class SecondHandMachine extends Model
      */
     public function seller(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'responsable_compra_id');
+        return $this->belongsTo(User::class, 'employee_id');
     }
 
     /**
@@ -62,7 +62,7 @@ class SecondHandMachine extends Model
      */
     public function customer(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'cliente_compra_id');
+        return $this->belongsTo(User::class, 'customer_id');
     }
 
     /**

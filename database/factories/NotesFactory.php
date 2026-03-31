@@ -25,7 +25,7 @@ class NotesFactory extends Factory
         $new = $this->faker->randomElement(
             array_filter(
                 SellStatus::cases(),
-                fn($case) => $case !== $previous
+                fn ($case) => $case !== $previous
             )
         );
 
