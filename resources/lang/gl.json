@@ -42,5 +42,8 @@
     "second_hand_machines": "máquinas de segunda man",
     "user_management": "xestión de usuarios",
     "machines_management": "xestión de maquinaria",
-    "edit_machine": "editar máquina"
+    "edit_machine": "editar máquina",
+    "purchasing_manager": "responsable de venta",
+    "customer": "cliente",
+    "product_notes": "notas do produto"
 }

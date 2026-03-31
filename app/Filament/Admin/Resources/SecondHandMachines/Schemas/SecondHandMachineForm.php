@@ -139,7 +139,7 @@ class SecondHandMachineForm
                             ->default(0),
 
                         Select::make('employee_id')
-                            ->label('purchasing_manager')
+                            ->label(ucfirst(__('purchasing_manager')))
                             ->relationship(
                                 name: 'seller',
                                 titleAttribute: 'name',
@@ -148,7 +148,7 @@ class SecondHandMachineForm
                             ->default(null),
 
                         Select::make('customer_id')
-                            ->label('customer')
+                            ->label(ucfirst(__('customer')))
                             ->relationship(
                                 name: 'customer',
                                 titleAttribute: 'name',
@@ -170,7 +170,7 @@ class SecondHandMachineForm
                     ->columns(2)
                     ->collapsible(),
 
-                Section::make('Notas')
+                Section::make(ucfirst(__('product_notes')))
                     ->label(ucfirst(__('notes')))
                     ->schema([
                         Repeater::make('notes')
