@@ -36,21 +36,11 @@ class User extends Authenticatable
         ];
     }
 
-    public function isAdmin(): bool
-    {
-        return $this->role === Role::Admin;
-    }
-
-    public function isEmployee(): bool
-    {
-        return $this->role === Role::Employee;
-    }
-
     public function canAccessPanel(Panel $panel): bool
     {
         return match ($panel->getId()) {
-            'admin' => $this->isAdmin(),
-            'employee' => $this->isEmployee(),
+            'admin' => $this->role === Role::Admin,
+            'employee' => $this->role !== Role::User,
             default => false,
         };
     }

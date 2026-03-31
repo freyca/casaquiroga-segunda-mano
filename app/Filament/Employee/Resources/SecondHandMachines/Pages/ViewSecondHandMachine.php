@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Filament\Employee\Resources\SecondHandMachines\Pages;
 
-use AfterEditAction;
 use App\Enums\Status;
+use App\Filament\Employee\Resources\SecondHandMachines\Actions\AfterEditAction;
 use App\Filament\Employee\Resources\SecondHandMachines\SecondHandMachineResource;
 use App\Models\SecondHandMachine;
 use Filament\Actions\EditAction;

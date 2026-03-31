@@ -37,14 +37,14 @@ it('correctly identifies admin and employee roles', function () {
     $employee = User::factory()->create(['role' => Role::Employee]);
     $user = User::factory()->create(['role' => Role::User]);
 
-    expect($admin->isAdmin())->toBeTrue();
-    expect($admin->isEmployee())->toBeFalse();
+    expect($admin->role === Role::Admin)->toBeTrue();
+    expect($admin->role === Role::Employee)->toBeFalse();
 
-    expect($employee->isEmployee())->toBeTrue();
-    expect($employee->isAdmin())->toBeFalse();
+    expect($employee->role === Role::Employee)->toBeTrue();
+    expect($employee->role === Role::Admin)->toBeFalse();
 
-    expect($user->isAdmin())->toBeFalse();
-    expect($user->isEmployee())->toBeFalse();
+    expect($user->role === Role::Admin)->toBeFalse();
+    expect($user->role === Role::Employee)->toBeFalse();
 });
 
 it('checks panel access for each role', function () {
@@ -57,7 +57,7 @@ it('checks panel access for each role', function () {
     $otherPanel = mockPanel('other');
 
     expect($admin->canAccessPanel($adminPanel))->toBeTrue();
-    expect($admin->canAccessPanel($employeePanel))->toBeFalse();
+    expect($admin->canAccessPanel($employeePanel))->toBeTrue();
     expect($admin->canAccessPanel($otherPanel))->toBeFalse();
 
     expect($employee->canAccessPanel($employeePanel))->toBeTrue();
