@@ -19,7 +19,7 @@ class SecondHandMachinesTable
                 TextColumn::make('name')
                     ->label(ucfirst(__('name')))
                     ->limit(20)
-                    ->tooltip(fn ($state) => $state)
+                    ->tooltip(fn (string $state) => $state)
                     ->searchable(),
 
                 TextColumn::make('purchase_cost')
@@ -34,11 +34,15 @@ class SecondHandMachinesTable
 
                 TextColumn::make('family.name')
                     ->label(ucfirst(__('family')))
+                    ->limit(20)
+                    ->tooltip(fn (string $state) => $state)
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('brand.name')
                     ->label(ucfirst(__('brand')))
+                    ->limit(20)
+                    ->tooltip(fn (string $state) => $state)
                     ->sortable()
                     ->searchable(),
 

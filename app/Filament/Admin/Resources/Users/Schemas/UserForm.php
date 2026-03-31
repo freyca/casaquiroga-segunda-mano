@@ -41,7 +41,7 @@ class UserForm
             TextInput::make('password')
                 ->label(ucfirst(__('password')))
                 ->password()
-                ->dehydrated(fn ($state) => filled($state))
+                ->dehydrated(fn (mixed $state) => filled($state))
                 ->dehydrateStateUsing(fn (?string $state) => filled($state) ? Hash::make($state) : null)
                 ->required(fn (string $context): bool => $context === 'create'),
         ];

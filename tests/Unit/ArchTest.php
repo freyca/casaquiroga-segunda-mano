@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 arch()
     ->expect('App')
     ->toUseStrictTypes()
@@ -9,14 +11,14 @@ arch()
     ->expect('App\Models')
     ->toBeClasses()
     ->toExtend('Illuminate\Database\Eloquent\Model')
-    //->toOnlyBeUsedIn('App\Repositories')
+    // ->toOnlyBeUsedIn('App\Repositories')
     ->ignoring('App\Models\User');
 
 arch()
     ->expect('App\Http')
     ->toOnlyBeUsedIn('App\Http');
 
-//arch()
+// arch()
 //    ->expect('App\*\Traits')
 //    ->toBeTraits();
 

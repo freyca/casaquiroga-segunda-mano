@@ -19,6 +19,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use Illuminate\Database\Eloquent\Builder;
 
 class SecondHandMachineForm
 {
@@ -143,7 +144,7 @@ class SecondHandMachineForm
                             ->relationship(
                                 name: 'seller',
                                 titleAttribute: 'name',
-                                modifyQueryUsing: fn ($query) => $query->where('role', '!=', Role::User) // @phpstan-ignore-line
+                                modifyQueryUsing: fn (Builder $query) => $query->where('role', '!=', Role::User) // @phpstan-ignore-line
                             )
                             ->default(null),
 
@@ -152,7 +153,7 @@ class SecondHandMachineForm
                             ->relationship(
                                 name: 'customer',
                                 titleAttribute: 'name',
-                                modifyQueryUsing: fn ($query) => $query->where('role', Role::User) // @phpstan-ignore-line
+                                modifyQueryUsing: fn (Builder $query) => $query->where('role', Role::User) // @phpstan-ignore-line
                             )
                             ->default(null)
                             ->createOptionForm(
@@ -189,7 +190,7 @@ class SecondHandMachineForm
                                 TextInput::make('created_at')
                                     ->label(ucfirst(__('created_at')))
                                     ->formatStateUsing(
-                                        fn ($state) => $state
+                                        fn (mixed $state) => $state
                                             ? Carbon::parse($state)->format('d-m-Y H:i') // @phpstan-ignore-line
                                             : null
                                     )
@@ -198,12 +199,12 @@ class SecondHandMachineForm
                                 TextInput::make('previous_state')
                                     ->label(ucfirst(__('previous_state')))
                                     ->disabled()
-                                    ->formatStateUsing(fn ($state) => SellStatus::tryFrom($state)?->getLabel()),  // @phpstan-ignore-line
+                                    ->formatStateUsing(fn (string $state) => SellStatus::tryFrom($state)?->getLabel()),  // @phpstan-ignore-line
 
                                 TextInput::make('new_state')
                                     ->label(ucfirst(__('new_state')))
                                     ->disabled()
-                                    ->formatStateUsing(fn ($state) => SellStatus::tryFrom($state)?->getLabel()), // @phpstan-ignore-line
+                                    ->formatStateUsing(fn (string $state) => SellStatus::tryFrom($state)?->getLabel()), // @phpstan-ignore-line
 
                                 Textarea::make('description')
                                     ->label(ucfirst(__('new_state')))
