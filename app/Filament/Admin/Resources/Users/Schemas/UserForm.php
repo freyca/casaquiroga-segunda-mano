@@ -11,7 +11,7 @@ use Filament\Schemas\Components\Component;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Facades\Hash;
 
-class UserForm
+final class UserForm
 {
     public static function fullConfigure(Schema $schema): Schema
     {
@@ -30,16 +30,18 @@ class UserForm
     {
         return [
             TextInput::make('name')
+                ->label(ucfirst(__('name')))
                 ->required(),
 
             TextInput::make('email')
-                ->label('Email address')
+                ->label(ucfirst(__('email')))
                 ->email()
                 ->required(),
 
             TextInput::make('password')
+                ->label(ucfirst(__('password')))
                 ->password()
-                ->dehydrated(fn ($state) => filled($state))
+                ->dehydrated(fn (mixed $state): bool => filled($state))
                 ->dehydrateStateUsing(fn (?string $state) => filled($state) ? Hash::make($state) : null)
                 ->required(fn (string $context): bool => $context === 'create'),
         ];
@@ -52,6 +54,7 @@ class UserForm
     {
         return array_merge(self::baseFields(), [
             Select::make('role')
+                ->label(ucfirst(__('role')))
                 ->options(Role::class)
                 ->default(Role::User)
                 ->required(),

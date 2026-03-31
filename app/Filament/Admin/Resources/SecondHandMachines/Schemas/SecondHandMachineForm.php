@@ -4,141 +4,217 @@ declare(strict_types=1);
 
 namespace App\Filament\Admin\Resources\SecondHandMachines\Schemas;
 
-use App\Enums\Status;
+use App\Enums\Role;
+use App\Enums\SellStatus;
 use App\Enums\Tax;
 use App\Filament\Admin\Resources\Brands\Schemas\BrandForm;
 use App\Filament\Admin\Resources\Families\Schemas\FamilyForm;
 use App\Filament\Admin\Resources\Users\Schemas\UserForm;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Date;
 
-class SecondHandMachineForm
+final class SecondHandMachineForm
 {
     public static function configure(Schema $schema): Schema
     {
         return $schema
             ->components([
-                Section::make('Información general')->schema([
-                    TextInput::make('nombre')
-                        ->required(),
+                Section::make(ucfirst(__('general_information')))
+                    ->schema([
+                        TextInput::make('name')
+                            ->label(ucfirst(__('name')))
+                            ->required(),
 
-                    TextInput::make('codigo')
-                        ->required(),
+                        TextInput::make('identifier_code')
+                            ->label(ucfirst(__('identifier_code')))
+                            ->required(),
 
-                    Select::make('family_id')
-                        ->searchable()
-                        ->relationship('family', 'nombre')
-                        ->default(null)
-                        ->createOptionForm(
-                            FamilyForm::configure(
-                                Schema::make()
-                            )->getComponents()
-                        ),
+                        Select::make('family_id')
+                            ->label(ucfirst(__('family')))
+                            ->searchable()
+                            ->relationship('family', 'name')
+                            ->default(null)
+                            ->createOptionForm(
+                                FamilyForm::configure(
+                                    Schema::make()
+                                )->getComponents()
+                            ),
 
-                    Select::make('brand_id')
-                        ->searchable()
-                        ->relationship('brand', 'nombre')
-                        ->default(null)
-                        ->createOptionForm(
-                            BrandForm::configure(
-                                Schema::make()
-                            )->getComponents()
-                        ),
+                        Select::make('brand_id')
+                            ->label(ucfirst(__('brand')))
+                            ->searchable()
+                            ->relationship('brand', 'name')
+                            ->default(null)
+                            ->createOptionForm(
+                                BrandForm::configure(
+                                    Schema::make()
+                                )->getComponents()
+                            ),
 
-                    TextInput::make('modelo')
-                        ->default(null),
+                        TextInput::make('model')
+                            ->label(ucfirst(__('model')))
+                            ->default(null),
 
-                    TextInput::make('numero_serie')
-                        ->default(null),
+                        TextInput::make('serial_number')
+                            ->label(ucfirst(__('serial_number')))
+                            ->default(null),
 
-                    TextInput::make('coste')
-                        ->numeric()
-                        ->suffix('€')
-                        ->step(0.01)
-                        ->default(null),
+                        TextInput::make('purchase_cost')
+                            ->label(ucfirst(__('purchase_cost')))
+                            ->numeric()
+                            ->suffix('€')
+                            ->step(0.01)
+                            ->default(null),
 
-                    TextInput::make('taller_reparacion')
-                        ->numeric()
-                        ->suffix('€')
-                        ->step(0.01)
-                        ->default(null),
+                        TextInput::make('repair_workshop')
+                            ->label(ucfirst(__('repair_workshop')))
+                            ->numeric()
+                            ->suffix('€')
+                            ->step(0.01)
+                            ->default(null),
 
-                    TextInput::make('horas_trabajo')
-                        ->numeric()
-                        ->default(null),
+                        TextInput::make('work_hours')
+                            ->label(ucfirst(__('work_hours')))
+                            ->numeric()
+                            ->default(null),
 
-                    Textarea::make('descripcion')
-                        ->default(null)
-                        ->columnSpanFull(),
-                ])
+                        Textarea::make('description')
+                            ->label(ucfirst(__('description')))
+                            ->default(null)
+                            ->columnSpanFull(),
+                    ])
                     ->columns(2)
                     ->columnSpanFull()
                     ->collapsible(),
 
-                Section::make('Adjuntos')->schema([
-                    FileUpload::make('fotos')
-                        ->image()
-                        ->multiple()
-                        ->directory('secondhandmachines/photos')
-                        ->visibility('public')
-                        ->panelLayout('grid'),
+                Section::make(ucfirst(__('attachments')))
+                    ->schema([
+                        FileUpload::make('photos')
+                            ->label(ucfirst(__('photos')))
+                            ->image()
+                            ->multiple()
+                            ->directory('secondhandmachines/photos')
+                            ->visibility('public')
+                            ->panelLayout('grid'),
 
-                    FileUpload::make('adjuntos')
-                        ->multiple()
-                        ->directory('secondhandmachines/attachments')
-                        ->visibility('public')
-                        ->panelLayout('grid'),
-                ])
+                        FileUpload::make('attachments')
+                            ->label(ucfirst(__('attachments')))
+                            ->multiple()
+                            ->directory('secondhandmachines/attachments')
+                            ->visibility('public')
+                            ->panelLayout('grid'),
+                    ])
                     ->columnSpanFull()
                     ->collapsible(),
 
-                Section::make('Información venta')->schema([
-                    ToggleButtons::make('estado')
-                        ->options(Status::class)
-                        ->default(Status::Disponible)
-                        ->inline()
-                        ->columnSpanFull()
-                        ->required(),
+                Section::make(ucfirst(__('sale_information')))
+                    ->schema([
+                        ToggleButtons::make('sell_status')
+                            ->label(ucfirst(__('sell_status')))
+                            ->options(SellStatus::class)
+                            ->default(SellStatus::Available)
+                            ->inline()
+                            ->columnSpanFull()
+                            ->required(),
 
-                    TextInput::make('precio_venta')
-                        ->numeric()
-                        ->suffix('€')
-                        ->step(0.01)
-                        ->default(null),
+                        TextInput::make('selling_price')
+                            ->label(ucfirst(__('selling_price')))
+                            ->numeric()
+                            ->suffix('€')
+                            ->step(0.01)
+                            ->default(null),
 
-                    Select::make('tax')
-                        ->label('IVA')
-                        ->options(Tax::class)
-                        ->required()
-                        ->default(0),
+                        Select::make('tax')
+                            ->label(ucfirst(__('tax')))
+                            ->label('IVA')
+                            ->options(Tax::class)
+                            ->required()
+                            ->default(0),
 
-                    Select::make('responsable_compra_id')
-                        ->label('Vendedor')
-                        ->relationship('seller', 'name')
-                        ->default(null),
+                        Select::make('employee_id')
+                            ->label(ucfirst(__('purchasing_manager')))
+                            ->relationship(
+                                name: 'seller',
+                                titleAttribute: 'name',
+                                modifyQueryUsing: fn (Builder $query) => $query->where('role', '!=', Role::User) // @phpstan-ignore-line
+                            )
+                            ->default(null),
 
-                    Select::make('cliente_compra_id')
-                        ->label('Cliente')
-                        ->relationship('customer', 'name')
-                        ->default(null)
-                        ->createOptionForm(
-                            UserForm::partialConfigure(
-                                Schema::make()
-                            )->getComponents()
-                        ),
+                        Select::make('customer_id')
+                            ->label(ucfirst(__('customer')))
+                            ->relationship(
+                                name: 'customer',
+                                titleAttribute: 'name',
+                                modifyQueryUsing: fn (Builder $query) => $query->where('role', Role::User) // @phpstan-ignore-line
+                            )
+                            ->default(null)
+                            ->createOptionForm(
+                                UserForm::partialConfigure(
+                                    Schema::make()
+                                )->getComponents()
+                            ),
 
-                    Textarea::make('observaciones_compra')
-                        ->default(null)
-                        ->columnSpanFull(),
-                ])
+                        Textarea::make('purchase_notes')
+                            ->label(ucfirst(__('purchase_notes')))
+                            ->default(null)
+                            ->columnSpanFull(),
+                    ])
                     ->columnSpanFull()
                     ->columns(2)
                     ->collapsible(),
+
+                Section::make(ucfirst(__('product_notes')))
+                    ->label(ucfirst(__('notes')))
+                    ->schema([
+                        Repeater::make('notes')
+                            ->label(ucfirst(__('notes')))
+                            ->relationship()
+                            ->default([])
+                            ->addable(false)
+                            ->deletable(false)
+                            ->reorderable(false)
+                            ->schema([
+                                Select::make('user_id')
+                                    ->label(ucfirst(__('user')))
+                                    ->relationship('user', 'name')
+                                    ->disabled(),
+
+                                TextInput::make('created_at')
+                                    ->label(ucfirst(__('created_at')))
+                                    ->formatStateUsing(
+                                        fn (mixed $state): ?string => $state
+                                            ? Date::parse($state)->format('d-m-Y H:i') // @phpstan-ignore-line
+                                            : null
+                                    )
+                                    ->disabled(),
+
+                                TextInput::make('previous_state')
+                                    ->label(ucfirst(__('previous_state')))
+                                    ->disabled()
+                                    ->formatStateUsing(fn (string $state) => SellStatus::tryFrom($state)?->getLabel()),  // @phpstan-ignore-line
+
+                                TextInput::make('new_state')
+                                    ->label(ucfirst(__('new_state')))
+                                    ->disabled()
+                                    ->formatStateUsing(fn (string $state) => SellStatus::tryFrom($state)?->getLabel()), // @phpstan-ignore-line
+
+                                Textarea::make('description')
+                                    ->label(ucfirst(__('new_state')))
+                                    ->disabled()
+                                    ->columnSpanFull(),
+                            ])->columns(2),
+                    ])
+                    ->columnSpanFull()
+                    ->collapsible()
+                    ->hidden(fn (string $operation): bool => $operation === 'create'),
             ]);
     }
 }

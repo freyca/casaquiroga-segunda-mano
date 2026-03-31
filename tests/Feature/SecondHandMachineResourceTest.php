@@ -14,8 +14,8 @@ use function Pest\Livewire\livewire;
 
 uses(LazilyRefreshDatabase::class);
 
-describe('SecondHandMachineResource', function () {
-    it('can list second hand machines', function () {
+describe('SecondHandMachineResource', function (): void {
+    it('can list second hand machines', function (): void {
         $machines = SecondHandMachine::factory()->count(3)->create();
 
         livewire(ListSecondHandMachines::class)
@@ -23,12 +23,12 @@ describe('SecondHandMachineResource', function () {
             ->assertCanSeeTableRecords($machines);
     });
 
-    it('can create a second hand machine', function () {
+    it('can create a second hand machine', function (): void {
         $data = SecondHandMachine::factory()->make()->toArray();
 
         unset($data['id'], $data['created_at'], $data['updated_at']);
 
-        expect(SecondHandMachine::where('codigo', $data['codigo'])->exists())->toBeFalse();
+        expect(SecondHandMachine::query()->where('identifier_code', $data['identifier_code'])->exists())->toBeFalse();
 
         livewire(CreateSecondHandMachine::class)
             ->fillForm($data)
@@ -36,24 +36,24 @@ describe('SecondHandMachineResource', function () {
             ->assertHasNoFormErrors()
             ->assertNotified();
 
-        expect(SecondHandMachine::where('codigo', $data['codigo'])->exists())->toBeTrue();
+        expect(SecondHandMachine::query()->where('identifier_code', $data['identifier_code'])->exists())->toBeTrue();
     });
 
-    it('can edit a second hand machine', function () {
-        $machine = SecondHandMachine::factory()->create(['nombre' => 'Old Name']);
+    it('can edit a second hand machine', function (): void {
+        $machine = SecondHandMachine::factory()->create(['name' => 'Old Name']);
 
         livewire(EditSecondHandMachine::class, ['record' => $machine->id])
             ->fillForm([
-                'nombre' => 'New Name',
+                'name' => 'New Name',
             ])
             ->call('save')
             ->assertHasNoFormErrors()
             ->assertNotified();
 
-        expect($machine->refresh()->nombre)->toBe('New Name');
+        expect($machine->refresh()->name)->toBe('New Name');
     });
 
-    it('can upload photos and attachments', function () {
+    it('can upload photos and attachments', function (): void {
         Storage::fake('public');
 
         $photo = UploadedFile::fake()->image('photo.jpg');
@@ -61,8 +61,8 @@ describe('SecondHandMachineResource', function () {
 
         $data = SecondHandMachine::factory()->make()->toArray();
         unset($data['id'], $data['created_at'], $data['updated_at']);
-        $data['fotos'] = [$photo];
-        $data['adjuntos'] = [$pdf];
+        $data['photos'] = [$photo];
+        $data['attachments'] = [$pdf];
 
         livewire(CreateSecondHandMachine::class)
             ->fillForm($data)
@@ -70,10 +70,10 @@ describe('SecondHandMachineResource', function () {
             ->assertHasNoFormErrors()
             ->assertNotified();
 
-        $machine = SecondHandMachine::latest()->first();
-        expect($machine->fotos)->not->toBeEmpty();
-        expect($machine->adjuntos)->not->toBeEmpty();
-        Storage::disk('public')->assertExists($machine->fotos[0]);
-        Storage::disk('public')->assertExists($machine->adjuntos[0]);
+        $machine = SecondHandMachine::query()->latest()->first();
+        expect($machine->photos)->not->toBeEmpty();
+        expect($machine->attachments)->not->toBeEmpty();
+        Storage::disk('public')->assertExists($machine->photos[0]);
+        Storage::disk('public')->assertExists($machine->attachments[0]);
     });
 });

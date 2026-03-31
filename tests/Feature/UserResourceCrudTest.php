@@ -15,8 +15,8 @@ use function Pest\Livewire\livewire;
 
 uses(LazilyRefreshDatabase::class);
 
-describe('UserResource', function () {
-    it('can load the users list page and display records', function () {
+describe('UserResource', function (): void {
+    it('can load the users list page and display records', function (): void {
         $users = User::factory()->count(3)->create();
 
         livewire(ListUsers::class)
@@ -24,7 +24,7 @@ describe('UserResource', function () {
             ->assertCanSeeTableRecords($users);
     });
 
-    it('can create a user', function () {
+    it('can create a user', function (): void {
         $email = 'testuser'.Str::random(5).'@example.com';
         livewire(CreateUser::class)
             ->fillForm([
@@ -37,10 +37,10 @@ describe('UserResource', function () {
             ->assertHasNoFormErrors()
             ->assertNotified();
 
-        expect(User::where('email', $email)->exists())->toBeTrue();
+        expect(User::query()->where('email', $email)->exists())->toBeTrue();
     });
 
-    it('can edit a user with all fields', function () {
+    it('can edit a user with all fields', function (): void {
         $user = User::factory()->create(['name' => 'Old Name']);
 
         livewire(EditUser::class, ['record' => $user->id])
@@ -56,7 +56,7 @@ describe('UserResource', function () {
         expect($user->refresh()->name)->toBe('New Name');
     });
 
-    it('can change user password', function () {
+    it('can change user password', function (): void {
         $user = User::factory()->create();
 
         livewire(EditUser::class, ['record' => $user->id])
@@ -70,7 +70,7 @@ describe('UserResource', function () {
         expect(Hash::check('password', $user->refresh()->password))->toBeTrue();
     });
 
-    it('can edit a user without changing password', function () {
+    it('can edit a user without changing password', function (): void {
         $user = User::factory()->employee()->create();
 
         expect($user->refresh()->role)->toBe(Role::Employee);

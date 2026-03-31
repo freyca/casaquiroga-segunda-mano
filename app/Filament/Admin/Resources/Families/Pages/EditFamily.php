@@ -8,7 +8,7 @@ use App\Filament\Admin\Resources\Families\FamilyResource;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 
-class EditFamily extends EditRecord
+final class EditFamily extends EditRecord
 {
     protected static string $resource = FamilyResource::class;
 

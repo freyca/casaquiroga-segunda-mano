@@ -4,48 +4,49 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Enums\Status;
+use App\Enums\SellStatus;
 use App\Enums\Tax;
 use Database\Factories\SecondHandMachineFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[Fillable([
-    'codigo',
-    'nombre',
-    'coste',
-    'observaciones_compra',
-    'modelo',
-    'numero_serie',
-    'precio_venta',
+    'identifier_code',
+    'name',
+    'purchase_cost',
+    'purchase_notes',
+    'model',
+    'serial_number',
+    'selling_price',
     'tax',
-    'horas_trabajo',
-    'descripcion',
-    'estado',
-    'taller_reparacion',
-    'fotos',
-    'adjuntos',
+    'work_hours',
+    'description',
+    'sell_status',
+    'repair_workshop',
+    'photos',
+    'attachments',
     'brand_id',
-    'responsable_compra_id',
-    'cliente_compra_id',
+    'employee_id',
+    'customer_id',
     'family_id',
 ])]
-class SecondHandMachine extends Model
+final class SecondHandMachine extends Model
 {
     /** @use HasFactory<SecondHandMachineFactory> */
     use HasFactory;
 
     protected $casts = [
-        'coste' => 'decimal:2',
-        'precio_venta' => 'decimal:2',
-        'taller_reparacion' => 'decimal:2',
+        'purchase_cost' => 'decimal:2',
+        'selling_price' => 'decimal:2',
+        'repair_workshop' => 'decimal:2',
         'tax' => Tax::class,
-        'estado' => Status::class,
-        'horas_trabajo' => 'integer',
-        'fotos' => 'array',
-        'adjuntos' => 'array',
+        'sell_status' => SellStatus::class,
+        'work_hours' => 'integer',
+        'photos' => 'array',
+        'attachments' => 'array',
     ];
 
     /**
@@ -53,7 +54,7 @@ class SecondHandMachine extends Model
      */
     public function seller(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'responsable_compra_id');
+        return $this->belongsTo(User::class, 'employee_id');
     }
 
     /**
@@ -61,7 +62,7 @@ class SecondHandMachine extends Model
      */
     public function customer(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'cliente_compra_id');
+        return $this->belongsTo(User::class, 'customer_id');
     }
 
     /**
@@ -78,5 +79,13 @@ class SecondHandMachine extends Model
     public function brand(): BelongsTo
     {
         return $this->belongsTo(Brand::class);
+    }
+
+    /**
+     * @return HasMany<Notes, $this>
+     */
+    public function notes(): HasMany
+    {
+        return $this->hasMany(Notes::class);
     }
 }

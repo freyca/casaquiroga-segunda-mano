@@ -12,8 +12,8 @@ use function Pest\Livewire\livewire;
 
 uses(LazilyRefreshDatabase::class);
 
-describe('FamilyResource', function () {
-    it('can load the families list page and display records', function () {
+describe('FamilyResource', function (): void {
+    it('can load the families list page and display records', function (): void {
         $families = Family::factory()->count(3)->create();
 
         livewire(ListFamilies::class)
@@ -21,29 +21,29 @@ describe('FamilyResource', function () {
             ->assertCanSeeTableRecords($families);
     });
 
-    it('can create a family', function () {
+    it('can create a family', function (): void {
         livewire(CreateFamily::class)
             ->fillForm([
-                'nombre' => 'Test Family',
+                'name' => 'Test Family',
             ])
             ->call('create')
             ->assertHasNoFormErrors()
             ->assertNotified();
 
-        expect(Family::where('nombre', 'Test Family')->exists())->toBeTrue();
+        expect(Family::query()->where('name', 'Test Family')->exists())->toBeTrue();
     });
 
-    it('can edit a family', function () {
-        $family = Family::factory()->create(['nombre' => 'Old Name']);
+    it('can edit a family', function (): void {
+        $family = Family::factory()->create(['name' => 'Old Name']);
 
         livewire(EditFamily::class, ['record' => $family->id])
             ->fillForm([
-                'nombre' => 'New Name',
+                'name' => 'New Name',
             ])
             ->call('save')
             ->assertHasNoFormErrors()
             ->assertNotified();
 
-        expect($family->refresh()->nombre)->toBe('New Name');
+        expect($family->refresh()->name)->toBe('New Name');
     });
 });

@@ -10,40 +10,48 @@ use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class SecondHandMachinesTable
+final class SecondHandMachinesTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('nombre')
+                TextColumn::make('name')
+                    ->label(ucfirst(__('name')))
                     ->limit(20)
-                    ->tooltip(fn ($state) => $state)
+                    ->tooltip(fn (string $state): string => $state)
                     ->searchable(),
 
-                TextColumn::make('coste')
+                TextColumn::make('purchase_cost')
+                    ->label(ucfirst(__('purchase_cost')))
                     ->money('EUR')
                     ->sortable(),
 
-                TextColumn::make('precio_venta')
+                TextColumn::make('selling_price')
+                    ->label(ucfirst(__('selling_price')))
                     ->money('EUR')
                     ->sortable(),
 
-                TextColumn::make('family.nombre')
-                    ->label('Familia')
+                TextColumn::make('family.name')
+                    ->label(ucfirst(__('family')))
+                    ->limit(20)
+                    ->tooltip(fn (string $state): string => $state)
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('brand.nombre')
-                    ->label('Marca')
+                TextColumn::make('brand.name')
+                    ->label(ucfirst(__('brand')))
+                    ->limit(20)
+                    ->tooltip(fn (string $state): string => $state)
                     ->sortable()
                     ->searchable(),
 
                 TextColumn::make('tax')
-                    ->label('IVA')
+                    ->label(ucfirst(__('tax')))
                     ->badge(),
 
-                TextColumn::make('estado')
+                TextColumn::make('sell_status')
+                    ->label(ucfirst(__('sell_status')))
                     ->sortable()
                     ->badge()
                     ->searchable(),

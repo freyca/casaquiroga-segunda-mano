@@ -7,7 +7,6 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Enums\Role;
-use Database\Factories\UserFactory;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -17,10 +16,19 @@ use Illuminate\Notifications\Notifiable;
 
 #[Fillable(['name', 'email', 'password', 'role'])]
 #[Hidden(['password', 'remember_token'])]
-class User extends Authenticatable
+final class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory;
+    use Notifiable;
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return match ($panel->getId()) {
+            'admin' => $this->role === Role::Admin,
+            'employee' => $this->role !== Role::User,
+            default => false,
+        };
+    }
 
     /**
      * Get the attributes that should be cast.
@@ -34,24 +42,5 @@ class User extends Authenticatable
             'password' => 'hashed',
             'role' => Role::class,
         ];
-    }
-
-    public function isAdmin(): bool
-    {
-        return $this->role === Role::Admin;
-    }
-
-    public function isEmployee(): bool
-    {
-        return $this->role === Role::Employee;
-    }
-
-    public function canAccessPanel(Panel $panel): bool
-    {
-        return match ($panel->getId()) {
-            'admin' => $this->isAdmin(),
-            'employee' => $this->isEmployee(),
-            default => false,
-        };
     }
 }

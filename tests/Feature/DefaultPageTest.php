@@ -6,8 +6,10 @@ namespace Tests\Feature;
 
 use Filament\Facades\Filament;
 
-it('redirects to the employee filament panel', function () {
-    $response = $this->get('/');
+describe('LandingPage', function (): void {
+    it('redirects to the employee filament panel', function (): void {
+        $response = $this->get('/');
 
-    $response->assertRedirect(Filament::getPanel('employee')->getUrl());
+        $response->assertRedirect(Filament::getPanel('employee')->getUrl());
+    });
 });

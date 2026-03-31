@@ -8,19 +8,10 @@ use Database\Factories\FamilyFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable(['nombre'])]
-class Family extends Model
+#[Fillable(['name'])]
+final class Family extends Model
 {
     /** @use HasFactory<FamilyFactory> */
     use HasFactory;
-
-    /**
-     * @return HasMany<SecondHandMachine, $this>
-     */
-    public function secondHandMachines(): HasMany
-    {
-        return $this->hasMany(SecondHandMachine::class);
-    }
 }

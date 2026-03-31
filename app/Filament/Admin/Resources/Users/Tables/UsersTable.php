@@ -10,22 +10,21 @@ use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class UsersTable
+final class UsersTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label(ucfirst(__('name')))
                     ->searchable(),
                 TextColumn::make('email')
-                    ->label('Email address')
+                    ->label(ucfirst(__('email')))
                     ->searchable(),
                 TextColumn::make('role')
+                    ->label(ucfirst(__('role')))
                     ->searchable(),
-                TextColumn::make('email_verified_at')
-                    ->dateTime()
-                    ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

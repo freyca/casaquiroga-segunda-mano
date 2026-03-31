@@ -15,15 +15,32 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use UnitEnum;
 
-class UserResource extends Resource
+final class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::Users;
 
-    protected static string|UnitEnum|null $navigationGroup = 'User Management';
+    public static function getNavigationGroup(): string
+    {
+        return ucfirst(__('user_management'));
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return ucfirst(__('user'));
+    }
+
+    public static function getLabel(): string
+    {
+        return ucfirst(__('user'));
+    }
+
+    public static function getPluralLabel(): string
+    {
+        return ucfirst(__('users'));
+    }
 
     public static function form(Schema $schema): Schema
     {

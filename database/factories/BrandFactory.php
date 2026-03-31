@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends Factory<Brand>
  */
-class BrandFactory extends Factory
+final class BrandFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,7 +20,7 @@ class BrandFactory extends Factory
     public function definition(): array
     {
         return [
-            'nombre' => $this->faker->unique()->words(2, true),
+            'name' => $this->faker->unique()->words(2, true),
         ];
     }
 }

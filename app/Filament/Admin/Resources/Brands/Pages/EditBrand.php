@@ -8,7 +8,7 @@ use App\Filament\Admin\Resources\Brands\BrandResource;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 
-class EditBrand extends EditRecord
+final class EditBrand extends EditRecord
 {
     protected static string $resource = BrandResource::class;
 

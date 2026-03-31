@@ -20,7 +20,7 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\File;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
-class EmployeePanelProvider extends PanelProvider
+final class EmployeePanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
@@ -34,7 +34,7 @@ class EmployeePanelProvider extends PanelProvider
 
         return $panel
             ->id('employee')
-            ->path('employee')
+            ->path('empleado')
             ->login()
             ->colors([
                 'primary' => Color::Amber,
