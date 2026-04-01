@@ -326,7 +326,7 @@
             @endphp
         <div class="images-grid {{ $cols }}">
             @foreach($imgs as $img)
-                <img src="{{ $img }}" alt="{{ $machine->model }}">
+                <img src="/storage/{{ $img }}" alt="{{ $machine->model }}">
             @endforeach
         </div>
         @endif
