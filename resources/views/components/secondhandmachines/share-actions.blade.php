@@ -22,11 +22,15 @@
             sell_status:     false,
         },
         exportar() {
-            const params = new URLSearchParams();
-            Object.entries(this.show_fields).forEach(([k, v]) => {
-                if (v) params.append('show_fields[]', k);
-            });
-            window.open('{{ route('secondhandmachines.print', $maquina) }}?' + params.toString(), '_blank');
+            const fields = Object.entries(this.show_fields)
+                .filter(([_, v]) => v)
+                .map(([k]) => k)
+                .join(',');
+
+            const url = '{{ route('secondhandmachines.print', $maquina) }}'
+                + (fields ? `?show_fields=${fields}` : '');
+
+            window.open(url, '_blank');
         }
     }" class="flex flex-col gap-3">
     <div class="grid grid-cols-1">
