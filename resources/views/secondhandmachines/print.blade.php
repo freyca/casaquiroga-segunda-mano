@@ -1,31 +1,18 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="{{ config('app.locale') }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $machine->brand?->name }} {{ $machine->model }} — {{ $machine->identifier_code }}</title>
+    <title>{{ $machine->brand->name }} {{ $machine->model }} — {{ $machine->identifier_code }}</title>
     {{-- =============================================================================
          █ [BLADE_PAGE] :: secondhandmachine-print-page
          DESC:   Vista de impresión/PDF para máquina de segunda mano.
          VAR:    $machine (SecondHandMachine) — inyectado desde SecondHandMachinePrintController
-                 $campos (array) — campos a incluir en el documento
+                 $show_fields (array) — campos a incluir en el documento
          ADAPT: ORIGEN: maquina-product-page → DESTINO: SecondHandMachine
          STATUS: STABLE
          ============================================================================= --}}
-    @php
-    $sellStatusValue = $machine->sell_status instanceof \App\Enums\SellStatus
-    ? $machine->sell_status->value
-    : (is_string($machine->sell_status) ? $machine->sell_status : null);
 
-    $estadoLabel = match($sellStatusValue) {
-    'available' => 'Disponible',
-    'in_preparation' => 'En preparación',
-    'arrive_soon' => 'Próxima entrada',
-    'reserved' => 'Reservada',
-    'sold' => 'Vendida',
-    default => $machine->sell_status instanceof \App\Enums\SellStatus ? $machine->sell_status->getLabel() : ($sellStatusValue ?? 'Sin estado'),
-    };
-    @endphp
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -311,93 +298,93 @@
 
     </style>
 </head>
+
 <body>
 
     <div class="page">
-
         {{-- CABECERA --}}
         <div class="header">
             <div class="header-left">
-                <p class="company">Ficha técnica de producto</p>
+                <p class="company">{{ ucfirst(__('product data sheet')) }}</p>
                 <h1 class="title">{{ $machine->model }}</h1>
                 <p class="subtitle">{{ $machine->brand?->name }}</p>
             </div>
             <div class="header-right">
-                <p class="ref-label">Referencia</p>
+                <p class="ref-label">{{ ucfirst(__('identifier_code')) }}</p>
                 <p class="ref">{{ $machine->identifier_code }}</p>
-                @if(in_array('sell_status', $campos) && $machine->sell_status)
-                <span class="badge">{{ $estadoLabel }}</span>
+                @if(in_array('sell_status', $show_fields) && $machine->sell_status)
+                    <span class="badge">{{ $machine->sell_status->getLabel() }}</span>
                 @endif
             </div>
         </div>
 
         {{-- IMÁGENES --}}
-        @if(in_array('photos', $campos) && $machine->photos && count($machine->photos) > 0)
-        @php
-        $imgs = array_slice($machine->photos, 0, 3);
-        $cols = count($imgs) === 1 ? 'cols-1' : (count($imgs) === 2 ? 'cols-2' : 'cols-3');
-        @endphp
+        @if(in_array('photos', $show_fields) && $machine->photos && count($machine->photos) > 0)
+            @php
+            $imgs = array_slice($machine->photos, 0, 3);
+            $cols = count($imgs) === 1 ? 'cols-1' : (count($imgs) === 2 ? 'cols-2' : 'cols-3');
+            @endphp
         <div class="images-grid {{ $cols }}">
             @foreach($imgs as $img)
-            <img src="{{ $img }}" alt="{{ $machine->model }}">
+                <img src="{{ $img }}" alt="{{ $machine->model }}">
             @endforeach
         </div>
         @endif
 
         {{-- PRECIO --}}
-        @if(in_array('selling_price', $campos))
-        <div class="price-box">
-            <p class="price-label">Precio de venta</p>
-            <p class="price-value">
-                {{ number_format($machine->selling_price, 0, ',', '.') }}
-                <span class="price-currency">EUR</span>
-            </p>
-        </div>
+        @if(in_array('selling_price', $show_fields))
+            <div class="price-box">
+                <p class="price-label">{{ ucfirst(__('selling_price')) }}</p>
+                <p class="price-value">
+                    {{ number_format($machine->selling_price, 0, ',', '.') }}
+                    <span class="price-currency">EUR</span>
+                </p>
+            </div>
         @endif
 
         {{-- SPECS --}}
         @php
-        $specs = [];
-        if (in_array('brand', $campos)) $specs[] = ['Marca', $machine->brand?->name ?? '—', false];
-        if (in_array('model', $campos)) $specs[] = ['Modelo', $machine->model ?? '—', false];
-        if (in_array('work_hours', $campos)) $specs[] = ['Horas de uso', number_format($machine->work_hours ?? 0, 0, ',', '.') . ' h', false];
-        if (in_array('identifier_code', $campos)) $specs[] = ['Código ref.', $machine->identifier_code ?? '—', true];
+            $specs = [];
+            if (in_array('brand', $show_fields)) $specs[] = [ucfirst(__('brand')), $machine->brand?->name ?? '—', false];
+            if (in_array('model', $show_fields)) $specs[] = [ucfirst(__('model')), $machine->model ?? '—', false];
+            if (in_array('work_hours', $show_fields)) $specs[] = [ucfirst(__('work_hours')), number_format($machine->work_hours ?? 0, 0, ',', '.') . ' h', false];
+            if (in_array('identifier_code', $show_fields)) $specs[] = [ucfirst(__('identifier_code')), $machine->identifier_code ?? '—', true];
         @endphp
 
         @if(count($specs))
-        <div class="specs-grid specs-{{ min(count($specs), 2) }}">
-            @foreach($specs as [$label, $value, $mono])
-            <div class="spec-item">
-                <p class="spec-label">{{ $label }}</p>
-                <p class="spec-value {{ $mono ? 'mono' : '' }}">{{ $value }}</p>
+            <div class="specs-grid specs-{{ min(count($specs), 2) }}">
+                @foreach($specs as [$label, $value, $mono])
+                    <div class="spec-item">
+                        <p class="spec-label">{{ $label }}</p>
+                        <p class="spec-value {{ $mono ? 'mono' : '' }}">{{ $value }}</p>
+                    </div>
+                @endforeach
             </div>
-            @endforeach
-        </div>
         @endif
 
         {{-- DESCRIPCIÓN --}}
-        @if(in_array('description', $campos) && $machine->description)
-        <p class="section-label">Descripción</p>
-        <div class="description">{{ $machine->description }}</div>
+        @if(in_array('description', $show_fields) && $machine->description)
+            <p class="section-label">{{ ucfirst(__('description'))}}</p>
+            <div class="description">{{ $machine->description }}</div>
         @endif
 
         {{-- FOOTER --}}
         <div class="footer">
-            <span>Maquinaria Industrial S.L.</span>
-            <span>{{ $machine->identifier_code }} — Generado el {{ now()->format('d/m/Y') }}</span>
+            <span>{{ config('app.name')}}</span>
+            <span>{{ $machine->identifier_code }} — {{ ucfirst(__('created_at')) . ' ' . now()->format('d/m/Y') }}</span>
         </div>
 
     </div>
 
     {{-- Botones solo en pantalla, no al imprimir --}}
     <div class="screen-actions no-print">
-        <button class="btn btn-secondary" onclick="window.close()">Cerrar</button>
+        <button class="btn btn-secondary" onclick="window.close()">{{ ucfirst(__('close'))}}</button>
         <button class="btn btn-primary" onclick="window.print()">
             <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
                 <rect x="6" y="14" width="12" height="8" />
             </svg>
-            Imprimir / Guardar PDF
+            {{ ucfirst(__('print / save PDF')) }}
         </button>
     </div>
 

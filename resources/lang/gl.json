@@ -45,5 +45,12 @@
     "edit_machine": "editar máquina",
     "purchasing_manager": "responsable de venta",
     "customer": "cliente",
-    "product_notes": "notas do produto"
+    "product_notes": "notas do produto",
+    "product data sheet": "ficha técnica do produto",
+    "print / save PDF": "imprimir / gardar PDF",
+    "close": "cerrar",
+    "copy": "copiar",
+    "include in document": "incluir no documento",
+    "cancel": "cancelar",
+    "open document": "abrir documento"
 }

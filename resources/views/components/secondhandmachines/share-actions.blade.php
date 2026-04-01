@@ -11,7 +11,7 @@
 <div x-data="{
         panel: false,
         copied: false,
-        campos: {
+        show_fields: {
             photos:          true,
             brand:           true,
             model:           true,
@@ -23,8 +23,8 @@
         },
         exportar() {
             const params = new URLSearchParams();
-            Object.entries(this.campos).forEach(([k, v]) => {
-                if (v) params.append('campos[]', k);
+            Object.entries(this.show_fields).forEach(([k, v]) => {
+                if (v) params.append('show_fields[]', k);
             });
             window.open('{{ route('secondhandmachines.print', $maquina) }}?' + params.toString(), '_blank');
         }
@@ -33,7 +33,7 @@
 
 
         <x-filament::button x-on:click="panel = true" color="gray" size="lg" icon="heroicon-o-document-arrow-down" class="w-full rounded-2xl! justify-center bg-gray-950 dark:bg-white text-white dark:text-gray-950 hover:opacity-80">
-            Exportar PDF
+            {{ ucfirst(__('print / save PDF')) }}
         </x-filament::button>
 
     </div>
@@ -41,23 +41,23 @@
     <div x-show="panel" style="display:none" class="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-4 flex flex-col gap-4 transition-all duration-200 hover:shadow-lg">
         <div>
             <p class="text-[10px] font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-3">
-                Incluir en el documento
+                {{ ucfirst(__('include in document')) }}
             </p>
             <div class="grid grid-cols-2 gap-2">
                 @foreach([
-                'photos' => 'Imágenes',
-                'brand' => 'Marca',
-                'model' => 'Modelo',
-                'identifier_code' => 'Código ref.',
-                'work_hours' => 'Horas de uso',
-                'selling_price' => 'Precio',
-                'description' => 'Descripción',
-                'sell_status' => 'Estado',
-                ] as $key => $label)
+                'photos',
+                'brand',
+                'model',
+                'identifier_code',
+                'work_hours',
+                'selling_price',
+                'description',
+                'sell_status',
+                ] as $key)
                 <label class="flex items-center gap-3 cursor-pointer group">
-                    <x-toggle-switch :model="'campos.' . $key" />
+                    <x-toggle-switch :model="'show_fields.' . $key" />
                     <span class="text-sm text-gray-700 dark:text-gray-200 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">
-                        {{ $label }}
+                        {{ ucfirst(__($key)) }}
                     </span>
                 </label>
                 @endforeach
@@ -66,11 +66,11 @@
 
         <div class="flex gap-2 pt-1">
             <x-filament::button outlined color="gray" size="lg" x-on:click="panel = false" class="flex-1 rounded-xl! justify-center">
-                Cancelar
+                {{ ucfirst(__('cancel')) }}
             </x-filament::button>
 
             <x-filament::button color="gray" icon="heroicon-o-printer" size="lg" x-on:click="panel = false; $nextTick(() => exportar())" class="flex-1 rounded-xl! justify-center">
-                Abrir documento
+                {{ ucfirst(__('open document')) }}
             </x-filament::button>
         </div>
 

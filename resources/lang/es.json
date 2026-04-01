@@ -9,7 +9,7 @@
     "attachments": "adjuntos",
     "brand": "marca",
     "brands": "marcas",
-    "brand.name": "nombre marca",
+    "brand.name": "nombre de marca",
     "created_at": "creado en",
     "description": "descripcion",
     "email": "email",
@@ -45,5 +45,11 @@
     "edit_machine": "editar máquina",
     "purchasing_manager": "responsable de venta",
     "customer": "cliente",
-    "product_notes": "notas del producto"
+    "product_notes": "notas del producto",
+    "product data sheet": "ficha técnica de producto",
+    "print / save PDF": "imprimir / guardar PDF",
+    "close": "cerrar",
+    "include in document": "incluir en el documento",
+    "cancel": "cancelar",
+    "open document": "abrir documento"
 }

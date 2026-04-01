@@ -8,12 +8,6 @@
      ============================================================================= --}}
 @props(['images' => [], 'alt' => ''])
 
-@php
-// Asegurar que images es un array
-$imagesArray = is_array($images) ? $images : [];
-$hasImages = !empty($imagesArray);
-@endphp
-
 <style>
     .custom-scrollbar::-webkit-scrollbar {
         width: 4px;
@@ -30,10 +24,16 @@ $hasImages = !empty($imagesArray);
 
 </style>
 
+@php
+// Asegurar que images es un array
+$imagesArray = is_array($images) ? $images : [];
+$hasImages = !empty($imagesArray);
+@endphp
+
 @if(!$hasImages)
 <div class="w-full flex flex-col items-center justify-center gap-3 text-gray-300 rounded-3xl bg-gray-50 dark:bg-gray-800" style="height:600px;">
     <x-heroicon-o-photo class="w-16 h-16" />
-    <span class="text-sm font-medium">Sin imagen</span>
+    <span class="text-sm font-medium">{{ ucfirst('no ' . __('photos')) }}</span>
 </div>
 @else
 <div x-data="{

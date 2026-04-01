@@ -18,7 +18,7 @@
         </p>
 
         <div :class="copied || hovering ? 'opacity-100' : 'opacity-0'" class="shrink-0 transition-opacity duration-150">
-            <button @click="navigator.clipboard.writeText('{{ addslashes($value) }}'); copied = true; setTimeout(() => copied = false, 2000)" :class="copied ? 'text-green-500 dark:text-green-400' : 'text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300'" class="transition-colors duration-150" title="Copiar">
+            <button @click="navigator.clipboard.writeText('{{ addslashes($value) }}'); copied = true; setTimeout(() => copied = false, 2000)" :class="copied ? 'text-green-500 dark:text-green-400' : 'text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300'" class="transition-colors duration-150" title="{{ ucfirst(__('copy')) }}">
                 <svg x-show="!copied" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <rect x="9" y="9" width="13" height="13" rx="2" />
                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
