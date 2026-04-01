@@ -38,9 +38,9 @@
 
     </div>
 
-    <div x-show="panel" style="display:none" class="rounded-2xl border border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 p-5 flex flex-col gap-4">
+    <div x-show="panel" style="display:none" class="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-4 flex flex-col gap-4 transition-all duration-200 hover:shadow-lg">
         <div>
-            <p class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">
+            <p class="text-[10px] font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-3">
                 Incluir en el documento
             </p>
             <div class="grid grid-cols-2 gap-2">
@@ -56,7 +56,7 @@
                 ] as $key => $label)
                 <label class="flex items-center gap-3 cursor-pointer group">
                     <x-toggle-switch :model="'campos.' . $key" />
-                    <span class="text-sm text-gray-600 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">
+                    <span class="text-sm text-gray-700 dark:text-gray-200 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">
                         {{ $label }}
                     </span>
                 </label>
