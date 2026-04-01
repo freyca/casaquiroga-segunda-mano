@@ -12,14 +12,14 @@
         panel: false,
         copied: false,
         campos: {
-            imagenes:    true,
-            marca:       true,
-            modelo:      true,
-            codigo:      true,
-            horas:       true,
-            precio:      true,
-            descripcion: true,
-            estado:      false,
+            photos:          true,
+            brand:           true,
+            model:           true,
+            identifier_code: true,
+            work_hours:      true,
+            selling_price:   true,
+            description:     true,
+            sell_status:     false,
         },
         exportar() {
             const params = new URLSearchParams();
@@ -45,14 +45,14 @@
             </p>
             <div class="grid grid-cols-2 gap-2">
                 @foreach([
-                'imagenes' => 'Imágenes',
-                'marca' => 'Marca',
-                'modelo' => 'Modelo',
-                'codigo' => 'Código ref.',
-                'horas' => 'Horas de uso',
-                'precio' => 'Precio',
-                'descripcion' => 'Descripción',
-                'estado' => 'Estado',
+                'photos' => 'Imágenes',
+                'brand' => 'Marca',
+                'model' => 'Modelo',
+                'identifier_code' => 'Código ref.',
+                'work_hours' => 'Horas de uso',
+                'selling_price' => 'Precio',
+                'description' => 'Descripción',
+                'sell_status' => 'Estado',
                 ] as $key => $label)
                 <label class="flex items-center gap-3 cursor-pointer group">
                     <x-toggle-switch :model="'campos.' . $key" />

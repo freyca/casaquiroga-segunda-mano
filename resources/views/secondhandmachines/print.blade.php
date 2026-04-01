@@ -13,9 +13,18 @@
          STATUS: STABLE
          ============================================================================= --}}
     @php
-    $estadoLabel = $machine->estado instanceof \App\Enums\Status
-    ? $machine->estado->getLabel()
-    : (is_string($machine->estado) ? $machine->estado : 'Sin estado');
+    $sellStatusValue = $machine->sell_status instanceof \App\Enums\SellStatus
+    ? $machine->sell_status->value
+    : (is_string($machine->sell_status) ? $machine->sell_status : null);
+
+    $estadoLabel = match($sellStatusValue) {
+    'available' => 'Disponible',
+    'in_preparation' => 'En preparación',
+    'arrive_soon' => 'Próxima entrada',
+    'reserved' => 'Reservada',
+    'sold' => 'Vendida',
+    default => $machine->sell_status instanceof \App\Enums\SellStatus ? $machine->sell_status->getLabel() : ($sellStatusValue ?? 'Sin estado'),
+    };
     @endphp
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -214,6 +223,7 @@
             letter-spacing: .12em;
             text-transform: uppercase;
             color: #9ca3af;
+            margin-top: 8px;
             margin-bottom: 8px;
         }
 
@@ -315,8 +325,8 @@
             <div class="header-right">
                 <p class="ref-label">Referencia</p>
                 <p class="ref">{{ $machine->identifier_code }}</p>
-                @if(in_array('status', $campos) && $machine->status)
-                <span class="badge">{{ $machine->status->getLabel() }}</span>
+                @if(in_array('sell_status', $campos) && $machine->sell_status)
+                <span class="badge">{{ $estadoLabel }}</span>
                 @endif
             </div>
         </div>
@@ -335,7 +345,7 @@
         @endif
 
         {{-- PRECIO --}}
-        @if(in_array('precio', $campos))
+        @if(in_array('selling_price', $campos))
         <div class="price-box">
             <p class="price-label">Precio de venta</p>
             <p class="price-value">
@@ -348,10 +358,10 @@
         {{-- SPECS --}}
         @php
         $specs = [];
-        if (in_array('marca', $campos)) $specs[] = ['Marca', $machine->brand?->name ?? '—', false];
-        if (in_array('modelo', $campos)) $specs[] = ['Modelo', $machine->model ?? '—', false];
-        if (in_array('horas', $campos)) $specs[] = ['Horas de uso', number_format($machine->work_hours ?? 0, 0, ',', '.') . ' h', false];
-        if (in_array('codigo', $campos)) $specs[] = ['Referencia', $machine->identifier_code ?? '—', true];
+        if (in_array('brand', $campos)) $specs[] = ['Marca', $machine->brand?->name ?? '—', false];
+        if (in_array('model', $campos)) $specs[] = ['Modelo', $machine->model ?? '—', false];
+        if (in_array('work_hours', $campos)) $specs[] = ['Horas de uso', number_format($machine->work_hours ?? 0, 0, ',', '.') . ' h', false];
+        if (in_array('identifier_code', $campos)) $specs[] = ['Código ref.', $machine->identifier_code ?? '—', true];
         @endphp
 
         @if(count($specs))

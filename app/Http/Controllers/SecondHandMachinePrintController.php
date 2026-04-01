@@ -29,7 +29,7 @@ final class SecondHandMachinePrintController extends Controller
             'work_hours',
             'selling_price',
             'description',
-            'status',
+            'sell_status',
         ]);
 
         return view('secondhandmachines.print', [
