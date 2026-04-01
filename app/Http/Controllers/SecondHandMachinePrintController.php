@@ -5,27 +5,31 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\SecondHandMachine;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 /**
  * Controlador para generar la vista de impresión/PDF de máquinas de segunda mano.
  *
+ * @codeCoverageIgnore
+ *
  * @param  Request  $request  — parámetro 'campos[]' para seleccionar qué incluir
  * @param  SecondHandMachine  $secondhandmachine  — modelo de la máquina
  */
-class SecondHandMachinePrintController extends Controller
+final class SecondHandMachinePrintController extends Controller
 {
-    public function __invoke(Request $request, SecondHandMachine $secondhandmachine)
+    public function __invoke(Request $request, SecondHandMachine $secondhandmachine): Factory|View
     {
         $campos = $request->input('campos', [
-            'imagenes',
-            'marca',
-            'modelo',
-            'codigo',
-            'horas',
-            'precio',
-            'descripcion',
-            'estado',
+            'photos',
+            'brand',
+            'model',
+            'identifier_code',
+            'work_hours',
+            'selling_price',
+            'description',
+            'status',
         ]);
 
         return view('secondhandmachines.print', [

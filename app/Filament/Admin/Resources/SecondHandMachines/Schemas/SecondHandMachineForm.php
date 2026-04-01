@@ -144,7 +144,7 @@ final class SecondHandMachineForm
                             ->relationship(
                                 name: 'seller',
                                 titleAttribute: 'name',
-                                modifyQueryUsing: fn (Builder $query) => $query->where('role', '!=', Role::User) // @phpstan-ignore-line
+                                modifyQueryUsing: fn (Builder $query) => $query->where('role', '!=', Role::User)
                             )
                             ->default(null),
 
@@ -153,7 +153,7 @@ final class SecondHandMachineForm
                             ->relationship(
                                 name: 'customer',
                                 titleAttribute: 'name',
-                                modifyQueryUsing: fn (Builder $query) => $query->where('role', Role::User) // @phpstan-ignore-line
+                                modifyQueryUsing: fn (Builder $query) => $query->where('role', Role::User)
                             )
                             ->default(null)
                             ->createOptionForm(
@@ -199,12 +199,12 @@ final class SecondHandMachineForm
                                 TextInput::make('previous_state')
                                     ->label(ucfirst(__('previous_state')))
                                     ->disabled()
-                                    ->formatStateUsing(fn (string $state) => SellStatus::tryFrom($state)?->getLabel()),  // @phpstan-ignore-line
+                                    ->formatStateUsing(fn (string $state) => SellStatus::tryFrom($state)?->getLabel()),
 
                                 TextInput::make('new_state')
                                     ->label(ucfirst(__('new_state')))
                                     ->disabled()
-                                    ->formatStateUsing(fn (string $state) => SellStatus::tryFrom($state)?->getLabel()), // @phpstan-ignore-line
+                                    ->formatStateUsing(fn (string $state) => SellStatus::tryFrom($state)?->getLabel()),
 
                                 Textarea::make('description')
                                     ->label(ucfirst(__('new_state')))

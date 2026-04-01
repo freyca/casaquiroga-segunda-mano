@@ -52,7 +52,7 @@ final class SecondHandMachinesTable
                     SelectFilter::make('sell_status')
                         ->label(ucfirst(__('sell_status')))
                         ->options(
-                            collect(SellStatus::cases()) // @phpstan-ignore-line
+                            collect(SellStatus::cases())
                                 ->mapWithKeys(fn (SellStatus $case): array => [
                                     $case->value => $case->getLabel(),
                                 ])
@@ -62,7 +62,7 @@ final class SecondHandMachinesTable
                     SelectFilter::make('tax')
                         ->label(ucfirst(__('tax')))
                         ->options(
-                            collect(Tax::cases()) // @phpstan-ignore-line
+                            collect(Tax::cases())
                                 ->mapWithKeys(fn (Tax $case): array => [
                                     $case->value => $case->getLabel(),
                                 ])

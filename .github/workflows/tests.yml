@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   ci:
-    runs-on: unpmtu-latest
+    runs-on: ubuntu-latest
     timeout-minutes: 15
 
     steps:
@@ -54,10 +54,6 @@ jobs:
 
       - name: Build Assets
         run: npm run build
-
-      - name: Get Playwright version
-        id: playwright-version
-        run: echo "version=$(npm pm ls 2>/dev/null | grep playwright | head -1 | sed 's/.*@//')" >> $GITHUB_OUTPUT
 
       - name: Cache Rector
         uses: actions/cache@v4
