@@ -12,6 +12,11 @@
          ADAPT: ORIGEN: maquina-product-page → DESTINO: SecondHandMachine
          STATUS: STABLE
          ============================================================================= --}}
+    @php
+    $estadoLabel = $machine->estado instanceof \App\Enums\Status
+        ? $machine->estado->getLabel()
+        : (is_string($machine->estado) ? $machine->estado : 'Sin estado');
+    @endphp
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -243,15 +248,18 @@
             <p class="ref-label">Referencia</p>
             <p class="ref">{{ $machine->codigo }}</p>
             @if(in_array('estado', $campos) && $machine->estado)
-                <span class="badge">{{ $machine->estado->getLabel() }}</span>
+                <span class="badge">{{ $estadoLabel }}</span>
             @endif
         </div>
     </div>
 
     {{-- IMÁGENES --}}
-    @if(in_array('imagenes', $campos) && $machine->fotos && count($machine->fotos) > 0)
+    @php
+    $photosArray = is_array($machine->photos) ? $machine->photos : [];
+    @endphp
+    @if(in_array('imagenes', $campos) && $machine->photos && count($photosArray) > 0)
         @php
-            $imgs = array_slice($machine->fotos, 0, 3);
+            $imgs = array_slice($photosArray, 0, 3);
             $cols = count($imgs) === 1 ? 'cols-1' : (count($imgs) === 2 ? 'cols-2' : 'cols-3');
         @endphp
         <div class="images-grid {{ $cols }}">

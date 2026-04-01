@@ -8,9 +8,15 @@
      ============================================================================= --}}
 @props(['images' => [], 'alt' => ''])
 
+@php
+// Asegurar que images es un array
+$imagesArray = is_array($images) ? $images : [];
+$hasImages = !empty($imagesArray);
+@endphp
+
 <style>
     .custom-scrollbar::-webkit-scrollbar {
-        width: 3px;
+        width: 4px;
     }
 
     .custom-scrollbar::-webkit-scrollbar-thumb {
@@ -18,9 +24,13 @@
         border-radius: 10px;
     }
 
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
 </style>
 
-@if(empty($images))
+@if(!$hasImages)
 <div class="w-full flex flex-col items-center justify-center gap-3 text-gray-300 rounded-3xl bg-gray-50 dark:bg-gray-800" style="height:600px;">
     <x-heroicon-o-photo class="w-16 h-16" />
     <span class="text-sm font-medium">Sin imagen</span>
@@ -28,7 +38,7 @@
 @else
 <div x-data="{
             diapositivaActual: 0,
-            imagenes: {{ json_encode($images) }},
+            imagenes: {{ json_encode($imagesArray) }},
             loaded: {},
             anterior() { this.diapositivaActual = this.diapositivaActual === 0 ? this.imagenes.length - 1 : this.diapositivaActual - 1; },
             siguiente() { this.diapositivaActual = this.diapositivaActual === this.imagenes.length - 1 ? 0 : this.diapositivaActual + 1; },
@@ -39,12 +49,12 @@
                 if (Math.abs(delta) > 40) { delta < 0 ? this.siguiente() : this.anterior(); }
             },
         }" class="flex flex-row gap-4 w-full" style="height:600px;">
-    @if(count($images) > 1)
-    <div class="hidden md:flex flex-col items-center w-20 shrink-0">
+    @if(count($imagesArray) > 1)
+    <div class="hidden md:flex flex-col items-center w-24 shrink-0">
 
         <x-filament::icon-button icon="heroicon-o-chevron-up" color="gray" size="sm" label="Imagen anterior" x-on:click="anterior()" class="mb-2 shrink-0" />
 
-        <div class="flex flex-col gap-3 pt-2 overflow-y-auto custom-scrollbar flex-1 w-full items-center">
+        <div class="flex flex-col gap-4 py-2 px-3 overflow-y-auto custom-scrollbar flex-1 w-full items-center">
             <template x-for="(imagen, indice) in imagenes" :key="indice">
                 <button x-on:click="diapositivaActual = indice" :class="diapositivaActual === indice
                                 ? 'ring-2 ring-gray-950 dark:ring-white ring-offset-2 opacity-100'
@@ -71,7 +81,7 @@
             <img x-show="diapositivaActual === indice" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" :src="imagen" @load="loaded[indice] = true" alt="{{ $alt }}" class="absolute inset-0 w-full h-full object-cover">
         </template>
 
-        @if(count($images) > 1)
+        @if(count($imagesArray) > 1)
         <div class="md:hidden flex items-center justify-between px-3 absolute inset-y-0 left-0 right-0 pointer-events-none">
             <x-filament::icon-button x-on:click="anterior()" icon="heroicon-o-chevron-left" size="lg" label="Imagen anterior" class="pointer-events-auto !bg-white/30 !backdrop-blur-md !border-0 hover:!bg-white/50 [&_*]:!text-white" />
             <x-filament::icon-button x-on:click="siguiente()" icon="heroicon-o-chevron-right" size="lg" label="Imagen siguiente" class="pointer-events-auto !bg-white/30 !backdrop-blur-md !border-0 hover:!bg-white/50 [&_*]:!text-white" />

@@ -10,7 +10,12 @@
     @php
     $record = $this->getRecord();
 
-    $badgeColor = match($record->estado?->value) {
+    // Manejar tanto enum como string para compatibilidad
+    $estadoValue = $record->estado instanceof \App\Enums\Status
+        ? $record->estado->value
+        : (is_string($record->estado) ? $record->estado : null);
+
+    $badgeColor = match($estadoValue) {
     'disponible' => 'success',
     'reservada' => 'warning',
     'vendida' => 'danger',
@@ -19,13 +24,13 @@
     default => 'gray',
     };
 
-    $badgeLabel = match($record->estado?->getLabel()){
+    $badgeLabel = match($estadoValue) {
     'disponible' => 'Disponible',
     'reservada' => 'Reservada',
     'vendida' => 'Vendida',
-    'en_preparacion' => 'En preparacion',
-    'proxima_entrada' => 'Entrada Proxima',
-    default => $record->estado?->getLabel(),
+    'en_preparacion' => 'En preparación',
+    'proxima_entrada' => 'Próxima entrada',
+    default => $record->estado instanceof \App\Enums\Status ? $record->estado->getLabel() : ($estadoValue ?? 'Sin estado'),
     };
 
     $anim = [
@@ -103,7 +108,7 @@
                 </p>
             </x-filament::card>
 
-            <div class="grid grid-cols-2 gap-3" style="animation-delay: var(--anim-specs);">
+            <div class="grid grid-cols-2 gap-3 fade-up" style="animation-delay: var(--anim-specs);">
                 <x-secondhandmachines.bento-spec label="Marca" :value="$record->brand?->nombre ?? 'Sin marca'" delay="{{ $anim['spec1'] }}" />
                 <x-secondhandmachines.bento-spec label="Modelo" :value="$record->modelo ?? '—'" delay="{{ $anim['spec2'] }}" />
                 <x-secondhandmachines.bento-spec label="Horas trabajo" :value="number_format($record->horas_trabajo ?? 0, 0, ',', '.') . ' h'" delay="{{ $anim['spec3'] }}" />
@@ -111,8 +116,8 @@
             </div>
 
             @if($record->descripcion)
-            <x-filament::card x-intersect.once="$el.classList.add('opacity-100', 'translate-y-0'); $el.classList.remove('opacity-0', 'translate-y-4')" class="fade-up opacity-0 translate-y-4 p-5 transition-all duration-500" style="animation-delay: var(--anim-desc);">
-                <p class="text-[10px] font-semibold uppercase tracking-widest text-gray-400 mb-2">Descripción</p>
+            <x-filament::card class="fade-up p-5" style="animation-delay: var(--anim-desc); animation-fill-mode: both;">
+                <p class="text-[10px] font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-2">Descripción</p>
                 <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{{ $record->descripcion }}</p>
             </x-filament::card>
             @endif
@@ -124,8 +129,11 @@
         </div>
 
         {{-- COLUMNA DERECHA — slider de imágenes --}}
+        @php
+        $photosArray = is_array($record->photos) ? $record->photos : [];
+        @endphp
         <div class="fade-in" style="animation-delay: var(--anim-slider);">
-            <x-secondhandmachines.image-slider :images="$record->fotos ?? []" :alt="$record->modelo" />
+            <x-secondhandmachines.image-slider :images="$photosArray" :alt="$record->modelo" />
         </div>
 
     </div>
