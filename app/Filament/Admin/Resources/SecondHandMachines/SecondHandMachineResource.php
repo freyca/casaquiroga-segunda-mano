@@ -22,6 +22,8 @@ final class SecondHandMachineResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::Truck;
 
+    protected static ?int $navigationSort = 1;
+
     public static function getNavigationGroup(): string
     {
         return ucfirst(__('machines_management'));

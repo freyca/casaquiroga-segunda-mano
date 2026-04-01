@@ -22,6 +22,8 @@ final class BrandResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::BuildingOffice;
 
+    protected static ?int $navigationSort = 2;
+
     public static function getNavigationGroup(): string
     {
         return ucfirst(__('machines_management'));

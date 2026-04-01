@@ -22,6 +22,8 @@ final class FamilyResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::UserGroup;
 
+    protected static ?int $navigationSort = 5;
+
     public static function getNavigationGroup(): string
     {
         return ucfirst(__('machines_management'));

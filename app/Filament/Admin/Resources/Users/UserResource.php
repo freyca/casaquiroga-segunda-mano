@@ -22,6 +22,8 @@ final class UserResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::Users;
 
+    protected static ?int $navigationSort = 3;
+
     public static function getNavigationGroup(): string
     {
         return ucfirst(__('user_management'));
