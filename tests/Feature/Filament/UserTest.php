@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Enums\Role;
 use App\Models\User;
+use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
@@ -31,6 +32,12 @@ describe('UserTest', function (): void {
             ->and($user->role)->toBeInstanceOf(Role::class);
 
         expect($user)->toBeInstanceOf(Model::class);
+    });
+
+    it('user model implements FilamentUser interface', function (): void {
+        $user = User::factory()->create();
+
+        expect($user)->toBeInstanceOf(FilamentUser::class);
     });
 
     it('correctly identifies admin and employee roles', function (): void {
