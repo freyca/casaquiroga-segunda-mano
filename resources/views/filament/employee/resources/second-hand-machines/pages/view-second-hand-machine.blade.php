@@ -55,7 +55,6 @@
 
         {{-- COLUMNA IZQUIERDA — info, specs, acciones --}}
         <div class="flex flex-col gap-4">
-
             <div class="fade-in self-start" style="animation-delay: var(--anim-badge);">
                 <x-filament::badge :color="$record->sell_status->getColor()" size="sm">
                     {{ ucfirst(__($record->sell_status->getLabel())) }}
@@ -63,11 +62,9 @@
             </div>
 
             <div class="fade-up" style="animation-delay: var(--anim-titulo);">
-                <p class="text-xs font-semibold tracking-widest uppercase text-gray-400 mb-1">{{ $record->brand?->name ?? ucfirst('No ' . __('brand')) }}</p>
                 <h1 class="text-5xl font-bold text-gray-950 dark:text-white leading-tight tracking-tight">
-                    {{ $record->model ?? ucfirst('No ' . __('model')) }}
+                    {{ ucfirst($record->name) }}
                 </h1>
-                <p class="text-sm text-gray-400 mt-2 font-mono">{{ $record->identifier_code }}</p>
             </div>
 
             <x-filament::card class="fade-up p-5 bg-gray-950 dark:bg-gray-900 border-transparent" style="animation-delay: var(--anim-precio);">
