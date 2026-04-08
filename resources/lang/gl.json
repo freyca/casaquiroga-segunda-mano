@@ -52,5 +52,6 @@
     "copy": "copiar",
     "include in document": "incluir no documento",
     "cancel": "cancelar",
-    "open document": "abrir documento"
+    "open document": "abrir documento",
+    "photos_hint": "as imaxes mostraranse na orde que as gardes. Podes reordenarlas arrastrando. A última será a principal"
 }

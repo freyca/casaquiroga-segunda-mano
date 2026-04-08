@@ -152,11 +152,13 @@ final class SecondHandMachineForm
                     ->schema([
                         FileUpload::make('photos')
                             ->label(ucfirst(__('photos')))
+                            ->hint(ucfirst(__('photos_hint')))
                             ->image()
                             ->multiple()
                             ->directory('secondhandmachines/photos')
                             ->visibility('public')
-                            ->panelLayout('grid'),
+                            ->panelLayout('grid')
+                            ->reorderable(),
 
                         FileUpload::make('attachments')
                             ->label(ucfirst(__('attachments')))
