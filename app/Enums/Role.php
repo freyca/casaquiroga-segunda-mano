@@ -37,9 +37,9 @@ enum Role: string implements HasColor, HasIcon, HasLabel
     public function getIcon(): Heroicon
     {
         return match ($this) {
-            Role::Admin => Heroicon::CalendarDays,
-            Role::Employee => Heroicon::BuildingOffice,
-            Role::User => Heroicon::BarsArrowUp,
+            Role::Admin => Heroicon::LockClosed,
+            Role::Employee => Heroicon::BuildingStorefront,
+            Role::User => Heroicon::User,
         };
     }
 }
