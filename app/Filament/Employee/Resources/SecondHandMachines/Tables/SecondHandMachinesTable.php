@@ -45,7 +45,7 @@ final class SecondHandMachinesTable
                     ->badge()
                     ->searchable(),
             ])
-            ->defaultSort('created_at', direction: 'asc')
+            ->defaultSort('created_at', direction: 'desc')
             ->filters(
                 [
                     SelectFilter::make('sell_status')
