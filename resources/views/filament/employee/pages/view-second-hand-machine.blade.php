@@ -36,6 +36,22 @@
 
     </style>
 
+    @php
+        $anim = [
+            'badge' => 0,
+            'titulo' => 100,
+            'precio' => 200,
+            'specs' => 300,
+            'spec1' => 0,
+            'spec2' => 100,
+            'spec3' => 200,
+            'spec4' => 300,
+            'desc' => 400,
+            'acciones' => 500,
+            'slider' => 150,
+        ];
+    @endphp
+
     <div class="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-8 lg:gap-10 items-start max-w-6xl mx-auto" style="--anim-badge: {{ $anim['badge'] }}ms; --anim-titulo: {{ $anim['titulo'] }}ms; --anim-precio: {{ $anim['precio'] }}ms; --anim-specs: {{ $anim['specs'] }}ms; --anim-spec1: {{ $anim['spec1'] }}ms; --anim-spec2: {{ $anim['spec2'] }}ms; --anim-spec3: {{ $anim['spec3'] }}ms; --anim-spec4: {{ $anim['spec4'] }}ms; --anim-desc: {{ $anim['desc'] }}ms; --anim-acciones: {{ $anim['acciones'] }}ms; --anim-slider: {{ $anim['slider'] }}ms;">
 
         {{-- COLUMNA IZQUIERDA — info, specs, acciones --}}
