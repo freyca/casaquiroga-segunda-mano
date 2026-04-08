@@ -15,7 +15,7 @@ final class ViewSecondHandMachine extends ViewRecord
 {
     protected static string $resource = SecondHandMachineResource::class;
 
-    protected string $view = 'filament.employee.resources.second-hand-machines.pages.view-second-hand-machine';
+    protected string $view = 'filament.employee.pages.view-second-hand-machine';
 
     private SellStatus $previous_status;
 
