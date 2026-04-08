@@ -26,8 +26,8 @@ enum Tax: int implements HasColor, HasIcon, HasLabel
     public function getColor(): array
     {
         return match ($this) {
-            Tax::Zero => Color::Gray,
-            Tax::TwentyOne => Color::Green,
+            Tax::Zero => Color::Green,
+            Tax::TwentyOne => Color::Gray,
         };
     }
 

@@ -33,7 +33,7 @@ enum SellStatus: string implements HasColor, HasIcon, HasLabel
     {
         return match ($this) {
             SellStatus::Available => Color::Green,
-            SellStatus::InPreparation => Color::Slate,
+            SellStatus::InPreparation => Color::Purple,
             SellStatus::ArriveSoon => Color::Blue,
             SellStatus::Reserved => Color::Red,
             SellStatus::Sold => Color::Gray,
