@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers\Filament;
 
 use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentColor;
 use Illuminate\Support\ServiceProvider;
 
-class FilamentColorProvider extends ServiceProvider
+final class FilamentColorProvider extends ServiceProvider
 {
     public function boot(): void
     {
         FilamentColor::register([
-            'gray' => //'#505759',
+            'gray' => // #505759
             [
                 50 => '#edf1f3',
                 100 => '#dfe7e9',
@@ -25,7 +27,8 @@ class FilamentColorProvider extends ServiceProvider
                 900 => '#1d2021',
                 950 => '#111414',
             ],
-            'primary' => [
+            'primary' => // #f1b434
+            [
                 50 => '#fef5eb',
                 100 => '#feebd6',
                 200 => '#fddaae',
