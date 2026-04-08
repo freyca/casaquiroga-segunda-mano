@@ -95,26 +95,6 @@ final class SecondHandMachineForm
                     ->columnSpanFull()
                     ->collapsible(),
 
-                Section::make(ucfirst(__('attachments')))
-                    ->schema([
-                        FileUpload::make('photos')
-                            ->label(ucfirst(__('photos')))
-                            ->image()
-                            ->multiple()
-                            ->directory('secondhandmachines/photos')
-                            ->visibility('public')
-                            ->panelLayout('grid'),
-
-                        FileUpload::make('attachments')
-                            ->label(ucfirst(__('attachments')))
-                            ->multiple()
-                            ->directory('secondhandmachines/attachments')
-                            ->visibility('public')
-                            ->panelLayout('grid'),
-                    ])
-                    ->columnSpanFull()
-                    ->collapsible(),
-
                 Section::make(ucfirst(__('sale_information')))
                     ->schema([
                         ToggleButtons::make('sell_status')
@@ -144,7 +124,7 @@ final class SecondHandMachineForm
                             ->relationship(
                                 name: 'seller',
                                 titleAttribute: 'name',
-                                modifyQueryUsing: fn (Builder $query) => $query->where('role', '!=', Role::User)
+                                modifyQueryUsing: fn(Builder $query) => $query->where('role', '!=', Role::User)
                             )
                             ->default(null),
 
@@ -153,7 +133,7 @@ final class SecondHandMachineForm
                             ->relationship(
                                 name: 'customer',
                                 titleAttribute: 'name',
-                                modifyQueryUsing: fn (Builder $query) => $query->where('role', Role::User)
+                                modifyQueryUsing: fn(Builder $query) => $query->where('role', Role::User)
                             )
                             ->default(null)
                             ->createOptionForm(
@@ -169,6 +149,26 @@ final class SecondHandMachineForm
                     ])
                     ->columnSpanFull()
                     ->columns(2)
+                    ->collapsible(),
+
+                Section::make(ucfirst(__('attachments')))
+                    ->schema([
+                        FileUpload::make('photos')
+                            ->label(ucfirst(__('photos')))
+                            ->image()
+                            ->multiple()
+                            ->directory('secondhandmachines/photos')
+                            ->visibility('public')
+                            ->panelLayout('grid'),
+
+                        FileUpload::make('attachments')
+                            ->label(ucfirst(__('attachments')))
+                            ->multiple()
+                            ->directory('secondhandmachines/attachments')
+                            ->visibility('public')
+                            ->panelLayout('grid'),
+                    ])
+                    ->columnSpanFull()
                     ->collapsible(),
 
                 Section::make(ucfirst(__('product_notes')))
@@ -190,7 +190,7 @@ final class SecondHandMachineForm
                                 TextInput::make('created_at')
                                     ->label(ucfirst(__('created_at')))
                                     ->formatStateUsing(
-                                        fn (mixed $state): ?string => $state
+                                        fn(mixed $state): ?string => $state
                                             ? Date::parse($state)->format('d-m-Y H:i') // @phpstan-ignore-line
                                             : null
                                     )
@@ -199,12 +199,12 @@ final class SecondHandMachineForm
                                 TextInput::make('previous_state')
                                     ->label(ucfirst(__('previous_state')))
                                     ->disabled()
-                                    ->formatStateUsing(fn (string $state) => SellStatus::tryFrom($state)?->getLabel()),
+                                    ->formatStateUsing(fn(string $state) => SellStatus::tryFrom($state)?->getLabel()),
 
                                 TextInput::make('new_state')
                                     ->label(ucfirst(__('new_state')))
                                     ->disabled()
-                                    ->formatStateUsing(fn (string $state) => SellStatus::tryFrom($state)?->getLabel()),
+                                    ->formatStateUsing(fn(string $state) => SellStatus::tryFrom($state)?->getLabel()),
 
                                 Textarea::make('description')
                                     ->label(ucfirst(__('new_state')))
@@ -214,7 +214,7 @@ final class SecondHandMachineForm
                     ])
                     ->columnSpanFull()
                     ->collapsible()
-                    ->hidden(fn (string $operation): bool => $operation === 'create'),
+                    ->hidden(fn(string $operation): bool => $operation === 'create'),
             ]);
     }
 }
