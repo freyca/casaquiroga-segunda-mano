@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'CQ Second Hand'),
+    'name' => env('APP_NAME', 'Maquinaria reacondicionada Casa Quiroga'),
 
     /*
     |--------------------------------------------------------------------------
