@@ -40,8 +40,70 @@ $hasImages = !empty($imagesArray);
             diapositivaActual: 0,
             imagenes: {{ json_encode($imagesArray) }},
             loaded: {},
-            anterior() { this.diapositivaActual = this.diapositivaActual === 0 ? this.imagenes.length - 1 : this.diapositivaActual - 1; },
-            siguiente() { this.diapositivaActual = this.diapositivaActual === this.imagenes.length - 1 ? 0 : this.diapositivaActual + 1; },
+            init() {
+                this.$watch('diapositivaActual', (actual, anterior) => {
+                    const saltoCircular =
+                        (anterior === this.imagenes.length - 1 && actual === 0)
+                        || (anterior === 0 && actual === this.imagenes.length - 1)
+
+                    const forzarPosicion = saltoCircular
+                        ? (actual === 0 ? 'inicio' : 'final')
+                        : null
+
+                    const comportamiento = saltoCircular
+                        ? 'auto'
+                        : 'smooth'
+
+                    this.$nextTick(() => this.asegurarMiniaturaActivaVisible(comportamiento, forzarPosicion))
+                })
+
+                this.$nextTick(() => this.asegurarMiniaturaActivaVisible('auto'))
+            },
+            anterior() {
+                this.diapositivaActual = this.diapositivaActual === 0 ? this.imagenes.length - 1 : this.diapositivaActual - 1
+            },
+            siguiente() {
+                this.diapositivaActual = this.diapositivaActual === this.imagenes.length - 1 ? 0 : this.diapositivaActual + 1
+            },
+            irA(indice) {
+                this.diapositivaActual = indice
+            },
+            asegurarMiniaturaActivaVisible(comportamiento = 'smooth', forzarPosicion = null) {
+                const contenedor = this.$refs.miniaturas
+                if (!contenedor) {
+                    return
+                }
+
+                const miniaturaActiva = contenedor.querySelector(`[data-thumb-index='${this.diapositivaActual}']`)
+                if (!miniaturaActiva) {
+                    return
+                }
+
+                const margen = 8
+
+                if (forzarPosicion === 'inicio' || forzarPosicion === 'final') {
+                    miniaturaActiva.scrollIntoView({
+                        behavior: 'auto',
+                        block: forzarPosicion === 'inicio' ? 'start' : 'end',
+                        inline: 'nearest',
+                    })
+
+                    if (forzarPosicion === 'inicio') {
+                        contenedor.scrollTop = Math.max(contenedor.scrollTop - margen, 0)
+                    } else {
+                        const maxScroll = Math.max(contenedor.scrollHeight - contenedor.clientHeight, 0)
+                        contenedor.scrollTop = Math.min(contenedor.scrollTop + margen, maxScroll)
+                    }
+
+                    return
+                }
+
+                miniaturaActiva.scrollIntoView({
+                    behavior: comportamiento,
+                    block: 'center',
+                    inline: 'nearest',
+                })
+            },
             touchStartX: 0,
             onTouchStart(e) { this.touchStartX = e.changedTouches[0].clientX; },
             onTouchEnd(e) {
@@ -54,9 +116,9 @@ $hasImages = !empty($imagesArray);
 
         <x-filament::icon-button icon="heroicon-o-chevron-up" color="gray" size="sm" label="Imagen anterior" x-on:click="anterior()" class="mb-2 shrink-0" />
 
-        <div class="flex flex-col gap-4 py-2 px-3 overflow-y-auto custom-scrollbar flex-1 w-full items-center">
+        <div x-ref="miniaturas" class="flex flex-col gap-4 py-2 px-3 overflow-y-auto custom-scrollbar flex-1 w-full items-center">
             <template x-for="(imagen, indice) in imagenes" :key="indice">
-                <button x-on:click="diapositivaActual = indice" :class="diapositivaActual === indice
+                <button x-on:click="irA(indice)" :data-thumb-index="indice" :class="diapositivaActual === indice
                                 ? 'ring-2 ring-gray-950 dark:ring-white ring-offset-2 opacity-100'
                                 : 'opacity-50 hover:opacity-90'" class="relative shrink-0 w-16 h-16 rounded-xl overflow-hidden transition-all duration-200 bg-gray-100 dark:bg-gray-700">
                     <div x-show="!loaded[indice]" class="absolute inset-0 flex items-center justify-center">
