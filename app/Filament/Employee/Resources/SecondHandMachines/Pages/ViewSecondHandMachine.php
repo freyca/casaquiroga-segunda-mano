@@ -13,7 +13,7 @@ use Filament\Actions\Action;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
 use Filament\Support\Icons\Heroicon;
-use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Str;
 
 final class ViewSecondHandMachine extends ViewRecord
 {
@@ -38,11 +38,21 @@ final class ViewSecondHandMachine extends ViewRecord
                 ->label(ucfirst(__('download_pdf')))
                 ->icon(Heroicon::ArrowDown)
                 ->color('info')
-                ->action(fn (SecondHandMachine $record) => response()->streamDownload(function () use ($record): void {
-                    echo Pdf::loadHtml(
-                        Blade::render('secondhandmachines.print', ['machine' => $record])
-                    )->stream();
-                }, $record->name.'.pdf')),
+                ->action(function (SecondHandMachine $record) {
+                    $filename = Str::slug((string) ($record->identifier_code ?: $record->name ?: 'machine')).'.pdf';
+
+                    $pdf = Pdf::loadView('secondhandmachines.print', [
+                        'machine' => $record->loadMissing('brand'),
+                    ])
+                        ->setOption('isRemoteEnabled', true)
+                        ->setPaper('a4');
+
+                    return response()->streamDownload(function () use ($pdf): void {
+                        echo $pdf->output();
+                    }, $filename, [
+                        'Content-Type' => 'application/pdf',
+                    ]);
+                }),
         ];
     }
 }
