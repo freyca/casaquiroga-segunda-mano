@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 return [
     App\Providers\AppServiceProvider::class,
+    App\Providers\FilamentLanguageSwitcherProvider::class,
     App\Providers\Filament\AdminPanelProvider::class,
     App\Providers\Filament\EmployeePanelProvider::class,
     App\Providers\Filament\FilamentColorProvider::class,
