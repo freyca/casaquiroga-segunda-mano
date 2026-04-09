@@ -12,11 +12,15 @@ use App\Filament\Admin\Resources\Families\Schemas\FamilyForm;
 use App\Filament\Admin\Resources\Users\Schemas\UserForm;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Date;
@@ -83,10 +87,23 @@ final class SecondHandMachineForm
                             ->numeric()
                             ->default(null),
 
-                        Textarea::make('description')
-                            ->label(ucfirst(__('description')))
-                            ->default(null)
-                            ->columnSpanFull(),
+                        Tabs::make('description_tabs')
+                            ->columnSpanFull()
+                            ->tabs([
+                                Tab::make('Editor')->schema([
+                                    RichEditor::make('description')
+                                        ->reactive()
+                                        ->afterStateUpdated(fn (?string $state, Set $set): mixed => $set('description_html', $state))
+                                        ->afterStateHydrated(fn ($state, Set $set): mixed => $set('description_html', $state)),
+                                ]),
+                                Tab::make('HTML')->schema([
+                                    Textarea::make('description_html')
+                                        ->rows(10)
+                                        ->afterStateUpdated(fn (?string $state, Set $set): mixed => $set('description', $state))
+                                        ->dehydrated(false),
+                                ]),
+                            ])
+                            ->contained(false),
                     ])
                     ->columns(2)
                     ->columnSpanFull()
