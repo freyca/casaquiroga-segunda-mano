@@ -72,7 +72,7 @@
 
             @if($record->description)
             <x-filament::card class="fade-up p-5" style="animation-delay: var(--anim-desc); animation-fill-mode: both;">
-                <p class="text-[10px] font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-2">{{ ucfirst(__('description')) }}</p>
+                <p class="text-[10px] font-semibold uppercase tracking-widest opacity-70 mb-2">{{ ucfirst(__('description')) }}</p>
                 <p class="text-sm leading-relaxed">{!! $record->description !!}</p>
             </x-filament::card>
             @endif

@@ -22,6 +22,41 @@
         background: transparent;
     }
 
+    .machine-slider-empty {
+        background: #f9fafb;
+        color: #d1d5db;
+    }
+
+    .machine-slider-thumb {
+        background: #f3f4f6;
+    }
+
+    .machine-slider-main {
+        background: #f9fafb;
+    }
+
+    .machine-slider-thumb-active {
+        opacity: 1;
+        box-shadow: 0 0 0 2px #030712, 0 0 0 4px #ffffff;
+    }
+
+    .dark .machine-slider-empty {
+        background: #1f2937;
+        color: #9ca3af;
+    }
+
+    .dark .machine-slider-thumb {
+        background: #374151;
+    }
+
+    .dark .machine-slider-main {
+        background: #1f2937;
+    }
+
+    .dark .machine-slider-thumb-active {
+        box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #111827;
+    }
+
 </style>
 
 @php
@@ -31,7 +66,7 @@ $hasImages = !empty($imagesArray);
 @endphp
 
 @if(!$hasImages)
-<div class="w-full flex flex-col items-center justify-center gap-3 text-gray-300 rounded-3xl bg-gray-50 dark:bg-gray-800" style="height:600px;">
+<div class="machine-slider-empty w-full flex flex-col items-center justify-center gap-3 rounded-3xl" style="height:600px;">
     <x-heroicon-o-photo class="w-16 h-16" />
     <span class="text-sm font-medium">{{ ucfirst('no ' . __('photos')) }}</span>
 </div>
@@ -67,6 +102,21 @@ $hasImages = !empty($imagesArray);
             },
             irA(indice) {
                 this.diapositivaActual = indice
+            },
+            resolverSrcImagen(imagen) {
+                if (typeof imagen !== 'string') {
+                    return ''
+                }
+
+                if (/^https?:\/\//i.test(imagen)) {
+                    return imagen
+                }
+
+                if (imagen.startsWith('/storage/')) {
+                    return imagen
+                }
+
+                return `/storage/${imagen.replace(/^\/+/, '')}`
             },
             asegurarMiniaturaActivaVisible(comportamiento = 'smooth', forzarPosicion = null) {
                 const contenedor = this.$refs.miniaturas
@@ -119,12 +169,12 @@ $hasImages = !empty($imagesArray);
         <div x-ref="miniaturas" class="flex flex-col gap-4 py-2 px-3 overflow-y-auto custom-scrollbar flex-1 w-full items-center">
             <template x-for="(imagen, indice) in imagenes" :key="indice">
                 <button x-on:click="irA(indice)" :data-thumb-index="indice" :class="diapositivaActual === indice
-                                ? 'ring-2 ring-gray-950 dark:ring-white ring-offset-2 opacity-100'
-                                : 'opacity-50 hover:opacity-90'" class="relative shrink-0 w-16 h-16 rounded-xl overflow-hidden transition-all duration-200 bg-gray-100 dark:bg-gray-700">
+                                ? 'machine-slider-thumb-active'
+                                : 'opacity-50 hover:opacity-90'" class="machine-slider-thumb relative shrink-0 w-16 h-16 rounded-xl overflow-hidden transition-all duration-200">
                     <div x-show="!loaded[indice]" class="absolute inset-0 flex items-center justify-center">
                         <x-filament::loading-indicator class="h-4 w-4 text-gray-400" />
                     </div>
-                    <img :src="`/storage/${imagen}`" @load="loaded[indice] = true" class="w-full h-full object-cover">
+                    <img :src="resolverSrcImagen(imagen)" @load="loaded[indice] = true" x-on:error="loaded[indice] = true" class="w-full h-full object-cover">
                 </button>
             </template>
         </div>
@@ -134,13 +184,13 @@ $hasImages = !empty($imagesArray);
     </div>
     @endif
 
-    <div class="relative flex-1 bg-gray-50 dark:bg-gray-800 rounded-3xl overflow-hidden" @touchstart="onTouchStart($event)" @touchend="onTouchEnd($event)">
+    <div class="machine-slider-main relative flex-1 rounded-3xl overflow-hidden" @touchstart="onTouchStart($event)" @touchend="onTouchEnd($event)">
         <div x-show="!loaded[diapositivaActual]" class="absolute inset-0 flex items-center justify-center z-10">
             <x-filament::loading-indicator class="h-8 w-8 text-gray-400" />
         </div>
 
         <template x-for="(imagen, indice) in imagenes" :key="indice">
-            <img x-show="diapositivaActual === indice" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" :src="`/storage/${imagen}`" @load="loaded[indice] = true" alt="{{ $alt }}" class="absolute inset-0 w-full h-full object-cover">
+            <img x-show="diapositivaActual === indice" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" :src="resolverSrcImagen(imagen)" @load="loaded[indice] = true" x-on:error="loaded[indice] = true" alt="{{ $alt }}" class="absolute inset-0 w-full h-full object-cover">
         </template>
 
         @if(count($imagesArray) > 1)
