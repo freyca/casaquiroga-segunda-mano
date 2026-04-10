@@ -224,46 +224,31 @@
 
 <body>
     @php
-    $brandName = $machine->brand?->name ?? 'Sin marca';
-    $modelName = $machine->model ?? 'Sin modelo';
-    $machineCode = $machine->identifier_code ?? '---';
+        $brandName = $machine->brand?->name ?? 'Sin marca';
+        $modelName = $machine->model ?? 'Sin modelo';
+        $machineCode = $machine->identifier_code ?? '---';
 
-    $imageSources = collect(is_array($machine->photos) ? $machine->photos : [])
-    ->filter(fn ($photo): bool => filled($photo))
-    ->take(4)
-    ->map(function ($photo): ?string {
-    $source = trim((string) $photo);
+        $imageSource = null;
+        $photos = collect(is_array($machine->photos) ? $machine->photos : [])->filter(fn ($p) => filled($p))->first();
+        if ($photos) {
+            $source = trim((string) $photos);
+            if ($source !== '') {
+                if (\Illuminate\Support\Str::startsWith($source, ['http://', 'https://'])) {
+                    $imageSource = $source;
+                } else {
+                    $relativePath = ltrim($source, '/');
+                    $storagePath = public_path('storage/' . $relativePath);
+                    $imageSource = file_exists($storagePath) ? $storagePath : (file_exists(public_path($relativePath)) ? public_path($relativePath) : null);
+                }
+            }
+        }
 
-    if ($source === '') {
-    return null;
-    }
-
-    if (\Illuminate\Support\Str::startsWith($source, ['http://', 'https://'])) {
-    return $source;
-    }
-
-    $relativePath = ltrim($source, '/');
-    $storagePath = public_path('storage/' . $relativePath);
-
-    if (file_exists($storagePath)) {
-    return $storagePath;
-    }
-
-    $publicPath = public_path($relativePath);
-
-    return file_exists($publicPath) ? $publicPath : null;
-    })
-    ->filter()
-    ->values();
-
-    $specifications = [
-    [ucfirst(__('brand')), $brandName],
-    [ucfirst(__('model')), $modelName],
-    [ucfirst(__('work_hours')), number_format((int) ($machine->work_hours ?? 0), 0, ',', '.') . ' h'],
-    [ucfirst(__('identifier_code')), $machineCode],
-    ];
-
-    $description = trim(strip_tags((string) $machine->description));
+        $specifications = [
+            [ucfirst(__('brand')), $brandName],
+            [ucfirst(__('model')), $modelName],
+            [ucfirst(__('work_hours')), number_format((int) ($machine->work_hours ?? 0), 0, ',', '.') . ' h'],
+            [ucfirst(__('identifier_code')), $machineCode],
+        ];
     @endphp
 
     <table class="header">
@@ -293,25 +278,17 @@
         </p>
     </div>
 
-    @if($imageSources->isNotEmpty())
+    @if($imageSource)
     <p class="section-label">{{ ucfirst(__('photos')) }}</p>
 
     <table class="images">
-        @foreach($imageSources->chunk(2) as $row)
         <tr>
-            @foreach($row as $imageSource)
             <td>
                 <div class="image-frame">
                     <img src="{{ $imageSource }}" alt="{{ $modelName }}">
                 </div>
             </td>
-            @endforeach
-
-            @if($row->count() === 1)
-            <td></td>
-            @endif
         </tr>
-        @endforeach
     </table>
     @endif
 
@@ -324,15 +301,14 @@
         @endforeach
     </table>
 
-    @if($description !== '')
-    <p class="section-label">{{ ucfirst(__('description')) }}</p>
-    <div class="description">{!! nl2br(e($description)) !!}</div>
+    @if($machine->description)
+        <p class="section-label">{{ ucfirst(__('description')) }}</p>
+        <div class="description">{!! $machine->description !!}</div>
     @endif
 
     <table class="footer">
         <tr>
-            {{-- <td>{{ config('app.name') }}</td> --}}
-            <td>CasaQuiroga</td>
+            <td>{{ config('app.name') }}</td>
             <td class="footer-right">{{ ucfirst(__('created_at')) . ' ' . now()->format('d/m/Y') }}</td>
         </tr>
     </table>
