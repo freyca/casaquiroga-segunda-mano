@@ -30,20 +30,20 @@ enum IssueType: string implements HasColor, HasIcon, HasLabel
     public function getColor(): array
     {
         return match ($this) {
-            self::MISSING_ITEMS => Color::Red,
-            self::TRANSPORT_DAMAGE => Color::Red,
-            self::MALFUNCTION => Color::Red,
-            self::USAGE_QUESTION => Color::Red,
+            self::MISSING_ITEMS => Color::Orange,
+            self::TRANSPORT_DAMAGE => Color::Teal,
+            self::MALFUNCTION => Color::Pink,
+            self::USAGE_QUESTION => Color::Yellow,
         };
     }
 
     public function getIcon(): Heroicon
     {
         return match ($this) {
-            self::MISSING_ITEMS => Heroicon::LockClosed,
-            self::TRANSPORT_DAMAGE => Heroicon::LockClosed,
-            self::MALFUNCTION => Heroicon::LockClosed,
-            self::USAGE_QUESTION => Heroicon::LockClosed,
+            self::MISSING_ITEMS => Heroicon::Cog,
+            self::TRANSPORT_DAMAGE => Heroicon::Truck,
+            self::MALFUNCTION => Heroicon::Cog6Tooth,
+            self::USAGE_QUESTION => Heroicon::QuestionMarkCircle,
         };
     }
 }

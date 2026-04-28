@@ -26,7 +26,7 @@ enum IssuePriority: string implements HasColor, HasIcon, HasLabel
     public function getColor(): array
     {
         return match ($this) {
-            self::STANDARD => Color::Red,
+            self::STANDARD => Color::Blue,
             self::EXPRESS => Color::Red,
         };
     }
@@ -34,8 +34,8 @@ enum IssuePriority: string implements HasColor, HasIcon, HasLabel
     public function getIcon(): Heroicon
     {
         return match ($this) {
-            self::STANDARD => Heroicon::LockClosed,
-            self::EXPRESS => Heroicon::LockClosed,
+            self::STANDARD => Heroicon::CheckCircle,
+            self::EXPRESS => Heroicon::ArrowUpRight,
         };
     }
 }

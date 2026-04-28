@@ -32,6 +32,15 @@ final class UserForm
             TextInput::make('name')
                 ->label(ucfirst(__('name')))
                 ->required(),
+
+            TextInput::make('email')
+                ->label(ucfirst(__('email')))
+                ->email()
+                ->required(fn (string $context): bool => $context === 'create'),
+
+            TextInput::make('phone')
+                ->label(ucfirst(__('phone')))
+                ->tel(),
         ];
     }
 
@@ -43,15 +52,6 @@ final class UserForm
         return array_merge(
             self::baseFields(),
             [
-                TextInput::make('email')
-                    ->label(ucfirst(__('email')))
-                    ->email()
-                    ->required(fn (string $context): bool => $context === 'create'),
-
-                TextInput::make('phone')
-                    ->label(ucfirst(__('phone')))
-                    ->tel(),
-
                 TextInput::make('password')
                     ->label(ucfirst(__('password')))
                     ->password()

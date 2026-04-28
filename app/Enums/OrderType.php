@@ -26,16 +26,16 @@ enum OrderType: string implements HasColor, HasIcon, HasLabel
     public function getColor(): array
     {
         return match ($this) {
-            self::ORDER => Color::Red,
-            self::DELIVERY_NOTE => Color::Red,
+            self::ORDER => Color::Lime,
+            self::DELIVERY_NOTE => Color::Indigo,
         };
     }
 
     public function getIcon(): Heroicon
     {
         return match ($this) {
-            self::ORDER => Heroicon::LockClosed,
-            self::DELIVERY_NOTE => Heroicon::LockClosed,
+            self::ORDER => Heroicon::OutlinedReceiptPercent,
+            self::DELIVERY_NOTE => Heroicon::OutlinedDocument,
         };
     }
 }
