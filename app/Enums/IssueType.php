@@ -1,0 +1,49 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Enums;
+
+use Filament\Support\Colors\Color;
+use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasIcon;
+use Filament\Support\Contracts\HasLabel;
+use Filament\Support\Icons\Heroicon;
+
+enum IssueType: string implements HasColor, HasIcon, HasLabel
+{
+    case MISSING_ITEMS = 'missing_items';
+    case TRANSPORT_DAMAGE = 'transport_damage';
+    case MALFUNCTION = 'malfunction';
+    case USAGE_QUESTION = 'usage_question';
+
+    public function getLabel(): string
+    {
+        return match ($this) {
+            self::MISSING_ITEMS => ucfirst(__('missing items')),
+            self::TRANSPORT_DAMAGE => ucfirst(__('damage during transport')),
+            self::MALFUNCTION => ucfirst(__('malfunction')),
+            self::USAGE_QUESTION => ucfirst(__('usage question')),
+        };
+    }
+
+    public function getColor(): array
+    {
+        return match ($this) {
+            self::MISSING_ITEMS => Color::Red,
+            self::TRANSPORT_DAMAGE => Color::Red,
+            self::MALFUNCTION => Color::Red,
+            self::USAGE_QUESTION => Color::Red,
+        };
+    }
+
+    public function getIcon(): Heroicon
+    {
+        return match ($this) {
+            self::MISSING_ITEMS => Heroicon::LockClosed,
+            self::TRANSPORT_DAMAGE => Heroicon::LockClosed,
+            self::MALFUNCTION => Heroicon::LockClosed,
+            self::USAGE_QUESTION => Heroicon::LockClosed,
+        };
+    }
+}
