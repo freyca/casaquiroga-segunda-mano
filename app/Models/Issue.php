@@ -19,7 +19,7 @@ final class Issue extends Model
     /** @use HasFactory<IssueFactory> */
     use HasFactory;
 
-    public function customer(): BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
