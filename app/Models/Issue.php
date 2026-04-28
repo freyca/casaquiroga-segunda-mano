@@ -34,6 +34,11 @@ final class Issue extends Model
         return $this->belongsTo(Machine::class);
     }
 
+    public function notes()
+    {
+        return $this->hasMany(IssueNote::class);
+    }
+
     protected function casts(): array
     {
         return [
