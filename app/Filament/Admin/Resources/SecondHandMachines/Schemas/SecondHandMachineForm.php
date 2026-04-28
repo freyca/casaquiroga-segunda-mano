@@ -11,7 +11,6 @@ use App\Filament\Admin\Resources\Brands\Schemas\BrandForm;
 use App\Filament\Admin\Resources\Families\Schemas\FamilyForm;
 use App\Filament\Admin\Resources\Users\Schemas\UserForm;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -23,7 +22,6 @@ use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
 
 final class SecondHandMachineForm
@@ -188,51 +186,6 @@ final class SecondHandMachineForm
                     ])
                     ->columnSpanFull()
                     ->collapsible(),
-
-                Section::make(Str::ucfirst(__('product_notes')))
-                    ->label(Str::ucfirst(__('notes')))
-                    ->schema([
-                        Repeater::make('notes')
-                            ->label(Str::ucfirst(__('notes')))
-                            ->relationship()
-                            ->default([])
-                            ->addable(false)
-                            ->deletable(false)
-                            ->reorderable(false)
-                            ->schema([
-                                Select::make('user_id')
-                                    ->label(Str::ucfirst(__('user')))
-                                    ->relationship('user', 'name')
-                                    ->disabled(),
-
-                                TextInput::make('created_at')
-                                    ->label(Str::ucfirst(__('created_at')))
-                                    ->formatStateUsing(
-                                        fn (mixed $state): ?string => $state
-                                            ? Date::parse($state)->format('d-m-Y H:i') // @phpstan-ignore-line
-                                            : null
-                                    )
-                                    ->disabled(),
-
-                                TextInput::make('previous_state')
-                                    ->label(Str::ucfirst(__('previous_state')))
-                                    ->disabled()
-                                    ->formatStateUsing(fn (string $state) => SellStatus::tryFrom($state)?->getLabel()),
-
-                                TextInput::make('new_state')
-                                    ->label(Str::ucfirst(__('new_state')))
-                                    ->disabled()
-                                    ->formatStateUsing(fn (string $state) => SellStatus::tryFrom($state)?->getLabel()),
-
-                                Textarea::make('description')
-                                    ->label(Str::ucfirst(__('new_state')))
-                                    ->disabled()
-                                    ->columnSpanFull(),
-                            ])->columns(2),
-                    ])
-                    ->columnSpanFull()
-                    ->collapsible()
-                    ->hidden(fn (string $operation): bool => $operation === 'create'),
             ]);
     }
 }

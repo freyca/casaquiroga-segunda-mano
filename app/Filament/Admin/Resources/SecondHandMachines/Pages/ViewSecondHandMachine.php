@@ -5,19 +5,17 @@ declare(strict_types=1);
 namespace App\Filament\Admin\Resources\SecondHandMachines\Pages;
 
 use App\Filament\Admin\Resources\SecondHandMachines\SecondHandMachineResource;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\ViewAction;
-use Filament\Resources\Pages\EditRecord;
+use Filament\Actions\EditAction;
+use Filament\Resources\Pages\ViewRecord;
 
-final class EditSecondHandMachine extends EditRecord
+final class ViewSecondHandMachine extends ViewRecord
 {
     protected static string $resource = SecondHandMachineResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
-            ViewAction::make(),
-            DeleteAction::make(),
+            EditAction::make(),
         ];
     }
 }

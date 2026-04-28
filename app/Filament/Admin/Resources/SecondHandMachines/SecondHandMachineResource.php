@@ -7,7 +7,9 @@ namespace App\Filament\Admin\Resources\SecondHandMachines;
 use App\Filament\Admin\Resources\SecondHandMachines\Pages\CreateSecondHandMachine;
 use App\Filament\Admin\Resources\SecondHandMachines\Pages\EditSecondHandMachine;
 use App\Filament\Admin\Resources\SecondHandMachines\Pages\ListSecondHandMachines;
+use App\Filament\Admin\Resources\SecondHandMachines\Pages\ViewSecondHandMachine;
 use App\Filament\Admin\Resources\SecondHandMachines\Schemas\SecondHandMachineForm;
+use App\Filament\Admin\Resources\SecondHandMachines\Schemas\SecondHandMachineInfolist;
 use App\Filament\Admin\Resources\SecondHandMachines\Tables\SecondHandMachinesTable;
 use App\Models\SecondHandMachine;
 use BackedEnum;
@@ -55,6 +57,11 @@ final class SecondHandMachineResource extends Resource
         return SecondHandMachinesTable::configure($table);
     }
 
+    public static function infolist(Schema $schema): Schema
+    {
+        return SecondHandMachineInfolist::configure($schema);
+    }
+
     public static function getRelations(): array
     {
         return [];
@@ -65,6 +72,7 @@ final class SecondHandMachineResource extends Resource
         return [
             'index' => ListSecondHandMachines::route('/'),
             'create' => CreateSecondHandMachine::route('/create'),
+            'view' => ViewSecondHandMachine::route('/{record}'),
             'edit' => EditSecondHandMachine::route('/{record}/edit'),
         ];
     }
