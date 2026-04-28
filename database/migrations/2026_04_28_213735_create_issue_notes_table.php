@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('issue_notes', function (Blueprint $table): void {
             $table->id();
-            $table->foreignId('issue_id')->constrained()->nullOnDelete();
+            $table->foreignId('issue_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
             $table->text('reason');
             $table->timestamps();
