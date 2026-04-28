@@ -17,7 +17,7 @@ final class EditIssue extends EditRecord
     protected function mutateFormDataBeforeSave(array $data): array
     {
         /** @var Order */
-        $order = $this->record->order;
+        $order = $this->record->order; // @phpstan-ignore-line
 
         $order->update([
             'type' => $data['order_type'],

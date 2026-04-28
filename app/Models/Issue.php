@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[Fillable(['user_id', 'order_id', 'machine_id', 'priority', 'status', 'type', 'description', 'just_arrived', 'observations', 'images'])]
 final class Issue extends Model
@@ -19,22 +20,34 @@ final class Issue extends Model
     /** @use HasFactory<IssueFactory> */
     use HasFactory;
 
+    /**
+     * @return BelongsTo<User, $this>
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * @return BelongsTo<Order, $this>
+     */
     public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);
     }
 
+    /**
+     * @return BelongsTo<Machine, $this>
+     */
     public function machine(): BelongsTo
     {
         return $this->belongsTo(Machine::class);
     }
 
-    public function notes()
+    /**
+     * @return HasMany<IssueNote, $this>
+     */
+    public function notes(): HasMany
     {
         return $this->hasMany(IssueNote::class);
     }

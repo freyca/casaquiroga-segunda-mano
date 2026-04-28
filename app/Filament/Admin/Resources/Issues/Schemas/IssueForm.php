@@ -10,6 +10,8 @@ use App\Enums\IssueType;
 use App\Enums\OrderType;
 use App\Filament\Admin\Resources\Machines\Schemas\MachineForm;
 use App\Filament\Admin\Resources\Users\Schemas\UserForm;
+use App\Models\Issue;
+use App\Models\Order;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
@@ -19,6 +21,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\Str;
@@ -38,10 +41,15 @@ final class IssueForm
                             ->label('Number')
                             ->required()
                             ->disabled(fn (string $context): bool => $context !== 'create')
-                            ->afterStateHydrated(function ($set, $record): void {
-                                if ($record?->order) {
-                                    $set('order_number', $record->order->number);
+                            ->afterStateHydrated(function (Set $set, ?Issue $record): void {
+                                if (! $record instanceof Issue) {
+                                    return;
                                 }
+
+                                /** @var Order */
+                                $order = $record->order;
+
+                                $set('order_number', $order->number);
                             }),
 
                         ToggleButtons::make('order_type')
@@ -49,10 +57,15 @@ final class IssueForm
                             ->options(OrderType::class)
                             ->inline()
                             ->required()
-                            ->afterStateHydrated(function ($set, $record): void {
-                                if ($record?->order) {
-                                    $set('order_type', $record->order->type);
+                            ->afterStateHydrated(function (Set $set, ?Issue $record): void {
+                                if (! $record instanceof Issue) {
+                                    return;
                                 }
+
+                                /** @var Order */
+                                $order = $record->order;
+
+                                $set('order_type', $order->type);
                             }),
                     ])
                     ->collapsible(),
