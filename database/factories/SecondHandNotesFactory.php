@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Enums\SellStatus;
-use App\Models\Notes;
+use App\Models\SecondHandNotes;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Notes>
+ * @extends Factory<SecondHandNotes>
  */
-final class NotesFactory extends Factory
+final class SecondHandNotesFactory extends Factory
 {
     /**
      * Define the model's default state.

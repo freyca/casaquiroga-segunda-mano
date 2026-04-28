@@ -9,8 +9,8 @@ use App\Enums\SellStatus;
 use App\Enums\Tax;
 use App\Models\Brand;
 use App\Models\Family;
-use App\Models\Notes;
 use App\Models\SecondHandMachine;
+use App\Models\SecondHandNotes;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -84,7 +84,7 @@ final class SecondHandMachineFactory extends Factory
             }
 
             foreach ($users as $userId) {
-                Notes::factory()->create([
+                SecondHandNotes::factory()->create([
                     'second_hand_machine_id' => $machine->id,
                     'user_id' => $userId,
                 ]);

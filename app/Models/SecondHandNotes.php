@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\SellStatus;
-use Database\Factories\NotesFactory;
+use Database\Factories\SecondHandNotesFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 #[Fillable(['description', 'user_id', 'second_hand_machine_id', 'previous_state', 'new_state'])]
-final class Notes extends Model
+final class SecondHandNotes extends Model
 {
-    /** @use HasFactory<NotesFactory> */
+    /** @use HasFactory<SecondHandNotesFactory> */
     use HasFactory;
 
     protected $casts = [

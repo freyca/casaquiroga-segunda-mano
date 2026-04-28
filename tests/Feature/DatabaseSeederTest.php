@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use App\Models\Brand;
 use App\Models\Family;
-use App\Models\Notes;
+use App\Models\SecondHandNotes;
 use App\Models\SecondHandMachine;
 use App\Models\User;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
@@ -17,7 +17,7 @@ describe('DatabaseSeeder', function (): void {
 
         expect(User::query()->count())->toBeGreaterThan(0);
         expect(SecondHandMachine::query()->count())->toBeGreaterThan(0);
-        expect(Notes::query()->count())->toBeGreaterThan(0);
+        expect(SecondHandNotes::query()->count())->toBeGreaterThan(0);
         expect(Brand::query()->count())->toBeGreaterThan(0);
         expect(Family::query()->count())->toBeGreaterThan(0);
     });
