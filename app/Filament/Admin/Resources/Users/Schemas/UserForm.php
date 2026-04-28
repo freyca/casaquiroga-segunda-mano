@@ -48,6 +48,10 @@ final class UserForm
                     ->email()
                     ->required(fn (string $context): bool => $context === 'create'),
 
+                TextInput::make('phone')
+                    ->label(ucfirst(__('phone')))
+                    ->tel(),
+
                 TextInput::make('password')
                     ->label(ucfirst(__('password')))
                     ->password()
