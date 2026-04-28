@@ -9,6 +9,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
 
 final class SecondHandMachinesTable
 {
@@ -17,41 +18,41 @@ final class SecondHandMachinesTable
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label(ucfirst(__('name')))
+                    ->label(Str::ucfirst(__('name')))
                     ->limit(20)
                     ->tooltip(fn (string $state): string => $state)
                     ->searchable(),
 
                 TextColumn::make('purchase_cost')
-                    ->label(ucfirst(__('purchase_cost')))
+                    ->label(Str::ucfirst(__('purchase_cost')))
                     ->money('EUR')
                     ->sortable(),
 
                 TextColumn::make('selling_price')
-                    ->label(ucfirst(__('selling_price')))
+                    ->label(Str::ucfirst(__('selling_price')))
                     ->money('EUR')
                     ->sortable(),
 
                 TextColumn::make('family.name')
-                    ->label(ucfirst(__('family')))
+                    ->label(Str::ucfirst(__('family')))
                     ->limit(20)
                     ->tooltip(fn (string $state): string => $state)
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('brand.name')
-                    ->label(ucfirst(__('brand')))
+                    ->label(Str::ucfirst(__('brand')))
                     ->limit(20)
                     ->tooltip(fn (string $state): string => $state)
                     ->sortable()
                     ->searchable(),
 
                 TextColumn::make('tax')
-                    ->label(ucfirst(__('tax')))
+                    ->label(Str::ucfirst(__('tax')))
                     ->badge(),
 
                 TextColumn::make('sell_status')
-                    ->label(ucfirst(__('sell_status')))
+                    ->label(Str::ucfirst(__('sell_status')))
                     ->sortable()
                     ->badge()
                     ->searchable(),

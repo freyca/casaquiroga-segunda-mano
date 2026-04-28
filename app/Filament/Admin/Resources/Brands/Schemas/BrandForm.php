@@ -6,6 +6,7 @@ namespace App\Filament\Admin\Resources\Brands\Schemas;
 
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Str;
 
 final class BrandForm
 {
@@ -14,7 +15,7 @@ final class BrandForm
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->label(ucfirst(__('name')))
+                    ->label(Str::ucfirst(__('name')))
                     ->required(),
             ]);
     }

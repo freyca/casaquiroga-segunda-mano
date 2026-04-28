@@ -9,6 +9,7 @@ use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasIcon;
 use Filament\Support\Contracts\HasLabel;
 use Filament\Support\Icons\Heroicon;
+use Illuminate\Support\Str;
 
 enum OrderType: string implements HasColor, HasIcon, HasLabel
 {
@@ -18,8 +19,8 @@ enum OrderType: string implements HasColor, HasIcon, HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            self::ORDER => ucfirst(__('order')),
-            self::DELIVERY_NOTE => ucfirst(__('delivery note')),
+            self::ORDER => Str::ucfirst(__('order')),
+            self::DELIVERY_NOTE => Str::ucfirst(__('delivery note')),
         };
     }
 

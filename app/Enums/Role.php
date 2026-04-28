@@ -9,6 +9,7 @@ use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasIcon;
 use Filament\Support\Contracts\HasLabel;
 use Filament\Support\Icons\Heroicon;
+use Illuminate\Support\Str;
 
 enum Role: string implements HasColor, HasIcon, HasLabel
 {
@@ -19,9 +20,9 @@ enum Role: string implements HasColor, HasIcon, HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            Role::Admin => ucfirst(__('admin')),
-            Role::Employee => ucfirst(__('employee')),
-            Role::User => ucfirst(__('user')),
+            Role::Admin => Str::ucfirst(__('admin')),
+            Role::Employee => Str::ucfirst(__('employee')),
+            Role::User => Str::ucfirst(__('user')),
         };
     }
 

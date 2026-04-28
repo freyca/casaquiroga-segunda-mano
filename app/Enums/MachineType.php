@@ -9,6 +9,7 @@ use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasIcon;
 use Filament\Support\Contracts\HasLabel;
 use Filament\Support\Icons\Heroicon;
+use Illuminate\Support\Str;
 
 enum MachineType: string implements HasColor, HasIcon, HasLabel
 {
@@ -23,13 +24,13 @@ enum MachineType: string implements HasColor, HasIcon, HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            self::WOOD_CHIPPER => ucfirst(__('wood chipper')),
-            self::LAWN_MOWER => ucfirst(__('lawn mower')),
-            self::BRUSHCUTTER => ucfirst(__('brushcutter')),
-            self::TILLER => ucfirst(__('tiller / cultivator')),
-            self::ROBOT_LAWN_MOWER => ucfirst(__('robot lawn mower')),
-            self::RIDE_ON_LAWN_MOWER => ucfirst(__('ride-on lawn mower')),
-            self::OTHER => ucfirst(__('other')),
+            self::WOOD_CHIPPER => Str::ucfirst(__('wood chipper')),
+            self::LAWN_MOWER => Str::ucfirst(__('lawn mower')),
+            self::BRUSHCUTTER => Str::ucfirst(__('brushcutter')),
+            self::TILLER => Str::ucfirst(__('tiller / cultivator')),
+            self::ROBOT_LAWN_MOWER => Str::ucfirst(__('robot lawn mower')),
+            self::RIDE_ON_LAWN_MOWER => Str::ucfirst(__('ride-on lawn mower')),
+            self::OTHER => Str::ucfirst(__('other')),
         };
     }
 

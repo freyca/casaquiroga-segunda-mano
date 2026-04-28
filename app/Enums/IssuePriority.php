@@ -9,6 +9,7 @@ use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasIcon;
 use Filament\Support\Contracts\HasLabel;
 use Filament\Support\Icons\Heroicon;
+use Illuminate\Support\Str;
 
 enum IssuePriority: string implements HasColor, HasIcon, HasLabel
 {
@@ -18,8 +19,8 @@ enum IssuePriority: string implements HasColor, HasIcon, HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            self::STANDARD => ucfirst(__('standard')),
-            self::EXPRESS => ucfirst(__('express')),
+            self::STANDARD => Str::ucfirst(__('standard')),
+            self::EXPRESS => Str::ucfirst(__('express')),
         };
     }
 

@@ -57,7 +57,7 @@ final class IssueForm
                     ])
                     ->collapsible(),
 
-                Section::make(ucfirst(__('customer')))
+                Section::make(Str::ucfirst(__('customer')))
                     ->collapsible()
                     ->schema([
                         Select::make('user_id')
@@ -71,7 +71,7 @@ final class IssueForm
                             ),
                     ]),
 
-                Section::make(ucfirst(__('machine')))
+                Section::make(Str::ucfirst(__('machine')))
                     ->columnSpanFull()
                     ->collapsible()
                     ->schema([
@@ -91,12 +91,12 @@ final class IssueForm
                             ->columns(2)
                             ->schema([
                                 Toggle::make('just_arrived')
-                                    ->label(ucfirst(__('just arrived')))
+                                    ->label(Str::ucfirst(__('just arrived')))
                                     ->inline(false)
                                     ->required(),
 
                                 ToggleButtons::make('priority')
-                                    ->label(ucfirst(__('issue priority')))
+                                    ->label(Str::ucfirst(__('issue priority')))
                                     ->inline()
                                     ->default(IssuePriority::STANDARD)
                                     ->options(IssuePriority::class)
@@ -104,14 +104,14 @@ final class IssueForm
                             ]),
 
                         ToggleButtons::make('status')
-                            ->label(ucfirst(__('issue status')))
+                            ->label(Str::ucfirst(__('issue status')))
                             ->inline()
                             ->default(IssueStatus::CREATED)
                             ->options(IssueStatus::class)
                             ->required(),
 
                         ToggleButtons::make('type')
-                            ->label(ucfirst(__('issue type')))
+                            ->label(Str::ucfirst(__('issue type')))
                             ->inline()
                             ->options(IssueType::class)
                             ->required(),

@@ -68,7 +68,7 @@ $hasImages = !empty($imagesArray);
 @if(!$hasImages)
 <div class="machine-slider-empty w-full flex flex-col items-center justify-center gap-3 rounded-3xl" style="height:600px;">
     <x-heroicon-o-photo class="w-16 h-16" />
-    <span class="text-sm font-medium">{{ ucfirst('no ' . __('photos')) }}</span>
+    <span class="text-sm font-medium">{{ \Illuminate\Support\Str::ucfirst('no ' . __('photos')) }}</span>
 </div>
 @else
 <div x-data="{

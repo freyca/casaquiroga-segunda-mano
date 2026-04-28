@@ -15,6 +15,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
 
 final class BrandResource extends Resource
 {
@@ -26,22 +27,22 @@ final class BrandResource extends Resource
 
     public static function getNavigationGroup(): string
     {
-        return ucfirst(__('machines_management'));
+        return Str::ucfirst(__('machines_management'));
     }
 
     public static function getNavigationLabel(): string
     {
-        return ucfirst(__('brand'));
+        return Str::ucfirst(__('brand'));
     }
 
     public static function getLabel(): string
     {
-        return ucfirst(__('brand'));
+        return Str::ucfirst(__('brand'));
     }
 
     public static function getPluralLabel(): string
     {
-        return ucfirst(__('brands'));
+        return Str::ucfirst(__('brands'));
     }
 
     public static function form(Schema $schema): Schema

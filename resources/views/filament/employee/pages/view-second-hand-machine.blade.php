@@ -45,18 +45,18 @@
         <div class="flex flex-col gap-4">
             <div class="fade-in self-start" style="animation-delay: var(--anim-badge);">
                 <x-filament::badge :color="$record->sell_status->getColor()" size="sm">
-                    {{ ucfirst(__($record->sell_status->getLabel())) }}
+                    {{ \Illuminate\Support\Str::ucfirst(__($record->sell_status->getLabel())) }}
                 </x-filament::badge>
             </div>
 
             <div class="fade-up" style="animation-delay: var(--anim-titulo);">
                 <h1 class="text-5xl font-bold leading-tight tracking-tight">
-                    {{ ucfirst($record->name) }}
+                    {{ \Illuminate\Support\Str::ucfirst($record->name) }}
                 </h1>
             </div>
 
             <x-filament::card class="fade-up p-5" style="animation-delay: var(--anim-precio);">
-                <p class="text-xs font-semibold uppercase tracking-widest mb-1">{{ ucfirst(__('selling_price'))}}</p>
+                <p class="text-xs font-semibold uppercase tracking-widest mb-1">{{ \Illuminate\Support\Str::ucfirst(__('selling_price'))}}</p>
                 <p class="text-4xl font-bold leading-none">
                     {{ number_format($record->selling_price, 0, ',', '.') }}
                     <span class="text-xl font-normal">€</span>
@@ -64,15 +64,15 @@
             </x-filament::card>
 
             <div class="grid grid-cols-2 gap-3 fade-up" style="animation-delay: var(--anim-specs);">
-                <x-secondhandmachines.bento-spec label="{{ ucfirst(__('brand')) }}" :value="$record->brand?->name ?? 'Sin marca'" delay="0" />
-                <x-secondhandmachines.bento-spec label="{{ ucfirst(__('model')) }}" :value="$record->model ?? '—'" delay="100" />
-                <x-secondhandmachines.bento-spec label="{{ ucfirst(__('work_hours')) }}" :value="number_format($record->work_hours ?? 0, 0, ',', '.') . ' h'" delay="200" />
-                <x-secondhandmachines.bento-spec label="{{ ucfirst(__('identifier_code')) }}" :value="$record->identifier_code ?? '—'" mono delay="300" />
+                <x-secondhandmachines.bento-spec label="{{ \Illuminate\Support\Str::ucfirst(__('brand')) }}" :value="$record->brand?->name ?? 'Sin marca'" delay="0" />
+                <x-secondhandmachines.bento-spec label="{{ \Illuminate\Support\Str::ucfirst(__('model')) }}" :value="$record->model ?? '—'" delay="100" />
+                <x-secondhandmachines.bento-spec label="{{ \Illuminate\Support\Str::ucfirst(__('work_hours')) }}" :value="number_format($record->work_hours ?? 0, 0, ',', '.') . ' h'" delay="200" />
+                <x-secondhandmachines.bento-spec label="{{ \Illuminate\Support\Str::ucfirst(__('identifier_code')) }}" :value="$record->identifier_code ?? '—'" mono delay="300" />
             </div>
 
             @if($record->description)
             <x-filament::card class="fade-up p-5" style="animation-delay: var(--anim-desc); animation-fill-mode: both;">
-                <p class="text-[10px] font-semibold uppercase tracking-widest opacity-70 mb-2">{{ ucfirst(__('description')) }}</p>
+                <p class="text-[10px] font-semibold uppercase tracking-widest opacity-70 mb-2">{{ \Illuminate\Support\Str::ucfirst(__('description')) }}</p>
                 <p class="text-sm leading-relaxed">{!! $record->description !!}</p>
             </x-filament::card>
             @endif

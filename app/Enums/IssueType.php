@@ -9,6 +9,7 @@ use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasIcon;
 use Filament\Support\Contracts\HasLabel;
 use Filament\Support\Icons\Heroicon;
+use Illuminate\Support\Str;
 
 enum IssueType: string implements HasColor, HasIcon, HasLabel
 {
@@ -20,10 +21,10 @@ enum IssueType: string implements HasColor, HasIcon, HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            self::MISSING_ITEMS => ucfirst(__('missing items')),
-            self::TRANSPORT_DAMAGE => ucfirst(__('damage during transport')),
-            self::MALFUNCTION => ucfirst(__('malfunction')),
-            self::USAGE_QUESTION => ucfirst(__('usage question')),
+            self::MISSING_ITEMS => Str::ucfirst(__('missing items')),
+            self::TRANSPORT_DAMAGE => Str::ucfirst(__('damage during transport')),
+            self::MALFUNCTION => Str::ucfirst(__('malfunction')),
+            self::USAGE_QUESTION => Str::ucfirst(__('usage question')),
         };
     }
 

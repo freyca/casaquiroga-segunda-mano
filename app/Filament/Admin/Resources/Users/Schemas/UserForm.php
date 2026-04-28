@@ -10,6 +10,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Component;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 final class UserForm
 {
@@ -30,16 +31,16 @@ final class UserForm
     {
         return [
             TextInput::make('name')
-                ->label(ucfirst(__('name')))
+                ->label(Str::ucfirst(__('name')))
                 ->required(),
 
             TextInput::make('email')
-                ->label(ucfirst(__('email')))
+                ->label(Str::ucfirst(__('email')))
                 ->email()
                 ->required(fn (string $context): bool => $context === 'create'),
 
             TextInput::make('phone')
-                ->label(ucfirst(__('phone')))
+                ->label(Str::ucfirst(__('phone')))
                 ->tel(),
         ];
     }
@@ -53,14 +54,14 @@ final class UserForm
             self::baseFields(),
             [
                 TextInput::make('password')
-                    ->label(ucfirst(__('password')))
+                    ->label(Str::ucfirst(__('password')))
                     ->password()
                     ->dehydrated(fn (mixed $state): bool => filled($state))
                     ->dehydrateStateUsing(fn (?string $state) => filled($state) ? Hash::make($state) : null)
                     ->required(fn (string $context): bool => $context === 'create'),
 
                 Select::make('role')
-                    ->label(ucfirst(__('role')))
+                    ->label(Str::ucfirst(__('role')))
                     ->options(Role::class)
                     ->default(Role::User)
                     ->required(),

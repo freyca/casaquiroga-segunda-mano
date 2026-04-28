@@ -8,6 +8,7 @@ use App\Enums\SellStatus;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Str;
 
 final class SecondHandMachineForm
 {
@@ -16,13 +17,13 @@ final class SecondHandMachineForm
         return $schema
             ->components([
                 ToggleButtons::make('sell_status')
-                    ->label(ucfirst(__('sell_status')))
+                    ->label(Str::ucfirst(__('sell_status')))
                     ->options(SellStatus::class)
                     ->required()
                     ->inline(),
 
                 Textarea::make('note_description')
-                    ->label(ucfirst(__('note')))
+                    ->label(Str::ucfirst(__('note')))
                     ->required(),
             ])->columns(1);
     }

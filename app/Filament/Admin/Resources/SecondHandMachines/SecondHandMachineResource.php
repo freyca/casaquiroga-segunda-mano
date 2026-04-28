@@ -15,6 +15,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
 
 final class SecondHandMachineResource extends Resource
 {
@@ -26,22 +27,22 @@ final class SecondHandMachineResource extends Resource
 
     public static function getNavigationGroup(): string
     {
-        return ucfirst(__('machines_management'));
+        return Str::ucfirst(__('machines_management'));
     }
 
     public static function getNavigationLabel(): string
     {
-        return ucfirst(__('second_hand_machine'));
+        return Str::ucfirst(__('second_hand_machine'));
     }
 
     public static function getLabel(): string
     {
-        return ucfirst(__('second_hand_machine'));
+        return Str::ucfirst(__('second_hand_machine'));
     }
 
     public static function getPluralLabel(): string
     {
-        return ucfirst(__('second_hand_machines'));
+        return Str::ucfirst(__('second_hand_machines'));
     }
 
     public static function form(Schema $schema): Schema

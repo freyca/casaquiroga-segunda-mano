@@ -22,7 +22,7 @@ final class MachineForm
                     ->inline()
                     ->required(),
                 TextInput::make('name')
-                    ->label(ucfirst(__('name')))
+                    ->label(Str::ucfirst(__('name')))
                     ->required(),
             ]);
     }
