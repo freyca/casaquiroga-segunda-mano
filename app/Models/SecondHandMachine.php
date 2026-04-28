@@ -81,10 +81,10 @@ final class SecondHandMachine extends Model
     }
 
     /**
-     * @return HasMany<SecondHandNotes, $this>
+     * @return HasMany<SecondHandMachineNotes, $this>
      */
     public function notes(): HasMany
     {
-        return $this->hasMany(SecondHandNotes::class);
+        return $this->hasMany(SecondHandMachineNotes::class);
     }
 }

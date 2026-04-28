@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::rename('notes', 'second_hand_notes');
+        Schema::rename('notes', 'second_hand_machine_notes');
     }
 
     /**
@@ -20,6 +20,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::rename('second_hand_notes', 'notes');
+        Schema::rename('second_hand_machine_notes', 'notes');
     }
 };
