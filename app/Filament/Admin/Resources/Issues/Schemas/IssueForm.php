@@ -77,6 +77,7 @@ final class IssueForm
                             ->relationship('user', 'email')
                             ->required()
                             ->prefixIcon(Heroicon::User)
+                            ->searchable()
                             ->createOptionForm(
                                 UserForm::partialConfigure(
                                     Schema::make()
