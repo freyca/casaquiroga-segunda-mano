@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Admin\Resources\Issues\Pages;
 
 use App\Enums\IssueStatus;
+use App\Enums\Role;
 use App\Filament\Admin\Resources\Issues\IssueResource;
 use App\Models\IssueNote;
 use Filament\Actions\Action;
@@ -22,7 +23,7 @@ final class ViewIssue extends ViewRecord
     {
         $actions = [];
 
-        if (filament()->getCurrentPanel()->getId() === 'admin') {
+        if (auth()->user()?->role === Role::Admin) {
             $actions[] = EditAction::make();
         }
 

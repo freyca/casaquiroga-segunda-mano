@@ -19,7 +19,6 @@ final class EditIssue extends EditRecord
         abort_if(! $order, 404, 'Order not found.');
 
         $order->update([
-            'number' => $data['order_number'],
             'type' => $data['order_type'],
         ]);
 
