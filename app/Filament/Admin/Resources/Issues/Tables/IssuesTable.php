@@ -15,6 +15,10 @@ final class IssuesTable
     {
         return $table
             ->columns([
+                TextColumn::make('reference_number')
+                    ->label(Str::ucfirst(__('app.reference_number_short')))
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('customer.email')
                     ->label(Str::ucfirst(__('app.customer')))
                     ->sortable()

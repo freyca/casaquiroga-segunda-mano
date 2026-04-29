@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Actions\UniqueReferenceNumber;
 use App\Enums\IssuePriority;
 use App\Enums\IssueStatus;
 use App\Enums\IssueType;
@@ -14,7 +15,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable(['customer_id', 'created_by', 'order_id', 'machine_id', 'priority', 'status', 'type', 'description', 'just_arrived', 'observations', 'images'])]
+#[Fillable([
+    'customer_id',
+    'created_by',
+    'order_id',
+    'machine_id',
+    'priority',
+    'status',
+    'type',
+    'description',
+    'just_arrived',
+    'observations',
+    'images',
+    'reference_number',
+])]
 final class Issue extends Model
 {
     /** @use HasFactory<IssueFactory> */
@@ -58,6 +72,15 @@ final class Issue extends Model
     public function notes(): HasMany
     {
         return $this->hasMany(IssueNote::class);
+    }
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        self::creating(function (self $issue): void {
+            $issue->reference_number = UniqueReferenceNumber::create('SAT');
+        });
     }
 
     protected function casts(): array

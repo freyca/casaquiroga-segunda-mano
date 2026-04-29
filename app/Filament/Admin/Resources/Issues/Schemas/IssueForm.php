@@ -31,6 +31,13 @@ final class IssueForm
     {
         return $schema
             ->components([
+                TextInput::make('reference_number')
+                    ->label(Str::ucfirst(__('app.reference_number')))
+                    ->disabled()
+                    ->columnSpanFull()
+                    ->copyable()
+                    ->hiddenOn('create'),
+
                 Section::make(Str::ucfirst(__('app.order')))
                     ->schema([
                         Hidden::make('order_id'),

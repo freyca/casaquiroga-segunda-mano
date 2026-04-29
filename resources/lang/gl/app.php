@@ -68,4 +68,6 @@ return [
     'machine' => 'máquina',
     'order_number' => 'número de pedido',
     'observations' => 'observacións',
+    'reference_number_short' => 'ref.',
+    'reference_number' => 'número de referencia',
 ];

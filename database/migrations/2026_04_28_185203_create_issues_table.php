@@ -25,6 +25,7 @@ return new class extends Migration
             $table->foreignId('machine_id')->constrained();
 
             // Fields
+            $table->string('reference_number')->unique();
             $table->string('type');
             $table->string('priority')->default(IssuePriority::STANDARD->value);
             $table->string('status')->default(IssueStatus::CREATED->value);

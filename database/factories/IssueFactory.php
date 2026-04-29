@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Actions\UniqueReferenceNumber;
 use App\Enums\IssuePriority;
 use App\Enums\IssueStatus;
 use App\Enums\IssueType;
@@ -46,6 +47,8 @@ final class IssueFactory extends Factory
                 'image2.jpg',
                 'image3.jpg',
             ], $this->faker->numberBetween(0, 3)),
+
+            'reference_number' => UniqueReferenceNumber::create('SAT'),
         ];
     }
 

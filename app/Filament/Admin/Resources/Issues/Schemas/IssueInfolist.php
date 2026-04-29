@@ -19,6 +19,13 @@ final class IssueInfolist
     {
         return $schema
             ->components([
+                TextEntry::make('reference_number')
+                    ->label(Str::ucfirst(__('app.reference_number')))
+                    ->size('lg')
+                    ->weight('bold')
+                    ->copyable()
+                    ->columnSpanFull(),
+
                 Section::make(Str::ucfirst(__('app.basic_information')))
                     ->schema([
                         TextEntry::make('customer.email')
