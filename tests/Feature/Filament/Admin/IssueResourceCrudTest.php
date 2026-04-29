@@ -35,7 +35,7 @@ describe('IssueResource', function (): void {
     it('can create an issue', function (): void {
         $user = User::factory()->user()->create();
         $machine = Machine::factory()->create();
-        $orderNumber = 'TEST-' . Str::random(5);
+        $orderNumber = 'TEST-'.Str::random(5);
 
         livewire(CreateIssue::class)
             ->fillForm([
@@ -72,7 +72,7 @@ describe('IssueResource', function (): void {
 
         livewire(CreateIssue::class)
             ->fillForm([
-                'order_number' => 'TXN-TEST-' . Str::random(5),
+                'order_number' => 'TXN-TEST-'.Str::random(5),
                 'order_type' => OrderType::ORDER,
                 'user_id' => $user->id,
                 'machine_id' => $machine->id,
