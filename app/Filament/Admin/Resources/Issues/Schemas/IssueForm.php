@@ -145,6 +145,9 @@ final class IssueForm
                             ->columnSpanFull(),
                         FileUpload::make('images')
                             ->label(Str::ucfirst(__('images')))
+                            ->directory('issues/images')
+                            ->visibility('public')
+                            ->panelLayout('grid')
                             ->columnSpanFull(),
                     ]),
             ]);

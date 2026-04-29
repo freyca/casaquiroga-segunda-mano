@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Admin\Resources\Issues\Schemas;
 
 use Filament\Infolists\Components\IconEntry;
+use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
@@ -82,7 +83,7 @@ final class IssueInfolist
                         TextEntry::make('observations')
                             ->placeholder('-'),
 
-                        TextEntry::make('images')
+                        ImageEntry::make('images')
                             ->placeholder('-'),
                     ])
                     ->collapsible(),
