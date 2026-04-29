@@ -7,7 +7,9 @@ namespace Database\Factories;
 use App\Enums\IssuePriority;
 use App\Enums\IssueStatus;
 use App\Enums\IssueType;
+use App\Enums\Role;
 use App\Models\Issue;
+use App\Models\IssueNote;
 use App\Models\Machine;
 use App\Models\Order;
 use App\Models\User;
@@ -44,5 +46,31 @@ final class IssueFactory extends Factory
                 'image3.jpg',
             ], $this->faker->numberBetween(0, 3)),
         ];
+    }
+
+    public function configure(): static
+    {
+        return $this->afterCreating(function (Issue $issue): void {
+
+            $users = User::query()
+                ->where('role', Role::Employee)
+                ->inRandomOrder()
+                ->take(2)
+                ->pluck('id');
+
+            // If not enough users exist, create them
+            while ($users->count() < 2) {
+                $users->push(
+                    User::factory()->employee()->create()->id
+                );
+            }
+
+            foreach ($users as $userId) {
+                IssueNote::factory()->create([
+                    'issue_id' => $issue->id,
+                    'user_id' => $userId,
+                ]);
+            }
+        });
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Models\Issue;
+use App\Enums\IssueStatus;
 use App\Models\IssueNote;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -21,10 +21,21 @@ final class IssueNoteFactory extends Factory
      */
     public function definition(): array
     {
+        $previous = $this->faker->randomElement(IssueStatus::cases());
+
+        $new = $this->faker->randomElement(
+            array_filter(
+                IssueStatus::cases(),
+                fn (IssueStatus $case): bool => $case !== $previous
+            )
+        );
+
         return [
-            'issue_id' => Issue::factory(),
+            'issue_id' => null,
             'user_id' => User::factory()->admin(),
-            'text' => $this->faker->paragraphs(2, true),
+            'description' => $this->faker->paragraphs(2, true),
+            'previous_state' => $previous,
+            'new_state' => $new,
         ];
     }
 }
