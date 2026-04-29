@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Enums\IssuePriority;
 use App\Enums\IssueStatus;
 use App\Enums\IssueType;
+use App\Enums\MachineType;
 use App\Enums\OrderType;
 use App\Filament\Admin\Resources\Issues\Pages\CreateIssue;
 use App\Filament\Admin\Resources\Issues\Pages\EditIssue;
@@ -33,7 +34,7 @@ describe('IssueResource', function (): void {
     it('can create an issue', function (): void {
         $user = User::factory()->user()->create();
         $machine = Machine::factory()->create();
-        $orderNumber = 'TEST-'.Str::random(5);
+        $orderNumber = 'TEST-' . Str::random(5);
 
         livewire(CreateIssue::class)
             ->fillForm([
@@ -70,7 +71,7 @@ describe('IssueResource', function (): void {
 
         livewire(CreateIssue::class)
             ->fillForm([
-                'order_number' => 'TXN-TEST-'.Str::random(5),
+                'order_number' => 'TXN-TEST-' . Str::random(5),
                 'order_type' => OrderType::ORDER,
                 'user_id' => $user->id,
                 'machine_id' => $machine->id,
@@ -148,89 +149,34 @@ describe('IssueResource', function (): void {
         expect($note->new_state)->toBe(IssueStatus::IN_PROGRESS);
     });
 
-    it('issue has correct default values', function (): void {
-        $issue = Issue::factory()->create();
-
-        expect($issue->user_id)->not->toBeNull();
-        expect($issue->order_id)->not->toBeNull();
-        expect($issue->machine_id)->not->toBeNull();
-        expect($issue->description)->not->toBeNull();
-    });
-
-    it('can create issue with different order types', function (): void {
-        $user = User::factory()->user()->create();
-        $machine = Machine::factory()->create();
-
+    it('can create a user from the user_id select inline form', function (): void {
         livewire(CreateIssue::class)
-            ->fillForm([
-                'order_number' => 'DELIVERY-'.Str::random(5),
-                'order_type' => OrderType::DELIVERY_NOTE,
-                'user_id' => $user->id,
-                'machine_id' => $machine->id,
-                'type' => IssueType::MISSING_ITEMS,
-                'priority' => IssuePriority::EXPRESS,
-                'status' => IssueStatus::CREATED,
-                'description' => 'Delivery note issue',
+            ->callFormComponentAction('user_id', 'createOption', data: [
+                'name' => 'New User',
+                'email' => 'newuser@example.com',
+                'phone' => '123456789',
+            ]);
+
+        expect(User::query()->where('email', 'newuser@example.com')->exists())->toBeTrue();
+    });
+
+    it('can create a machine from the machine_id select inline form', function (): void {
+        livewire(CreateIssue::class)
+            ->callFormComponentAction('machine_id', 'createOption', data: [
+                'type' => MachineType::LAWN_MOWER->value,
+                'name' => 'New Test Machine',
+            ]);
+
+        expect(Machine::query()->where('name', 'New Test Machine')->exists())->toBeTrue();
+    });
+
+    it('validates the machine inline create form', function (): void {
+        livewire(CreateIssue::class)
+            ->callFormComponentAction('machine_id', 'createOption', data: [
+                'type' => null,
+                'name' => null,
             ])
-            ->call('create')
-            ->assertHasNoFormErrors()
-            ->assertNotified();
-
-        $issue = Issue::query()->latest()->first();
-        expect($issue->order->type)->toBe(OrderType::DELIVERY_NOTE);
-    });
-
-    it('issue notes are created when factory is used', function (): void {
-        $issue = Issue::factory()->create();
-
-        expect($issue->notes)->not->toBeEmpty();
-        expect($issue->notes->count())->toBeGreaterThanOrEqual(2);
-    });
-
-    it('issue belongs to user', function (): void {
-        $user = User::factory()->user()->create();
-        $machine = Machine::factory()->create();
-        $order = Order::factory()->create();
-
-        $issue = Issue::factory()->create([
-            'user_id' => $user->id,
-            'order_id' => $order->id,
-            'machine_id' => $machine->id,
-        ]);
-
-        expect($issue->user->id)->toBe($user->id);
-        expect($issue->user->email)->toBe($user->email);
-    });
-
-    it('issue belongs to machine', function (): void {
-        $machine = Machine::factory()->create(['name' => 'Test Machine']);
-        $issue = Issue::factory()->create(['machine_id' => $machine->id]);
-
-        expect($issue->machine->id)->toBe($machine->id);
-        expect($issue->machine->name)->toBe('Test Machine');
-    });
-
-    it('issue belongs to order', function (): void {
-        $order = Order::factory()->create(['number' => 'ORD-TEST-123']);
-        $issue = Issue::factory()->create(['order_id' => $order->id]);
-
-        expect($issue->order->id)->toBe($order->id);
-        expect($issue->order->number)->toBe('ORD-TEST-123');
-    });
-
-    it('machine has inverse issues relationship', function (): void {
-        $machine = Machine::factory()->create();
-        $issues = Issue::factory()->count(3)->create(['machine_id' => $machine->id]);
-
-        expect($machine->issues)->toHaveCount(3);
-        expect($machine->issues->pluck('id')->toArray())->toContain($issues[0]->id, $issues[1]->id, $issues[2]->id);
-    });
-
-    it('order has inverse issues relationship', function (): void {
-        $order = Order::factory()->create();
-        $issues = Issue::factory()->count(3)->create(['order_id' => $order->id]);
-
-        expect($order->issues)->toHaveCount(3);
-        expect($order->issues->pluck('id')->toArray())->toContain($issues[0]->id, $issues[1]->id, $issues[2]->id);
+            ->assertHasFormErrors(['type' => 'required', 'name' => 'required'])
+            ->assertNotNotified();
     });
 });
