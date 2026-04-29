@@ -28,7 +28,8 @@ final class IssueFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::factory()->user(),
+            'customer_id' => User::factory()->user(),
+            'created_by' => User::factory()->employee(),
             'order_id' => Order::factory(),
             'machine_id' => Machine::factory(),
 

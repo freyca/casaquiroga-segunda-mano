@@ -17,7 +17,7 @@ final class EditIssue extends EditRecord
 
     public function getRecord(): Issue
     {
-        return Issue::with(['order', 'user', 'machine'])->findOrFail($this->record->id); // @phpstan-ignore-line
+        return Issue::with(['order', 'customer', 'author', 'machine'])->findOrFail($this->record->id); // @phpstan-ignore-line
     }
 
     protected function mutateFormDataBeforeSave(array $data): array

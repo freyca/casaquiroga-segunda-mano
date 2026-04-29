@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable(['user_id', 'order_id', 'machine_id', 'priority', 'status', 'type', 'description', 'just_arrived', 'observations', 'images'])]
+#[Fillable(['customer_id', 'created_by', 'order_id', 'machine_id', 'priority', 'status', 'type', 'description', 'just_arrived', 'observations', 'images'])]
 final class Issue extends Model
 {
     /** @use HasFactory<IssueFactory> */
@@ -23,9 +23,17 @@ final class Issue extends Model
     /**
      * @return BelongsTo<User, $this>
      */
-    public function user(): BelongsTo
+    public function customer(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'customer_id');
+    }
+
+    /**
+     * @return BelongsTo<User, $this>
+     */
+    public function author(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 
     /**

@@ -21,8 +21,8 @@ final class IssueInfolist
             ->components([
                 Section::make(Str::ucfirst(__('app.basic_information')))
                     ->schema([
-                        TextEntry::make('user.email')
-                            ->label(Str::ucfirst(__('issues.user_email')))
+                        TextEntry::make('customer.email')
+                            ->label(Str::ucfirst(__('issues.customer_email')))
                             ->icon(Heroicon::User),
 
                         TextEntry::make('order.number')
@@ -83,6 +83,9 @@ final class IssueInfolist
                 Section::make(Str::ucfirst(__('app.additional_info')))
                     ->columnSpanFull()
                     ->schema([
+                        TextEntry::make('author.name')
+                            ->label(Str::ucfirst(__('app.created_by')))
+                            ->placeholder('-'),
 
                         TextEntry::make('observations')
                             ->label(Str::ucfirst(__('issues.observations')))

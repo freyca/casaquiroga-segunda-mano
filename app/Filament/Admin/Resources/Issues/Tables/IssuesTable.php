@@ -15,7 +15,7 @@ final class IssuesTable
     {
         return $table
             ->columns([
-                TextColumn::make('user.email')
+                TextColumn::make('customer.email')
                     ->label(Str::ucfirst(__('app.customer')))
                     ->sortable()
                     ->limit(25)

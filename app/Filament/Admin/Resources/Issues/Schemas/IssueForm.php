@@ -65,8 +65,8 @@ final class IssueForm
                 Section::make(Str::ucfirst(__('issues.customer_data')))
                     ->collapsible()
                     ->schema([
-                        Select::make('user_id')
-                            ->relationship('user', 'email')
+                        Select::make('customer_id')
+                            ->relationship('customer', 'email')
                             ->label(Str::ucfirst(__('app.customer')))
                             ->required()
                             ->prefixIcon(Heroicon::User)

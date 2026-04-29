@@ -22,6 +22,7 @@ final class CreateIssue extends CreateRecord
             ]);
 
             $data['order_id'] = $order->id;
+            $data['created_by'] = auth()->id();
 
             return $data;
         });

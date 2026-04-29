@@ -33,15 +33,18 @@ describe('IssueResource', function (): void {
     });
 
     it('can create an issue', function (): void {
+        $employee = User::factory()->employee()->create();
         $user = User::factory()->user()->create();
         $machine = Machine::factory()->create();
         $orderNumber = 'TEST-'.Str::random(5);
+
+        actingAs($employee);
 
         livewire(CreateIssue::class)
             ->fillForm([
                 'order_number' => $orderNumber,
                 'order_type' => OrderType::ORDER,
-                'user_id' => $user->id,
+                'customer_id' => $user->id,
                 'machine_id' => $machine->id,
                 'type' => IssueType::MALFUNCTION,
                 'priority' => IssuePriority::STANDARD,
@@ -60,21 +63,24 @@ describe('IssueResource', function (): void {
         $issue = Issue::query()->latest()->first();
         expect($issue->order->number)->toBe($orderNumber);
         expect($issue->order->type)->toBe(OrderType::ORDER);
-        expect($issue->user_id)->toBe($user->id);
+        expect($issue->customer_id)->toBe($user->id);
         expect($issue->machine_id)->toBe($machine->id);
     });
 
     it('creates an order transactionally when creating an issue', function (): void {
+        $employee = User::factory()->employee()->create();
         $user = User::factory()->user()->create();
         $machine = Machine::factory()->create();
 
         $orderCountBefore = Order::query()->count();
 
+        actingAs($employee);
+
         livewire(CreateIssue::class)
             ->fillForm([
                 'order_number' => 'TXN-TEST-'.Str::random(5),
                 'order_type' => OrderType::ORDER,
-                'user_id' => $user->id,
+                'customer_id' => $user->id,
                 'machine_id' => $machine->id,
                 'type' => IssueType::MALFUNCTION,
                 'priority' => IssuePriority::EXPRESS,
@@ -152,9 +158,9 @@ describe('IssueResource', function (): void {
         expect($note->new_state)->toBe(IssueStatus::IN_PROGRESS);
     });
 
-    it('can create a user from the user_id select inline form', function (): void {
+    it('can create a user from the customer_id select inline form', function (): void {
         livewire(CreateIssue::class)
-            ->callFormComponentAction('user_id', 'createOption', data: [
+            ->callFormComponentAction('customer_id', 'createOption', data: [
                 'name' => 'New User',
                 'email' => 'newuser@example.com',
                 'phone' => '123456789',

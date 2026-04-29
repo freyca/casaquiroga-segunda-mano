@@ -19,7 +19,8 @@ return new class extends Migration
             $table->id();
 
             // Relations
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('customer_id')->constrained('users');
+            $table->foreignId('created_by')->constrained('users');
             $table->foreignId('order_id')->constrained();
             $table->foreignId('machine_id')->constrained();
 
