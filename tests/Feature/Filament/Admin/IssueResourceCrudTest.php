@@ -18,6 +18,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Support\Str;
 
+use function Pest\Laravel\actingAs;
 use function Pest\Livewire\livewire;
 
 uses(LazilyRefreshDatabase::class);
@@ -120,6 +121,8 @@ describe('IssueResource', function (): void {
     });
 
     it('can view an issue', function (): void {
+        actingAs(User::factory()->admin()->create()); // Allows us to show edit button
+
         $issue = Issue::factory()->create();
 
         livewire(ViewIssue::class, ['record' => $issue->id])

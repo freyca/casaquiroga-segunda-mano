@@ -23,14 +23,6 @@ final class IssueNote extends Model
     ];
 
     /**
-     * @return BelongsTo<Issue, $this>
-     */
-    public function issue(): BelongsTo
-    {
-        return $this->belongsTo(Issue::class);
-    }
-
-    /**
      * @return BelongsTo<User, $this>
      */
     public function user(): BelongsTo

@@ -17,14 +17,6 @@ final class Order extends Model
     /** @use HasFactory<OrderFactory> */
     use HasFactory;
 
-    /**
-     * @return HasMany<Issue, $this>
-     */
-    public function issues(): HasMany
-    {
-        return $this->hasMany(Issue::class);
-    }
-
     protected function casts(): array
     {
         return [

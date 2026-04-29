@@ -29,12 +29,4 @@ final class SecondHandMachineNote extends Model
     {
         return $this->belongsTo(User::class);
     }
-
-    /**
-     * @return BelongsTo<SecondHandMachine, $this>
-     */
-    public function machine(): BelongsTo
-    {
-        return $this->belongsTo(SecondHandMachine::class);
-    }
 }
