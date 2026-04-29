@@ -15,9 +15,11 @@ return new class extends Migration
     {
         Schema::create('issue_notes', function (Blueprint $table): void {
             $table->id();
-            $table->foreignId('issue_id')->nullable()->constrained()->nullOnDelete();
+            $table->text('description');
             $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
-            $table->text('reason');
+            $table->foreignId('issue_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->string('previous_state');
+            $table->string('new_state');
             $table->timestamps();
         });
     }

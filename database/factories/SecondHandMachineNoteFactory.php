@@ -25,7 +25,7 @@ final class SecondHandMachineNoteFactory extends Factory
         $new = $this->faker->randomElement(
             array_filter(
                 SellStatus::cases(),
-                fn(SellStatus $case): bool => $case !== $previous
+                fn (SellStatus $case): bool => $case !== $previous
             )
         );
 

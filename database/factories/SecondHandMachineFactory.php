@@ -27,12 +27,12 @@ final class SecondHandMachineFactory extends Factory
             'identifier_code' => mb_strtoupper($this->faker->bothify('MAQ-####??')),
             'name' => $this->faker->words(3, true),
             'purchase_cost' => $this->faker->randomFloat(2, 500, 50000),
-            'employee_id' => fn() => User::query()
+            'employee_id' => fn () => User::query()
                 ->where('role', Role::Employee)
                 ->inRandomOrder()
                 ->value('id')
                 ?? User::factory()->employee()->create()->id,
-            'customer_id' => fn() => User::query()
+            'customer_id' => fn () => User::query()
                 ->where('role', Role::User)
                 ->inRandomOrder()
                 ->value('id')
@@ -61,7 +61,7 @@ final class SecondHandMachineFactory extends Factory
 
     public function sinImpuesto(): static
     {
-        return $this->state(fn(): array => [
+        return $this->state(fn (): array => [
             'tax' => Tax::Zero,
         ]);
     }
