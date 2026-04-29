@@ -12,36 +12,36 @@ describe('FilamentLabels', function (): void {
 
     it('employee second hand machine returns correct navigation label', function (): void {
         expect(EmployeeSecondHandMachineResource::getNavigationLabel())
-            ->toBe(Str::ucfirst(__('second_hand_machine')));
+            ->toBe(Str::ucfirst(__('app.machine')));
     });
 
     it('admin second hand machine returns correct navigation label', function (): void {
         expect(AdminSecondHandMachineResource::getNavigationLabel())
-            ->toBe(Str::ucfirst(__('second_hand_machine')));
+            ->toBe(Str::ucfirst(__('app.machine')));
     });
 
     it('admin second hand machine returns correct navigation group', function (): void {
         expect(AdminSecondHandMachineResource::getNavigationGroup())
-            ->toBe(Str::ucfirst(__('machines_management')));
+            ->toBe(Str::ucfirst(__('app.machines_management')));
     });
 
     it('issue returns correct navigation group', function (): void {
         expect(IssueResource::getNavigationGroup())
-            ->toBe(Str::ucfirst(__('issues_management')));
+            ->toBe(Str::ucfirst(__('issues.issues_management')));
     });
 
     it('issue returns correct navigation label', function (): void {
         expect(IssueResource::getNavigationLabel())
-            ->toBe(Str::ucfirst(__('issue')));
+            ->toBe(Str::ucfirst(__('issues.issue')));
     });
 
     it('admin user returns correct navigation group', function (): void {
         expect(UserResource::getNavigationGroup())
-            ->toBe(Str::ucfirst(__('user_management')));
+            ->toBe(Str::ucfirst(__('app.user_management')));
     });
 
     it('admin user returns correct navigation label', function (): void {
         expect(UserResource::getNavigationLabel())
-            ->toBe(Str::ucfirst(__('user')));
+            ->toBe(Str::ucfirst(__('app.user')));
     });
 });

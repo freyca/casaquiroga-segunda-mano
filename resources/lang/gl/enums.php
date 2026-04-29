@@ -10,7 +10,7 @@ return [
     'sold' => 'vendida',
     'admin' => 'admin',
     'employee' => 'empregado',
-    'user' => 'usuario',
+    'user' => 'cliente',
     'order' => 'pedido',
     'delivery_note' => 'albarán',
     'order_type' => 'tipo de pedido',
