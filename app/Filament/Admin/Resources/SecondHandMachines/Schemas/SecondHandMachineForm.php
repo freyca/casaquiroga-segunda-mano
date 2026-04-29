@@ -150,6 +150,7 @@ final class SecondHandMachineForm
                                 modifyQueryUsing: fn (Builder $query) => $query->where('role', Role::User)
                             )
                             ->default(null)
+                            ->searchable()
                             ->createOptionForm(
                                 UserForm::partialConfigure(
                                     Schema::make()
