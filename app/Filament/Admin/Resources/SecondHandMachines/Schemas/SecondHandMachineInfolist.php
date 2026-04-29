@@ -95,9 +95,12 @@ final class SecondHandMachineInfolist
                             ->limit(6)
                             ->placeholder('No photos'),
 
-                        TextEntry::make('attachments')
-                            ->placeholder('No attachments')
-                            ->formatStateUsing(fn (?array $state): string => is_array($state) && $state !== [] ? implode(', ', array_map(fn ($file): string => basename((string) $file), $state)) : '-'),
+                        RepeatableEntry::make('attachments')
+                            ->schema([
+                                TextEntry::make('file')
+                                    ->label('File')
+                                    ->formatStateUsing(fn (string $state): string => basename($state)),
+                            ]),
                     ]),
 
                 Section::make(Str::ucfirst(__('product_notes')))
