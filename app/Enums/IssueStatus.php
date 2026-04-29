@@ -13,8 +13,8 @@ use Illuminate\Support\Str;
 
 enum IssueStatus: string implements HasColor, HasIcon, HasLabel
 {
-    case CREATED = 'standard';
-    case IN_PROGRESS = 'express';
+    case CREATED = 'created';
+    case IN_PROGRESS = 'in_progress';
     case CUSTOMER_PENDING = 'customer_pending';
     case FINISHED = 'finished';
 
