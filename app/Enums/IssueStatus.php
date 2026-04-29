@@ -15,7 +15,7 @@ enum IssueStatus: string implements HasColor, HasIcon, HasLabel
 {
     case CREATED = 'standard';
     case IN_PROGRESS = 'express';
-    case CUSTOMER_PENDING = 'customer_peding';
+    case CUSTOMER_PENDING = 'customer_pending';
     case FINISHED = 'finished';
 
     public function getLabel(): string
