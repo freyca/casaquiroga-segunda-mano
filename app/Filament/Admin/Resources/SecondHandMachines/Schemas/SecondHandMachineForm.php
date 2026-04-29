@@ -92,7 +92,7 @@ final class SecondHandMachineForm
                             ->tabs([
                                 Tab::make('Editor')->schema([
                                     RichEditor::make('description')
-                                        ->reactive()
+                                        ->live()
                                         ->afterStateUpdated(fn (?string $state, Set $set): mixed => $set('description_html', $state))
                                         ->afterStateHydrated(fn (?string $state, Set $set): mixed => $set('description_html', $state)),
                                 ]),
@@ -131,7 +131,7 @@ final class SecondHandMachineForm
                             ->label('IVA')
                             ->options(Tax::class)
                             ->required()
-                            ->default(0),
+                            ->default(Tax::Zero),
 
                         Select::make('employee_id')
                             ->label(Str::ucfirst(__('purchasing_manager')))

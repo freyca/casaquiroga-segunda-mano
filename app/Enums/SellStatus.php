@@ -23,8 +23,8 @@ enum SellStatus: string implements HasColor, HasIcon, HasLabel
     {
         return match ($this) {
             SellStatus::Available => Str::ucfirst(__('available')),
-            SellStatus::InPreparation => Str::ucfirst(__('in preparation')),
-            SellStatus::ArriveSoon => Str::ucfirst(__('arrive soon')),
+            SellStatus::InPreparation => Str::ucfirst(__('in_preparation')),
+            SellStatus::ArriveSoon => Str::ucfirst(__('arrive_soon')),
             SellStatus::Reserved => Str::ucfirst(__('reserved')),
             SellStatus::Sold => Str::ucfirst(__('sold')),
         };

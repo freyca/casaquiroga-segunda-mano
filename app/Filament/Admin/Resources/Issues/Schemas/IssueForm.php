@@ -38,7 +38,6 @@ final class IssueForm
 
                         TextInput::make('order_number')
                             ->label(Str::ucfirst('order number'))
-                            ->label('Number')
                             ->required()
                             ->disabled(fn (string $context): bool => $context !== 'create')
                             ->afterStateHydrated(function (Set $set, ?Issue $record): void {
@@ -106,8 +105,7 @@ final class IssueForm
                             ->schema([
                                 Toggle::make('just_arrived')
                                     ->label(Str::ucfirst(__('just arrived')))
-                                    ->inline(false)
-                                    ->required(),
+                                    ->inline(false),
 
                                 ToggleButtons::make('priority')
                                     ->label(Str::ucfirst(__('issue priority')))
