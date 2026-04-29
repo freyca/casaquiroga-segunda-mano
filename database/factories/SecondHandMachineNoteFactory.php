@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Enums\SellStatus;
-use App\Models\SecondHandMachineNotes;
+use App\Models\SecondHandMachineNote;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<SecondHandMachineNotes>
+ * @extends Factory<SecondHandMachineNote>
  */
-final class SecondHandMachineNotesFactory extends Factory
+final class SecondHandMachineNoteFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -25,7 +25,7 @@ final class SecondHandMachineNotesFactory extends Factory
         $new = $this->faker->randomElement(
             array_filter(
                 SellStatus::cases(),
-                fn (SellStatus $case): bool => $case !== $previous
+                fn(SellStatus $case): bool => $case !== $previous
             )
         );
 
