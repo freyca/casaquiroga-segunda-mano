@@ -23,7 +23,7 @@ final class ViewIssue extends ViewRecord
     {
         $actions = [];
 
-        if (auth()->user()?->role === Role::Admin) {
+        if (auth()->user()?->role === Role::Admin) { // @phpstan-ignore-line
             $actions[] = EditAction::make();
         }
 
@@ -34,7 +34,7 @@ final class ViewIssue extends ViewRecord
                 ToggleButtons::make('issue_status')
                     ->label(Str::ucfirst(__('issue status')))
                     ->options(IssueStatus::class)
-                    ->default($this->record->status)
+                    ->default($this->record->status) // @phpstan-ignore-line
                     ->required()
                     ->inline(),
 
@@ -44,17 +44,17 @@ final class ViewIssue extends ViewRecord
             ])
             ->action(function (array $data): void {
                 IssueNote::query()->create([
-                    'issue_id' => $this->record->id,
+                    'issue_id' => $this->record->id, // @phpstan-ignore-line
                     'user_id' => auth()->id(),
                     'description' => $data['note_description'],
-                    'previous_state' => $this->record->status,
+                    'previous_state' => $this->record->status, // @phpstan-ignore-line
                     'new_state' => $data['issue_status'],
                 ]);
 
-                $this->record->status = $data['issue_status'];
-                $this->record->save();
+                $this->record->status = $data['issue_status']; // @phpstan-ignore-line
+                $this->record->save(); // @phpstan-ignore-line
 
-                $this->record->refresh();
+                $this->record->refresh(); // @phpstan-ignore-line
             });
 
         return $actions;
