@@ -7,6 +7,7 @@ namespace App\Filament\Admin\Resources\Issues\Pages;
 use App\Filament\Admin\Resources\Issues\IssueResource;
 use App\Models\Order;
 use Filament\Resources\Pages\CreateRecord;
+use Illuminate\Support\Facades\DB;
 
 final class CreateIssue extends CreateRecord
 {
@@ -14,13 +15,15 @@ final class CreateIssue extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $order = Order::query()->create([
-            'number' => $data['order_number'],
-            'type' => $data['order_type'],
-        ]);
+        return DB::transaction(function () use ($data): array {
+            $order = Order::query()->create([
+                'number' => $data['order_number'],
+                'type' => $data['order_type'],
+            ]);
 
-        $data['order_id'] = $order->id;
+            $data['order_id'] = $order->id;
 
-        return $data;
+            return $data;
+        });
     }
 }

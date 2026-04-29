@@ -11,7 +11,6 @@ use App\Enums\OrderType;
 use App\Filament\Admin\Resources\Machines\Schemas\MachineForm;
 use App\Filament\Admin\Resources\Users\Schemas\UserForm;
 use App\Models\Issue;
-use App\Models\Order;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
@@ -37,18 +36,15 @@ final class IssueForm
                         Hidden::make('order_id'),
 
                         TextInput::make('order_number')
-                            ->label(Str::ucfirst('order number'))
+                            ->label('Number')
                             ->required()
                             ->disabled(fn (string $context): bool => $context !== 'create')
                             ->afterStateHydrated(function (Set $set, ?Issue $record): void {
-                                if (! $record instanceof Issue) {
+                                if (! $record instanceof Issue || ! $record->relationLoaded('order')) {
                                     return;
                                 }
 
-                                /** @var Order */
-                                $order = $record->order;
-
-                                $set('order_number', $order->number);
+                                $set('order_number', $record->order?->number);
                             }),
 
                         ToggleButtons::make('order_type')
@@ -57,14 +53,11 @@ final class IssueForm
                             ->inline()
                             ->required()
                             ->afterStateHydrated(function (Set $set, ?Issue $record): void {
-                                if (! $record instanceof Issue) {
+                                if (! $record instanceof Issue || ! $record->relationLoaded('order')) {
                                     return;
                                 }
 
-                                /** @var Order */
-                                $order = $record->order;
-
-                                $set('order_type', $order->type);
+                                $set('order_type', $record->order?->type);
                             }),
                     ])
                     ->collapsible(),

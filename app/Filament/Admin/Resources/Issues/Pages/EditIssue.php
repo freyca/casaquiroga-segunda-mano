@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Filament\Admin\Resources\Issues\Pages;
 
 use App\Filament\Admin\Resources\Issues\IssueResource;
-use App\Models\Order;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
@@ -16,10 +15,11 @@ final class EditIssue extends EditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        /** @var Order */
-        $order = $this->record->order; // @phpstan-ignore-line
+        $order = $this->record->order;
+        abort_if(! $order, 404, 'Order not found.');
 
         $order->update([
+            'number' => $data['order_number'],
             'type' => $data['order_type'],
         ]);
 

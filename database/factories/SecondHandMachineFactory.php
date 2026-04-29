@@ -38,11 +38,11 @@ final class SecondHandMachineFactory extends Factory
                 ->value('id')
                 ?? User::factory()->user()->create()->id,
             'purchase_notes' => $this->faker->optional()->sentence(),
-            'family_id' => Family::query()
+            'family_id' => fn () => Family::query()
                 ->inRandomOrder()
                 ->value('id')
                 ?? Family::factory()->create()->id,
-            'brand_id' => Brand::query()
+            'brand_id' => fn () => Brand::query()
                 ->inRandomOrder()
                 ->value('id')
                 ?? Brand::factory()->create()->id,

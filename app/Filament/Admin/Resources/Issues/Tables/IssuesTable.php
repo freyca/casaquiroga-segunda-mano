@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Admin\Resources\Issues\Tables;
 
-use Filament\Actions\BulkActionGroup;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -17,28 +16,25 @@ final class IssuesTable
             ->columns([
                 TextColumn::make('user.email')
                     ->sortable()
-                    ->limit(20)
+                    ->limit(30)
                     ->searchable(),
                 TextColumn::make('order.number')
                     ->sortable()
-                    ->limit(20)
+                    ->limit(12)
                     ->searchable(),
                 TextColumn::make('machine.name')
-                    ->limit(20)
+                    ->limit(25)
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('type')
-                    ->limit(20)
                     ->badge()
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('priority')
-                    ->limit(20)
                     ->badge()
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('status')
-                    ->limit(20)
                     ->badge()
                     ->sortable()
                     ->searchable(),
@@ -48,10 +44,6 @@ final class IssuesTable
             ])
             ->filters([
                 //
-            ])
-            ->recordActions([])
-            ->toolbarActions([
-                BulkActionGroup::make([]),
             ]);
     }
 }

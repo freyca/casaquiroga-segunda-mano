@@ -95,17 +95,9 @@ final class SecondHandMachineInfolist
                             ->limit(6)
                             ->placeholder('No photos'),
 
-                        RepeatableEntry::make('attachments')
-                            ->schema([
-                                TextEntry::make('name'),
-
-                                TextEntry::make('url')
-                                    ->label('File')
-                                    ->url(fn ($state) => $state)
-                                    ->openUrlInNewTab(),
-                            ])
-                            ->columns(2)
-                            ->placeholder('No attachments'),
+                        TextEntry::make('attachments')
+                            ->placeholder('No attachments')
+                            ->formatStateUsing(fn (?array $state): string => is_array($state) && $state !== [] ? implode(', ', array_map(fn ($file): string => basename((string) $file), $state)) : '-'),
                     ]),
 
                 Section::make(Str::ucfirst(__('product_notes')))
@@ -114,18 +106,18 @@ final class SecondHandMachineInfolist
                             ->label(Str::ucfirst(__('notes')))
                             ->schema([
                                 TextEntry::make('created_at')
-                                    ->label(Str::ucfirst(__('created_at')))
+                                    ->label(Str::ucfirst(__('created at')))
                                     ->dateTime('d-m-Y H:i'),
 
                                 TextEntry::make('user.name')
                                     ->label(Str::ucfirst(__('user'))),
 
                                 TextEntry::make('previous_state')
-                                    ->label(Str::ucfirst(__('previous_state')))
+                                    ->label(Str::ucfirst(__('previous state')))
                                     ->badge(),
 
                                 TextEntry::make('new_state')
-                                    ->label(Str::ucfirst(__('new_state')))
+                                    ->label(Str::ucfirst(__('new state')))
                                     ->badge(),
 
                                 TextEntry::make('description')

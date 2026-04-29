@@ -98,6 +98,7 @@ final class SecondHandMachineForm
                                 ]),
                                 Tab::make('HTML')->schema([
                                     Textarea::make('description_html')
+                                        ->live()
                                         ->rows(10)
                                         ->afterStateUpdated(fn (?string $state, Set $set): mixed => $set('description', $state))
                                         ->dehydrated(false),
