@@ -19,40 +19,43 @@ final class IssueInfolist
     {
         return $schema
             ->components([
-                Section::make('Basic information')
+                Section::make(Str::ucfirst(__('app.basic_information')))
                     ->schema([
                         TextEntry::make('user.email')
-                            ->label('User email')
+                            ->label(Str::ucfirst(__('issues.user_email')))
                             ->icon(Heroicon::User),
 
                         TextEntry::make('order.number')
                             ->icon(Heroicon::ReceiptPercent)
-                            ->label('Order'),
+                            ->label(Str::ucfirst(__('app.order'))),
 
                         TextEntry::make('machine.name')
-                            ->label('Machine')
+                            ->label(Str::ucfirst(__('issues.machine')))
                             ->icon(Heroicon::Cog8Tooth),
                     ])
                     ->columns(2),
 
-                Section::make('Issue details')
+                Section::make(Str::ucfirst(__('app.issue_details')))
                     ->schema([
                         IconEntry::make('just_arrived')
                             ->boolean()
-                            ->label('Just arrived'),
+                            ->label(Str::ucfirst(__('issues.just_arrived'))),
 
                         TextEntry::make('type')
+                            ->label(Str::ucfirst(__('issues.issue_type')))
                             ->badge(),
 
                         TextEntry::make('priority')
+                            ->label(Str::ucfirst(__('issues.issue_priority')))
                             ->badge(),
 
                         TextEntry::make('status')
+                            ->label(Str::ucfirst(__('issues.issue_status')))
                             ->badge(),
                     ])
                     ->columns(2),
 
-                Section::make('Description')
+                Section::make(Str::ucfirst(__('app.description')))
                     ->schema([
                         TextEntry::make('description')
                             ->columnSpanFull()
@@ -60,16 +63,16 @@ final class IssueInfolist
                     ])
                     ->collapsible(),
 
-                Section::make('Timestamps')
+                Section::make(Str::ucfirst(__('app.timestamps')))
                     ->schema([
                         TextEntry::make('created_at')
-                            ->label(Str::ucfirst(__('created at')))
+                            ->label(Str::ucfirst(__('app.created_at')))
                             ->dateTime('d/m/Y H:i')
                             ->icon(Heroicon::Clock)
                             ->placeholder('-'),
 
                         TextEntry::make('updated_at')
-                            ->label(Str::ucfirst(__('updated at')))
+                            ->label(Str::ucfirst(__('app.updated_at')))
                             ->dateTime('d/m/Y H:i')
                             ->icon(Heroicon::ArrowPath)
                             ->placeholder('-'),
@@ -77,40 +80,42 @@ final class IssueInfolist
                     ->collapsible()
                     ->columns(2),
 
-                Section::make('Additional info')
+                Section::make(Str::ucfirst(__('app.additional_info')))
                     ->columnSpanFull()
                     ->schema([
 
                         TextEntry::make('observations')
+                            ->label(Str::ucfirst(__('issues.observations')))
                             ->placeholder('-'),
 
                         ImageEntry::make('images')
+                            ->label(Str::ucfirst(__('app.photos')))
                             ->placeholder('-'),
                     ])
                     ->collapsible(),
 
-                Section::make(Str::ucfirst(__('issue_notes')))
+                Section::make(Str::ucfirst(__('issues.issue_notes')))
                     ->schema([
                         RepeatableEntry::make('notes')
-                            ->label(Str::ucfirst(__('notes')))
+                            ->label(Str::ucfirst(__('app.notes')))
                             ->schema([
                                 TextEntry::make('created_at')
-                                    ->label(Str::ucfirst(__('created_at')))
+                                    ->label(Str::ucfirst(__('app.created_at')))
                                     ->dateTime('d-m-Y H:i'),
 
                                 TextEntry::make('user.name')
-                                    ->label(Str::ucfirst(__('user'))),
+                                    ->label(Str::ucfirst(__('app.user'))),
 
                                 TextEntry::make('previous_state')
-                                    ->label(Str::ucfirst(__('previous_state')))
+                                    ->label(Str::ucfirst(__('app.previous_state')))
                                     ->badge(),
 
                                 TextEntry::make('new_state')
-                                    ->label(Str::ucfirst(__('new_state')))
+                                    ->label(Str::ucfirst(__('app.new_state')))
                                     ->badge(),
 
                                 TextEntry::make('description')
-                                    ->label(Str::ucfirst(__('description')))
+                                    ->label(Str::ucfirst(__('app.description')))
                                     ->columnSpanFull()
                                     ->markdown(),
                             ])

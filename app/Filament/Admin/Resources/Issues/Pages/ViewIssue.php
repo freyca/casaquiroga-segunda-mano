@@ -28,18 +28,18 @@ final class ViewIssue extends ViewRecord
         }
 
         $actions[] = Action::make('change_status')
-            ->label(Str::ucfirst(__('change status')))
+            ->label(Str::ucfirst(__('issues.change_status')))
             ->icon('heroicon-m-plus')
             ->schema([
                 ToggleButtons::make('issue_status')
-                    ->label(Str::ucfirst(__('issue status')))
+                    ->label(Str::ucfirst(__('issues.issue_status')))
                     ->options(IssueStatus::class)
                     ->default($this->record->status) // @phpstan-ignore-line
                     ->required()
                     ->inline(),
 
                 Textarea::make('note_description')
-                    ->label(Str::ucfirst(__('note')))
+                    ->label(Str::ucfirst(__('app.note')))
                     ->required(),
             ])
             ->action(function (array $data): void {

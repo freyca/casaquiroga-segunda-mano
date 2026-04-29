@@ -1,0 +1,38 @@
+<?php
+
+declare(strict_types=1);
+
+return [
+    'available' => 'dispoñible',
+    'in_preparation' => 'en preparación',
+    'arrive_soon' => 'próxima chegada',
+    'reserved' => 'reservada',
+    'sold' => 'vendida',
+    'admin' => 'admin',
+    'employee' => 'empregado',
+    'user' => 'usuario',
+    'order' => 'pedido',
+    'delivery_note' => 'albarán',
+    'order_type' => 'tipo de pedido',
+    'wood_chipper' => 'trituradora',
+    'lawn_mower' => 'cortacésped',
+    'brushcutter' => 'desbrozadora',
+    'tiller' => 'motocultor',
+    'robot_lawn_mower' => 'cortacésped robot',
+    'ride_on_lawn_mower' => 'cortacésped de montar',
+    'other' => 'outro',
+    'machine_type' => 'tipo de máquina',
+    'created' => 'creado',
+    'in_progress' => 'en progreso',
+    'customer_pending' => 'pendente de cliente',
+    'finished' => 'finalizado',
+    'missing_items' => 'faltan elementos',
+    'transport_damage' => 'danos en transporte',
+    'damage_during_transport' => 'danos durante o transporte',
+    'malfunction' => 'avería',
+    'usage_question' => 'dúbida de uso',
+    'standard' => 'estándar',
+    'express' => 'exprés',
+    '0%' => '0%',
+    '21%' => '21%',
+];

@@ -30,18 +30,18 @@ final class SecondHandMachineForm
     {
         return $schema
             ->components([
-                Section::make(Str::ucfirst(__('general_information')))
+                Section::make(Str::ucfirst(__('secondhandmachines.general_information')))
                     ->schema([
                         TextInput::make('name')
-                            ->label(Str::ucfirst(__('name')))
+                            ->label(Str::ucfirst(__('app.name')))
                             ->required(),
 
                         TextInput::make('identifier_code')
-                            ->label(Str::ucfirst(__('identifier_code')))
+                            ->label(Str::ucfirst(__('app.identifier_code')))
                             ->required(),
 
                         Select::make('family_id')
-                            ->label(Str::ucfirst(__('family')))
+                            ->label(Str::ucfirst(__('app.family')))
                             ->searchable()
                             ->relationship('family', 'name')
                             ->default(null)
@@ -52,7 +52,7 @@ final class SecondHandMachineForm
                             ),
 
                         Select::make('brand_id')
-                            ->label(Str::ucfirst(__('brand')))
+                            ->label(Str::ucfirst(__('app.brand')))
                             ->searchable()
                             ->relationship('brand', 'name')
                             ->default(null)
@@ -63,26 +63,27 @@ final class SecondHandMachineForm
                             ),
 
                         TextInput::make('model')
-                            ->label(Str::ucfirst(__('model')))
+                            ->label(Str::ucfirst(__('app.model')))
                             ->default(null),
 
                         TextInput::make('serial_number')
-                            ->label(Str::ucfirst(__('serial_number')))
+                            ->label(Str::ucfirst(__('app.serial_number')))
                             ->default(null),
 
                         TextInput::make('purchase_cost')
-                            ->label(Str::ucfirst(__('purchase_cost')))
+                            ->label(Str::ucfirst(__('app.purchase_cost')))
                             ->numeric()
                             ->suffix('€')
                             ->step(0.01)
                             ->default(null),
 
                         TextInput::make('repair_workshop')
-                            ->label(Str::ucfirst(__('repair_workshop')))
+                            ->label(Str::ucfirst(__('app.repair_workshop')))
                             ->default(null),
 
                         TextInput::make('work_hours')
-                            ->label(Str::ucfirst(__('work_hours')))
+                            ->label(Str::ucfirst(__('app.work_hours')))
+                            ->suffix(__('app.hours'))
                             ->numeric()
                             ->default(null),
 
@@ -91,13 +92,13 @@ final class SecondHandMachineForm
                             ->columnSpanFull()
                             ->tabs([
                                 Tab::make('Editor')->schema([
-                                    RichEditor::make('description')
+                                    RichEditor::make(Str::ucfirst(__('app.description')))
                                         ->live()
                                         ->afterStateUpdated(fn (?string $state, Set $set): mixed => $set('description_html', $state))
                                         ->afterStateHydrated(fn (?string $state, Set $set): mixed => $set('description_html', $state)),
                                 ]),
                                 Tab::make('HTML')->schema([
-                                    Textarea::make('description_html')
+                                    Textarea::make(Str::ucfirst(__('app.description_html')))
                                         ->live()
                                         ->rows(10)
                                         ->afterStateUpdated(fn (?string $state, Set $set): mixed => $set('description', $state))
@@ -110,10 +111,10 @@ final class SecondHandMachineForm
                     ->columnSpanFull()
                     ->collapsible(),
 
-                Section::make(Str::ucfirst(__('sale_information')))
+                Section::make(Str::ucfirst(__('secondhandmachines.sale_information')))
                     ->schema([
                         ToggleButtons::make('sell_status')
-                            ->label(Str::ucfirst(__('sell_status')))
+                            ->label(Str::ucfirst(__('app.sell_status')))
                             ->options(SellStatus::class)
                             ->default(SellStatus::Available)
                             ->inline()
@@ -121,21 +122,21 @@ final class SecondHandMachineForm
                             ->required(),
 
                         TextInput::make('selling_price')
-                            ->label(Str::ucfirst(__('selling_price')))
+                            ->label(Str::ucfirst(__('app.selling_price')))
                             ->numeric()
                             ->suffix('€')
                             ->step(0.01)
                             ->default(null),
 
                         Select::make('tax')
-                            ->label(Str::ucfirst(__('tax')))
+                            ->label(Str::ucfirst(__('app.tax')))
                             ->label('IVA')
                             ->options(Tax::class)
                             ->required()
                             ->default(Tax::Zero),
 
                         Select::make('employee_id')
-                            ->label(Str::ucfirst(__('purchasing_manager')))
+                            ->label(Str::ucfirst(__('app.purchasing_manager')))
                             ->relationship(
                                 name: 'seller',
                                 titleAttribute: 'name',
@@ -144,7 +145,7 @@ final class SecondHandMachineForm
                             ->default(null),
 
                         Select::make('customer_id')
-                            ->label(Str::ucfirst(__('customer')))
+                            ->label(Str::ucfirst(__('app.customer')))
                             ->relationship(
                                 name: 'customer',
                                 titleAttribute: 'name',
@@ -159,7 +160,7 @@ final class SecondHandMachineForm
                             ),
 
                         Textarea::make('purchase_notes')
-                            ->label(Str::ucfirst(__('purchase_notes')))
+                            ->label(Str::ucfirst(__('app.purchase_notes')))
                             ->default(null)
                             ->columnSpanFull(),
                     ])
@@ -167,11 +168,11 @@ final class SecondHandMachineForm
                     ->columns(2)
                     ->collapsible(),
 
-                Section::make(Str::ucfirst(__('attachments')))
+                Section::make(Str::ucfirst(__('app.attachments')))
                     ->schema([
                         FileUpload::make('photos')
-                            ->label(Str::ucfirst(__('photos')))
-                            ->hint(Str::ucfirst(__('photos_hint')))
+                            ->label(Str::ucfirst(__('app.photos')))
+                            ->hint(Str::ucfirst(__('app.photos_hint')))
                             ->image()
                             ->multiple()
                             ->directory('secondhandmachines/photos')
@@ -180,7 +181,7 @@ final class SecondHandMachineForm
                             ->reorderable(),
 
                         FileUpload::make('attachments')
-                            ->label(Str::ucfirst(__('attachments')))
+                            ->label(Str::ucfirst(__('app.attachments')))
                             ->multiple()
                             ->directory('secondhandmachines/attachments')
                             ->visibility('public')

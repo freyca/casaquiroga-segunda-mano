@@ -29,22 +29,22 @@ final class IssueResource extends Resource
 
     public static function getNavigationGroup(): string
     {
-        return Str::ucfirst(__('issues_management'));
+        return Str::ucfirst(__('issues.issues_management'));
     }
 
     public static function getNavigationLabel(): string
     {
-        return Str::ucfirst(__('issue'));
+        return Str::ucfirst(__('issues.issue'));
     }
 
     public static function getLabel(): string
     {
-        return Str::ucfirst(__('issue'));
+        return Str::ucfirst(__('issues.issue'));
     }
 
     public static function getPluralLabel(): string
     {
-        return Str::ucfirst(__('issues'));
+        return Str::ucfirst(__('issues.issues'));
     }
 
     public static function form(Schema $schema): Schema

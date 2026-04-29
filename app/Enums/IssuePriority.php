@@ -19,8 +19,8 @@ enum IssuePriority: string implements HasColor, HasIcon, HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            self::STANDARD => Str::ucfirst(__('standard')),
-            self::EXPRESS => Str::ucfirst(__('express')),
+            self::STANDARD => Str::ucfirst(__('enums.standard')),
+            self::EXPRESS => Str::ucfirst(__('enums.express')),
         };
     }
 

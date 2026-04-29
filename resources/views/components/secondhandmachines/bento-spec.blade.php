@@ -19,8 +19,8 @@
             </p>
 
             <div :class="copied || hovering ? 'opacity-100' : 'opacity-0'" class="shrink-0 transition-opacity duration-150">
-                <x-filament::icon-button type="button" icon="heroicon-o-clipboard-document" color="gray" size="xs" :label="ucfirst(__('copy'))" x-show="!copied" x-on:click="navigator.clipboard.writeText('{{ addslashes($value) }}'); copied = true; setTimeout(() => copied = false, 2000)" />
-                <x-filament::icon-button type="button" icon="heroicon-o-check" color="success" size="xs" :label="ucfirst(__('copied'))" x-show="copied" style="display: none;" x-on:click.prevent />
+                <x-filament::icon-button type="button" icon="heroicon-o-clipboard-document" color="gray" size="xs" :label="ucfirst(__('app.copy'))" x-show="!copied" x-on:click="navigator.clipboard.writeText('{{ addslashes($value) }}'); copied = true; setTimeout(() => copied = false, 2000)" />
+                <x-filament::icon-button type="button" icon="heroicon-o-check" color="success" size="xs" :label="ucfirst(__('app.copied'))" x-show="copied" style="display: none;" x-on:click.prevent />
             </div>
         </div>
     </div>

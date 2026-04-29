@@ -31,12 +31,12 @@ final class IssueForm
     {
         return $schema
             ->components([
-                Section::make('Order')
+                Section::make(Str::ucfirst(__('app.order')))
                     ->schema([
                         Hidden::make('order_id'),
 
                         TextInput::make('order_number')
-                            ->label('Number')
+                            ->label(Str::ucfirst(__('app.order_number')))
                             ->required()
                             ->disabled(fn (string $context): bool => $context !== 'create')
                             ->afterStateHydrated(function (Set $set, ?Issue $record): void {
@@ -48,7 +48,7 @@ final class IssueForm
                             }),
 
                         ToggleButtons::make('order_type')
-                            ->label(Str::ucfirst('order type'))
+                            ->label(Str::ucfirst(__('enums.order_type')))
                             ->options(OrderType::class)
                             ->inline()
                             ->required()
@@ -62,11 +62,12 @@ final class IssueForm
                     ])
                     ->collapsible(),
 
-                Section::make(Str::ucfirst(__('customer')))
+                Section::make(Str::ucfirst(__('issues.customer_data')))
                     ->collapsible()
                     ->schema([
                         Select::make('user_id')
                             ->relationship('user', 'email')
+                            ->label(Str::ucfirst(__('app.customer')))
                             ->required()
                             ->prefixIcon(Heroicon::User)
                             ->searchable()
@@ -77,13 +78,13 @@ final class IssueForm
                             ),
                     ]),
 
-                Section::make(Str::ucfirst(__('machine')))
+                Section::make(Str::ucfirst(__('app.machine')))
                     ->columnSpanFull()
                     ->collapsible()
                     ->schema([
                         Select::make('machine_id')
                             ->relationship('machine', 'name')
-                            ->label(Str::ucfirst(__('machine')))
+                            ->label(Str::ucfirst(__('app.machine')))
                             ->prefixIcon(Heroicon::Cog8Tooth)
                             ->required()
                             ->searchable()
@@ -97,11 +98,11 @@ final class IssueForm
                             ->columns(2)
                             ->schema([
                                 Toggle::make('just_arrived')
-                                    ->label(Str::ucfirst(__('just arrived')))
+                                    ->label(Str::ucfirst(__('issues.just_arrived')))
                                     ->inline(false),
 
                                 ToggleButtons::make('priority')
-                                    ->label(Str::ucfirst(__('issue priority')))
+                                    ->label(Str::ucfirst(__('issues.issue_priority')))
                                     ->inline()
                                     ->default(IssuePriority::STANDARD)
                                     ->options(IssuePriority::class)
@@ -109,34 +110,34 @@ final class IssueForm
                             ]),
 
                         ToggleButtons::make('status')
-                            ->label(Str::ucfirst(__('issue status')))
+                            ->label(Str::ucfirst(__('issues.issue_status')))
                             ->inline()
                             ->default(IssueStatus::CREATED)
                             ->options(IssueStatus::class)
                             ->required(),
 
                         ToggleButtons::make('type')
-                            ->label(Str::ucfirst(__('issue type')))
+                            ->label(Str::ucfirst(__('issues.issue_type')))
                             ->inline()
                             ->options(IssueType::class)
                             ->required(),
 
                         Textarea::make('description')
-                            ->label(Str::ucfirst(__('description')))
+                            ->label(Str::ucfirst(__('app.description')))
                             ->required()
                             ->columnSpanFull(),
                     ]),
 
-                Section::make(Str::ucfirst(__('observations and attachments')))
+                Section::make(Str::ucfirst(__('issues.observations_and_attachments')))
                     ->columnSpanFull()
                     ->collapsible()
                     ->schema([
                         Textarea::make('observations')
-                            ->label(Str::ucfirst(__('observations')))
+                            ->label(Str::ucfirst(__('app.observations')))
                             ->default(null)
                             ->columnSpanFull(),
                         FileUpload::make('images')
-                            ->label(Str::ucfirst(__('images')))
+                            ->label(Str::ucfirst(__('app.photos')))
                             ->directory('issues/images')
                             ->visibility('public')
                             ->panelLayout('grid')

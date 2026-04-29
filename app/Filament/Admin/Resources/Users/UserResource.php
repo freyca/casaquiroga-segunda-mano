@@ -27,22 +27,22 @@ final class UserResource extends Resource
 
     public static function getNavigationGroup(): string
     {
-        return Str::ucfirst(__('user_management'));
+        return Str::ucfirst(__('app.user_management'));
     }
 
     public static function getNavigationLabel(): string
     {
-        return Str::ucfirst(__('user'));
+        return Str::ucfirst(__('app.user'));
     }
 
     public static function getLabel(): string
     {
-        return Str::ucfirst(__('user'));
+        return Str::ucfirst(__('app.user'));
     }
 
     public static function getPluralLabel(): string
     {
-        return Str::ucfirst(__('users'));
+        return Str::ucfirst(__('app.users'));
     }
 
     public static function form(Schema $schema): Schema

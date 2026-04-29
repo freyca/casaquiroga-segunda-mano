@@ -16,13 +16,13 @@ final class UsersTable
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label(Str::ucfirst(__('name')))
+                    ->label(Str::ucfirst(__('app.name')))
                     ->searchable(),
                 TextColumn::make('email')
-                    ->label(Str::ucfirst(__('email')))
+                    ->label(Str::ucfirst(__('app.email')))
                     ->searchable(),
                 TextColumn::make('role')
-                    ->label(Str::ucfirst(__('role')))
+                    ->label(Str::ucfirst(__('app.role')))
                     ->badge()
                     ->searchable(),
             ])

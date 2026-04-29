@@ -19,8 +19,8 @@ enum OrderType: string implements HasColor, HasIcon, HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            self::ORDER => Str::ucfirst(__('order')),
-            self::DELIVERY_NOTE => Str::ucfirst(__('delivery note')),
+            self::ORDER => Str::ucfirst(__('enums.order')),
+            self::DELIVERY_NOTE => Str::ucfirst(__('enums.delivery_note')),
         };
     }
 

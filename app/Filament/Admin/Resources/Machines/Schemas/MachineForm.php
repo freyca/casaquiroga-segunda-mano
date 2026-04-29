@@ -17,12 +17,12 @@ final class MachineForm
         return $schema
             ->components([
                 ToggleButtons::make('type')
-                    ->label(Str::ucfirst(__('type')))
+                    ->label(Str::ucfirst(__('enums.machine_type')))
                     ->options(MachineType::class)
                     ->inline()
                     ->required(),
                 TextInput::make('name')
-                    ->label(Str::ucfirst(__('name')))
+                    ->label(Str::ucfirst(__('app.name')))
                     ->required(),
             ]);
     }

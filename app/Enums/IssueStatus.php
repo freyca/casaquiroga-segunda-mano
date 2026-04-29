@@ -21,10 +21,10 @@ enum IssueStatus: string implements HasColor, HasIcon, HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            self::CREATED => Str::ucfirst(__('created')),
-            self::IN_PROGRESS => Str::ucfirst(__('in progress')),
-            self::CUSTOMER_PENDING => Str::ucfirst(__('customer pending')),
-            self::FINISHED => Str::ucfirst(__('finished')),
+            self::CREATED => Str::ucfirst(__('enums.created')),
+            self::IN_PROGRESS => Str::ucfirst(__('enums.in_progress')),
+            self::CUSTOMER_PENDING => Str::ucfirst(__('enums.customer_pending')),
+            self::FINISHED => Str::ucfirst(__('enums.finished')),
         };
     }
 

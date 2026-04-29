@@ -21,10 +21,10 @@ enum IssueType: string implements HasColor, HasIcon, HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            self::MISSING_ITEMS => Str::ucfirst(__('missing items')),
-            self::TRANSPORT_DAMAGE => Str::ucfirst(__('damage during transport')),
-            self::MALFUNCTION => Str::ucfirst(__('malfunction')),
-            self::USAGE_QUESTION => Str::ucfirst(__('usage question')),
+            self::MISSING_ITEMS => Str::ucfirst(__('enums.missing_items')),
+            self::TRANSPORT_DAMAGE => Str::ucfirst(__('enums.damage_during_transport')),
+            self::MALFUNCTION => Str::ucfirst(__('enums.malfunction')),
+            self::USAGE_QUESTION => Str::ucfirst(__('enums.usage_question')),
         };
     }
 

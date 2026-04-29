@@ -31,16 +31,16 @@ final class UserForm
     {
         return [
             TextInput::make('name')
-                ->label(Str::ucfirst(__('name')))
+                ->label(Str::ucfirst(__('app.name')))
                 ->required(),
 
             TextInput::make('email')
-                ->label(Str::ucfirst(__('email')))
+                ->label(Str::ucfirst(__('app.email')))
                 ->email()
                 ->required(fn (string $context): bool => $context === 'create'),
 
             TextInput::make('phone')
-                ->label(Str::ucfirst(__('phone')))
+                ->label(Str::ucfirst(__('app.phone')))
                 ->tel(),
         ];
     }
@@ -54,14 +54,14 @@ final class UserForm
             self::baseFields(),
             [
                 TextInput::make('password')
-                    ->label(Str::ucfirst(__('password')))
+                    ->label(Str::ucfirst(__('app.password')))
                     ->password()
                     ->dehydrated(fn (mixed $state): bool => filled($state))
                     ->dehydrateStateUsing(fn (?string $state) => filled($state) ? Hash::make($state) : null)
                     ->required(fn (string $context): bool => $context === 'create'),
 
                 Select::make('role')
-                    ->label(Str::ucfirst(__('role')))
+                    ->label(Str::ucfirst(__('app.role')))
                     ->options(Role::class)
                     ->default(Role::User)
                     ->required(),

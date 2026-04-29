@@ -24,12 +24,12 @@ final class SecondHandMachineResource extends Resource
 
     public static function getNavigationLabel(): string
     {
-        return Str::ucfirst(__('second_hand_machine'));
+        return Str::ucfirst(__('app.second_hand_machine'));
     }
 
     public static function getPluralLabel(): string
     {
-        return Str::ucfirst(__('second_hand_machines'));
+        return Str::ucfirst(__('app.second_hand_machines'));
     }
 
     public static function table(Table $table): Table

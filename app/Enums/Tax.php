@@ -18,8 +18,8 @@ enum Tax: int implements HasColor, HasIcon, HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            Tax::Zero => '0%',
-            Tax::TwentyOne => '21%',
+            Tax::Zero => __('enums.0%'),
+            Tax::TwentyOne => __('enums.21%'),
         };
     }
 

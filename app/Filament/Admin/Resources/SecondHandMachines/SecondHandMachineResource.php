@@ -29,22 +29,22 @@ final class SecondHandMachineResource extends Resource
 
     public static function getNavigationGroup(): string
     {
-        return Str::ucfirst(__('machines_management'));
+        return Str::ucfirst(__('app.machines_management'));
     }
 
     public static function getNavigationLabel(): string
     {
-        return Str::ucfirst(__('second_hand_machine'));
+        return Str::ucfirst(__('app.second_hand_machine'));
     }
 
     public static function getLabel(): string
     {
-        return Str::ucfirst(__('second_hand_machine'));
+        return Str::ucfirst(__('app.second_hand_machine'));
     }
 
     public static function getPluralLabel(): string
     {
-        return Str::ucfirst(__('second_hand_machines'));
+        return Str::ucfirst(__('app.second_hand_machines'));
     }
 
     public static function form(Schema $schema): Schema
