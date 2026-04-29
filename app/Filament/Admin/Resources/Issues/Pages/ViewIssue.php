@@ -33,6 +33,7 @@ final class ViewIssue extends ViewRecord
                 ToggleButtons::make('issue_status')
                     ->label(Str::ucfirst(__('issue status')))
                     ->options(IssueStatus::class)
+                    ->default($this->record->status)
                     ->required()
                     ->inline(),
 
@@ -51,6 +52,8 @@ final class ViewIssue extends ViewRecord
 
                 $this->record->status = $data['issue_status'];
                 $this->record->save();
+
+                $this->record->refresh();
             });
 
         return $actions;

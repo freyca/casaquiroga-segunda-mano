@@ -6,6 +6,7 @@ namespace App\Filament\Admin\Resources\Issues\Schemas;
 
 use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\ImageEntry;
+use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
@@ -87,6 +88,36 @@ final class IssueInfolist
                             ->placeholder('-'),
                     ])
                     ->collapsible(),
+
+                Section::make(Str::ucfirst(__('issue_notes')))
+                    ->schema([
+                        RepeatableEntry::make('notes')
+                            ->label(Str::ucfirst(__('notes')))
+                            ->schema([
+                                TextEntry::make('created_at')
+                                    ->label(Str::ucfirst(__('created_at')))
+                                    ->dateTime('d-m-Y H:i'),
+
+                                TextEntry::make('user.name')
+                                    ->label(Str::ucfirst(__('user'))),
+
+                                TextEntry::make('previous_state')
+                                    ->label(Str::ucfirst(__('previous_state')))
+                                    ->badge(),
+
+                                TextEntry::make('new_state')
+                                    ->label(Str::ucfirst(__('new_state')))
+                                    ->badge(),
+
+                                TextEntry::make('description')
+                                    ->label(Str::ucfirst(__('description')))
+                                    ->columnSpanFull()
+                                    ->markdown(),
+                            ])
+                            ->columns(4),
+                    ])
+                    ->collapsible()
+                    ->columnSpanFull(),
             ]);
     }
 }
