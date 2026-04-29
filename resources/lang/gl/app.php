@@ -70,5 +70,5 @@ return [
     'observations' => 'observacións',
     'reference_number_short' => 'ref.',
     'reference_number' => 'número de referencia',
-    'created_by' => 'creado por'
+    'created_by' => 'creado por',
 ];
