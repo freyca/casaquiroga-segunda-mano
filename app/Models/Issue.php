@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Concerns\HasReferenceNumberContract;
 use App\Enums\IssuePriority;
 use App\Enums\IssueStatus;
 use App\Enums\IssueType;
-use App\Models\Concerns\HasReferenceNumber;
-use App\Models\Concerns\HasReferenceNumberContract;
+use App\Traits\HasReferenceNumber;
 use Database\Factories\IssueFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

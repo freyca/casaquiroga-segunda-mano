@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Models\Concerns;
+namespace App\Traits;
 
 use App\Actions\UniqueReferenceNumber;
+use App\Concerns\HasReferenceNumberContract;
 use Illuminate\Database\Eloquent\Model;
 
 trait HasReferenceNumber
