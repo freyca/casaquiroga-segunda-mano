@@ -15,12 +15,14 @@ enum OrderType: string implements HasColor, HasIcon, HasLabel
 {
     case ORDER = 'order';
     case DELIVERY_NOTE = 'delivery_note';
+    case BILL = 'bill';
 
     public function getLabel(): string
     {
         return match ($this) {
             self::ORDER => Str::ucfirst(__('enums.order')),
             self::DELIVERY_NOTE => Str::ucfirst(__('enums.delivery_note')),
+            self::BILL => Str::ucfirst(__('enums.bill')),
         };
     }
 
@@ -29,6 +31,7 @@ enum OrderType: string implements HasColor, HasIcon, HasLabel
         return match ($this) {
             self::ORDER => Color::Lime,
             self::DELIVERY_NOTE => Color::Indigo,
+            self::BILL => Color::Purple,
         };
     }
 
@@ -37,6 +40,7 @@ enum OrderType: string implements HasColor, HasIcon, HasLabel
         return match ($this) {
             self::ORDER => Heroicon::OutlinedReceiptPercent,
             self::DELIVERY_NOTE => Heroicon::OutlinedDocument,
+            self::BILL => Heroicon::OutlinedCreditCard,
         };
     }
 }

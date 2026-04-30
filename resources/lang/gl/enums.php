@@ -14,6 +14,7 @@ return [
     'order' => 'pedido',
     'delivery_note' => 'albarán',
     'order_type' => 'tipo de pedido',
+    'bill' => 'factura',
     'wood_chipper' => 'trituradora',
     'lawn_mower' => 'cortacésped',
     'brushcutter' => 'desbrozadora',
