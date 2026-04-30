@@ -8,6 +8,6 @@ final class UniqueReferenceNumber
 {
     public static function create(string $type): string
     {
-        return sprintf('%s-%s', $type, now()->format('ymd-His'));
+        return sprintf('%s-%s', $type, now()->format('ymd-His-u'));
     }
 }
