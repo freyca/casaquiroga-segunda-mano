@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Actions\UniqueReferenceNumber;
 use App\Enums\IssuePriority;
 use App\Enums\IssueStatus;
 use App\Enums\IssueType;
+use App\Models\Concerns\HasReferenceNumber;
+use App\Models\Concerns\HasReferenceNumberContract;
 use Database\Factories\IssueFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -29,10 +30,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
     'images',
     'reference_number',
 ])]
-final class Issue extends Model
+final class Issue extends Model implements HasReferenceNumberContract
 {
     /** @use HasFactory<IssueFactory> */
     use HasFactory;
+
+    use HasReferenceNumber;
 
     /**
      * @return BelongsTo<User, $this>
@@ -74,15 +77,6 @@ final class Issue extends Model
         return $this->hasMany(IssueNote::class);
     }
 
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        self::creating(function (self $issue): void {
-            $issue->reference_number = UniqueReferenceNumber::create('SAT');
-        });
-    }
-
     protected function casts(): array
     {
         return [
@@ -92,5 +86,10 @@ final class Issue extends Model
             'just_arrived' => 'boolean',
             'images' => 'array',
         ];
+    }
+
+    public function getReferencePrefix(): string
+    {
+        return 'SAT';
     }
 }
