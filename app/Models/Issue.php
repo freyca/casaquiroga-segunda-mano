@@ -77,6 +77,11 @@ final class Issue extends Model implements HasReferenceNumberContract
         return $this->hasMany(IssueNote::class);
     }
 
+    public function getReferencePrefix(): string
+    {
+        return 'SAT';
+    }
+
     protected function casts(): array
     {
         return [
@@ -86,10 +91,5 @@ final class Issue extends Model implements HasReferenceNumberContract
             'just_arrived' => 'boolean',
             'images' => 'array',
         ];
-    }
-
-    public function getReferencePrefix(): string
-    {
-        return 'SAT';
     }
 }
