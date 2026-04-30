@@ -27,7 +27,7 @@ final class UserForm
     /**
      * @return array<Component>
      */
-    public static function baseFields(): array
+    private static function baseFields(): array
     {
         return [
             TextInput::make('name')
@@ -36,8 +36,7 @@ final class UserForm
 
             TextInput::make('email')
                 ->label(Str::ucfirst(__('app.email')))
-                ->email()
-                ->required(fn (string $context): bool => $context === 'create'),
+                ->email(),
 
             TextInput::make('phone')
                 ->label(Str::ucfirst(__('app.phone')))
@@ -48,7 +47,7 @@ final class UserForm
     /**
      * @return array<Component>
      */
-    public static function fullFields(): array
+    private static function fullFields(): array
     {
         return array_merge(
             self::baseFields(),
