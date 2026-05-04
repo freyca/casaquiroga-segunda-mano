@@ -6,6 +6,7 @@ namespace App\Filament\Admin\Resources\Families\Schemas;
 
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Str;
 
 final class FamilyForm
 {
@@ -14,7 +15,7 @@ final class FamilyForm
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->label(ucfirst(__('name')))
+                    ->label(Str::ucfirst(__('app.name')))
                     ->required(),
             ]);
     }

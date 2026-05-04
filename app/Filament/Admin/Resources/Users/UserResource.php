@@ -15,6 +15,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
 
 final class UserResource extends Resource
 {
@@ -26,22 +27,22 @@ final class UserResource extends Resource
 
     public static function getNavigationGroup(): string
     {
-        return ucfirst(__('user_management'));
+        return Str::ucfirst(__('app.user_management'));
     }
 
     public static function getNavigationLabel(): string
     {
-        return ucfirst(__('user'));
+        return Str::ucfirst(__('app.user'));
     }
 
     public static function getLabel(): string
     {
-        return ucfirst(__('user'));
+        return Str::ucfirst(__('app.user'));
     }
 
     public static function getPluralLabel(): string
     {
-        return ucfirst(__('users'));
+        return Str::ucfirst(__('app.users'));
     }
 
     public static function form(Schema $schema): Schema

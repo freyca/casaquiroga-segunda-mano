@@ -30,6 +30,7 @@ final class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
+            'phone' => fake()->phoneNumber(),
             'role' => fake()->randomElement(Role::cases()),
             'email_verified_at' => now(),
             'password' => self::$password ??= Hash::make('password'),

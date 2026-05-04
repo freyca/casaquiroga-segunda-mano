@@ -244,23 +244,23 @@
         }
 
         $specifications = [
-            [ucfirst(__('brand')), $brandName],
-            [ucfirst(__('model')), $modelName],
-            [ucfirst(__('work_hours')), number_format((int) ($machine->work_hours ?? 0), 0, ',', '.') . ' h'],
-            [ucfirst(__('identifier_code')), $machineCode],
+            [ucfirst(__('app.brand')), $brandName],
+            [ucfirst(__('app.model')), $modelName],
+            [ucfirst(__('app.work_hours')), number_format((int) ($machine->work_hours ?? 0), 0, ',', '.') . ' h'],
+            [ucfirst(__('app.identifier_code')), $machineCode],
         ];
     @endphp
 
     <table class="header">
         <tr>
             <td>
-                <p class="eyebrow">{{ ucfirst(__('product data sheet')) }}</p>
+                <p class="eyebrow">{{ ucfirst(__('app.product data sheet')) }}</p>
                 <p class="title">{{ $modelName }}</p>
                 <p class="subtitle">{{ $brandName }}</p>
             </td>
 
             <td class="header-right">
-                <p class="ref-label">{{ ucfirst(__('identifier_code')) }}</p>
+                <p class="ref-label">{{ ucfirst(__('app.identifier_code')) }}</p>
                 <p class="ref-value">{{ $machineCode }}</p>
 
                 @if($machine->sell_status)
@@ -271,7 +271,7 @@
     </table>
 
     <div class="price">
-        <p class="price-label">{{ ucfirst(__('selling_price')) }}</p>
+        <p class="price-label">{{ ucfirst(__('app.selling_price')) }}</p>
         <p class="price-value">
             {{ number_format((float) $machine->selling_price, 0, ',', '.') }}
             <span class="price-currency">EUR</span>
@@ -279,7 +279,7 @@
     </div>
 
     @if($imageSource)
-    <p class="section-label">{{ ucfirst(__('photos')) }}</p>
+        <p class="section-label">{{ ucfirst(__('app.photos')) }}</p>
 
     <table class="images">
         <tr>
@@ -302,14 +302,14 @@
     </table>
 
     @if($machine->description)
-        <p class="section-label">{{ ucfirst(__('description')) }}</p>
+        <p class="section-label">{{ ucfirst(__('app.description')) }}</p>
         <div class="description">{!! $machine->description !!}</div>
     @endif
 
     <table class="footer">
         <tr>
             <td>{{ config('app.name') }}</td>
-            <td class="footer-right">{{ ucfirst(__('created_at')) . ' ' . now()->format('d/m/Y') }}</td>
+            <td class="footer-right">{{ ucfirst(__('app.created_at')) . ' ' . now()->format('d/m/Y') }}</td>
         </tr>
     </table>
 </body>

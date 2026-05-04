@@ -2,56 +2,46 @@
 
 declare(strict_types=1);
 
-use App\Filament\Admin\Resources\Brands\BrandResource;
-use App\Filament\Admin\Resources\Families\FamilyResource;
+use App\Filament\Admin\Resources\Issues\IssueResource;
 use App\Filament\Admin\Resources\SecondHandMachines\SecondHandMachineResource as AdminSecondHandMachineResource;
 use App\Filament\Admin\Resources\Users\UserResource;
 use App\Filament\Employee\Resources\SecondHandMachines\SecondHandMachineResource as EmployeeSecondHandMachineResource;
+use Illuminate\Support\Str;
 
 describe('FilamentLabels', function (): void {
 
     it('employee second hand machine returns correct navigation label', function (): void {
         expect(EmployeeSecondHandMachineResource::getNavigationLabel())
-            ->toBe(ucfirst(__('second_hand_machine')));
+            ->toBe(Str::ucfirst(__('app.machine')));
     });
 
     it('admin second hand machine returns correct navigation label', function (): void {
         expect(AdminSecondHandMachineResource::getNavigationLabel())
-            ->toBe(ucfirst(__('second_hand_machine')));
+            ->toBe(Str::ucfirst(__('app.machine')));
     });
 
     it('admin second hand machine returns correct navigation group', function (): void {
         expect(AdminSecondHandMachineResource::getNavigationGroup())
-            ->toBe(ucfirst(__('machines_management')));
+            ->toBe(Str::ucfirst(__('app.machines_management')));
     });
 
-    it('admin brand returns correct navigation label', function (): void {
-        expect(BrandResource::getNavigationLabel())
-            ->toBe(ucfirst(__('brand')));
+    it('issue returns correct navigation group', function (): void {
+        expect(IssueResource::getNavigationGroup())
+            ->toBe(Str::ucfirst(__('issues.issues_management')));
     });
 
-    it('admin brand returns correct navigation group', function (): void {
-        expect(BrandResource::getNavigationGroup())
-            ->toBe(ucfirst(__('machines_management')));
-    });
-
-    it('admin family returns correct navigation group', function (): void {
-        expect(FamilyResource::getNavigationGroup())
-            ->toBe(ucfirst(__('machines_management')));
-    });
-
-    it('admin family returns correct navigation label', function (): void {
-        expect(FamilyResource::getNavigationLabel())
-            ->toBe(ucfirst(__('family')));
+    it('issue returns correct navigation label', function (): void {
+        expect(IssueResource::getNavigationLabel())
+            ->toBe(Str::ucfirst(__('issues.issue')));
     });
 
     it('admin user returns correct navigation group', function (): void {
         expect(UserResource::getNavigationGroup())
-            ->toBe(ucfirst(__('user_management')));
+            ->toBe(Str::ucfirst(__('app.user_management')));
     });
 
     it('admin user returns correct navigation label', function (): void {
         expect(UserResource::getNavigationLabel())
-            ->toBe(ucfirst(__('user')));
+            ->toBe(Str::ucfirst(__('app.user')));
     });
 });

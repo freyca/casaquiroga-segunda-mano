@@ -7,7 +7,9 @@ namespace App\Filament\Admin\Resources\SecondHandMachines;
 use App\Filament\Admin\Resources\SecondHandMachines\Pages\CreateSecondHandMachine;
 use App\Filament\Admin\Resources\SecondHandMachines\Pages\EditSecondHandMachine;
 use App\Filament\Admin\Resources\SecondHandMachines\Pages\ListSecondHandMachines;
+use App\Filament\Admin\Resources\SecondHandMachines\Pages\ViewSecondHandMachine;
 use App\Filament\Admin\Resources\SecondHandMachines\Schemas\SecondHandMachineForm;
+use App\Filament\Admin\Resources\SecondHandMachines\Schemas\SecondHandMachineInfolist;
 use App\Filament\Admin\Resources\SecondHandMachines\Tables\SecondHandMachinesTable;
 use App\Models\SecondHandMachine;
 use BackedEnum;
@@ -15,6 +17,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
 
 final class SecondHandMachineResource extends Resource
 {
@@ -26,22 +29,22 @@ final class SecondHandMachineResource extends Resource
 
     public static function getNavigationGroup(): string
     {
-        return ucfirst(__('machines_management'));
+        return Str::ucfirst(__('app.machines_management'));
     }
 
     public static function getNavigationLabel(): string
     {
-        return ucfirst(__('second_hand_machine'));
+        return Str::ucfirst(__('app.second_hand_machine'));
     }
 
     public static function getLabel(): string
     {
-        return ucfirst(__('second_hand_machine'));
+        return Str::ucfirst(__('app.second_hand_machine'));
     }
 
     public static function getPluralLabel(): string
     {
-        return ucfirst(__('second_hand_machines'));
+        return Str::ucfirst(__('app.second_hand_machines'));
     }
 
     public static function form(Schema $schema): Schema
@@ -54,6 +57,11 @@ final class SecondHandMachineResource extends Resource
         return SecondHandMachinesTable::configure($table);
     }
 
+    public static function infolist(Schema $schema): Schema
+    {
+        return SecondHandMachineInfolist::configure($schema);
+    }
+
     public static function getRelations(): array
     {
         return [];
@@ -64,6 +72,7 @@ final class SecondHandMachineResource extends Resource
         return [
             'index' => ListSecondHandMachines::route('/'),
             'create' => CreateSecondHandMachine::route('/create'),
+            'view' => ViewSecondHandMachine::route('/{record}'),
             'edit' => EditSecondHandMachine::route('/{record}/edit'),
         ];
     }

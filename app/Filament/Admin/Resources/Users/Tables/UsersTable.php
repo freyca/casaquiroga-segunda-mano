@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace App\Filament\Admin\Resources\Users\Tables;
 
 use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
 
 final class UsersTable
 {
@@ -17,26 +16,22 @@ final class UsersTable
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label(ucfirst(__('name')))
+                    ->label(Str::ucfirst(__('app.name')))
                     ->searchable(),
                 TextColumn::make('email')
-                    ->label(ucfirst(__('email')))
+                    ->label(Str::ucfirst(__('app.email')))
                     ->searchable(),
                 TextColumn::make('role')
-                    ->label(ucfirst(__('role')))
+                    ->label(Str::ucfirst(__('app.role')))
                     ->badge()
                     ->searchable(),
             ])
             ->filters([
                 //
             ])
-            ->recordActions([
-                EditAction::make(),
-            ])
+            ->recordActions([])
             ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
+                BulkActionGroup::make([]),
             ]);
     }
 }

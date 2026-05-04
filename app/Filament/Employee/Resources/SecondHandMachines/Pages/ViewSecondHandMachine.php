@@ -27,7 +27,7 @@ final class ViewSecondHandMachine extends ViewRecord
     {
         return [
             EditAction::make()
-                ->modalHeading(ucfirst(__('edit_machine')))
+                ->modalHeading(Str::ucfirst(__('app.edit_machine')))
                 ->before(function (SecondHandMachine $record): void {
                     $this->previous_status = $record->sell_status;
                 })
@@ -35,7 +35,7 @@ final class ViewSecondHandMachine extends ViewRecord
                     AfterEditAction::saveNote($record, $data, $this->previous_status); // @phpstan-ignore-line
                 }),
             Action::make('download_pdf')
-                ->label(ucfirst(__('download_pdf')))
+                ->label(Str::ucfirst(__('app.download_pdf')))
                 ->icon(Heroicon::ArrowDown)
                 ->color('info')
                 ->action(function (SecondHandMachine $record) {

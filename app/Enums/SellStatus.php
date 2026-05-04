@@ -9,6 +9,7 @@ use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasIcon;
 use Filament\Support\Contracts\HasLabel;
 use Filament\Support\Icons\Heroicon;
+use Illuminate\Support\Str;
 
 enum SellStatus: string implements HasColor, HasIcon, HasLabel
 {
@@ -21,11 +22,11 @@ enum SellStatus: string implements HasColor, HasIcon, HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            SellStatus::Available => ucfirst(__('available')),
-            SellStatus::InPreparation => ucfirst(__('in preparation')),
-            SellStatus::ArriveSoon => ucfirst(__('arrive soon')),
-            SellStatus::Reserved => ucfirst(__('reserved')),
-            SellStatus::Sold => ucfirst(__('sold')),
+            SellStatus::Available => Str::ucfirst(__('enums.available')),
+            SellStatus::InPreparation => Str::ucfirst(__('enums.in_preparation')),
+            SellStatus::ArriveSoon => Str::ucfirst(__('enums.arrive_soon')),
+            SellStatus::Reserved => Str::ucfirst(__('enums.reserved')),
+            SellStatus::Sold => Str::ucfirst(__('enums.sold')),
         };
     }
 

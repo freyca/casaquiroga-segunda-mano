@@ -6,6 +6,7 @@ namespace App\Filament\Admin\Resources\SecondHandMachines\Pages;
 
 use App\Filament\Admin\Resources\SecondHandMachines\SecondHandMachineResource;
 use Filament\Actions\DeleteAction;
+use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
 
 final class EditSecondHandMachine extends EditRecord
@@ -15,6 +16,7 @@ final class EditSecondHandMachine extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
+            ViewAction::make(),
             DeleteAction::make(),
         ];
     }

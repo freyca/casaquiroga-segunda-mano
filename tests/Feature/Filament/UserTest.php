@@ -11,12 +11,10 @@ use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 
 uses(LazilyRefreshDatabase::class);
 
-function mockPanel(string $id): Panel
+function panel(string $id): Panel
 {
-    $panel = test()->getMockBuilder(Panel::class)
-        ->disableOriginalConstructor()
-        ->getMock();
-    $panel->method('getId')->willReturn($id);
+    $panel = mock(Panel::class);
+    $panel->shouldReceive('getId')->andReturn($id);
 
     return $panel;
 }
@@ -60,9 +58,9 @@ describe('UserTest', function (): void {
         $employee = User::factory()->create(['role' => Role::Employee]);
         $user = User::factory()->create(['role' => Role::User]);
 
-        $adminPanel = mockPanel('admin');
-        $employeePanel = mockPanel('employee');
-        $otherPanel = mockPanel('other');
+        $adminPanel = panel('admin');
+        $employeePanel = panel('employee');
+        $otherPanel = panel('other');
 
         expect($admin->canAccessPanel($adminPanel))->toBeTrue();
         expect($admin->canAccessPanel($employeePanel))->toBeTrue();

@@ -10,6 +10,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Component;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 final class UserForm
 {
@@ -26,37 +27,40 @@ final class UserForm
     /**
      * @return array<Component>
      */
-    public static function baseFields(): array
+    private static function baseFields(): array
     {
         return [
             TextInput::make('name')
-                ->label(ucfirst(__('name')))
+                ->label(Str::ucfirst(__('app.name')))
                 ->required(),
+
+            TextInput::make('email')
+                ->label(Str::ucfirst(__('app.email')))
+                ->email(),
+
+            TextInput::make('phone')
+                ->label(Str::ucfirst(__('app.phone')))
+                ->tel(),
         ];
     }
 
     /**
      * @return array<Component>
      */
-    public static function fullFields(): array
+    private static function fullFields(): array
     {
         return array_merge(
             self::baseFields(),
             [
-                TextInput::make('email')
-                    ->label(ucfirst(__('email')))
-                    ->email()
-                    ->required(fn (string $context): bool => $context === 'create'),
-
                 TextInput::make('password')
-                    ->label(ucfirst(__('password')))
+                    ->label(Str::ucfirst(__('app.password')))
                     ->password()
                     ->dehydrated(fn (mixed $state): bool => filled($state))
                     ->dehydrateStateUsing(fn (?string $state) => filled($state) ? Hash::make($state) : null)
                     ->required(fn (string $context): bool => $context === 'create'),
 
                 Select::make('role')
-                    ->label(ucfirst(__('role')))
+                    ->label(Str::ucfirst(__('app.role')))
                     ->options(Role::class)
                     ->default(Role::User)
                     ->required(),

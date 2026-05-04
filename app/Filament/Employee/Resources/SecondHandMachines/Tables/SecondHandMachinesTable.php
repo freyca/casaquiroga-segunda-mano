@@ -10,6 +10,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
 
 final class SecondHandMachinesTable
 {
@@ -18,29 +19,29 @@ final class SecondHandMachinesTable
         return $table
             ->columns([
                 TextColumn::make('identifier_code')
-                    ->label(ucfirst(__('identifier_code')))
+                    ->label(Str::ucfirst(__('app.identifier_code')))
                     ->limit(20)
                     ->tooltip(fn (string $state): string => $state),
                 TextColumn::make('name')
-                    ->label(ucfirst(__('name')))
+                    ->label(Str::ucfirst(__('app.name')))
                     ->limit(20)
                     ->tooltip(fn (string $state): string => $state)
                     ->searchable(),
                 TextColumn::make('brand.name')
-                    ->label(ucfirst(__('brand.name')))
+                    ->label(Str::ucfirst(__('app.brand.name')))
                     ->limit(20)
                     ->tooltip(fn (string $state): string => $state)
                     ->searchable(),
                 TextColumn::make('model')
-                    ->label(ucfirst(__('model')))
+                    ->label(Str::ucfirst(__('app.model')))
                     ->searchable(),
                 TextColumn::make('selling_price')
-                    ->label(ucfirst(__('selling_price')))
+                    ->label(Str::ucfirst(__('app.selling_price')))
                     ->icon(Heroicon::CurrencyEuro)
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('sell_status')
-                    ->label(ucfirst(__('sell_status')))
+                    ->label(Str::ucfirst(__('app.sell_status')))
                     ->badge()
                     ->searchable(),
             ])
@@ -48,7 +49,7 @@ final class SecondHandMachinesTable
             ->filters(
                 [
                     SelectFilter::make('sell_status')
-                        ->label(ucfirst(__('sell_status')))
+                        ->label(Str::ucfirst(__('app.sell_status')))
                         ->multiple()
                         ->options(
                             collect(SellStatus::cases())
