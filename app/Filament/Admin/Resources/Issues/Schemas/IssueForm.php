@@ -45,7 +45,7 @@ final class IssueForm
                         TextInput::make('order_number')
                             ->label(Str::ucfirst(__('app.order_number')))
                             ->required()
-                            ->disabled(fn (string $context): bool => $context !== 'create')
+                            ->disabled(fn(string $context): bool => $context !== 'create')
                             ->afterStateHydrated(function (Set $set, ?Issue $record): void {
                                 if (! $record instanceof Issue || ! $record->relationLoaded('order')) {
                                     return;
@@ -73,7 +73,7 @@ final class IssueForm
                     ->collapsible()
                     ->schema([
                         Select::make('customer_id')
-                            ->relationship('customer', 'email')
+                            ->relationship('customer', 'phone')
                             ->label(Str::ucfirst(__('app.customer')))
                             ->required()
                             ->prefixIcon(Heroicon::User)
