@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Enums\Role;
 use App\Models\Brand;
+use App\Models\ComponentIssue;
 use App\Models\Family;
 use App\Models\Issue;
 use App\Models\SecondHandMachine;
@@ -39,5 +40,7 @@ final class DatabaseSeeder extends Seeder
         SecondHandMachine::factory(10)->create();
 
         Issue::factory(10)->create();
+
+        ComponentIssue::factory(10)->create();
     }
 }
