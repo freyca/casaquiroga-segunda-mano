@@ -23,7 +23,7 @@ final class ComponentIssueResource extends Resource
 {
     protected static ?string $model = ComponentIssue::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::Wrench;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::Cog8Tooth;
 
     protected static ?int $navigationSort = 4;
 
