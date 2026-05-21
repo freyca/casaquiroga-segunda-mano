@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Models\ComponentIssue;
@@ -8,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends Factory<ComponentIssue>
  */
-class ComponentIssueFactory extends Factory
+final class ComponentIssueFactory extends Factory
 {
     /**
      * Define the model's default state.

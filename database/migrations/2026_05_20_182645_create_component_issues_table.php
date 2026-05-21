@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Enums\IssuePriority;
 use App\Enums\IssueStatus;
 use Illuminate\Database\Migrations\Migration;
@@ -13,7 +15,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('component_issues', function (Blueprint $table) {
+        Schema::create('component_issues', function (Blueprint $table): void {
             $table->id();
 
             // Relations

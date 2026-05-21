@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 #[Fillable([
     'customer_id',
@@ -70,11 +70,11 @@ final class Issue extends Model implements HasReferenceNumberContract
     }
 
     /**
-     * @return HasMany<IssueNote, $this>
+     * @return MorphMany<Note, $this>
      */
-    public function notes(): HasMany
+    public function notes(): MorphMany
     {
-        return $this->hasMany(IssueNote::class);
+        return $this->morphMany(Note::class, 'noteable');
     }
 
     public function getReferencePrefix(): string

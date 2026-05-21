@@ -1,13 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Enums\IssuePriority;
 use App\Enums\IssueStatus;
 use App\Traits\HasReferenceNumber;
+use Database\Factories\ComponentIssueFactory;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -22,9 +25,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
     'images',
     'reference_number',
 ])]
-class ComponentIssue extends Model
+final class ComponentIssue extends Model
 {
-    /** @use HasFactory<\Database\Factories\ComponentIssueFactory> */
+    /** @use HasFactory<ComponentIssueFactory> */
     use HasFactory;
 
     use HasReferenceNumber;
@@ -54,11 +57,11 @@ class ComponentIssue extends Model
     }
 
     /**
-     * @return HasMany<IssueNote, $this>
+     * @return HasMany<Note, $this>
      */
     public function notes(): HasMany
     {
-        return $this->hasMany(IssueNote::class);
+        return $this->hasMany(Note::class);
     }
 
     public function getReferencePrefix(): string

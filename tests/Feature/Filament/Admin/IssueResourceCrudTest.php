@@ -136,6 +136,8 @@ describe('IssueResource', function (): void {
     });
 
     it('can change status and create a note from view page', function (): void {
+        actingAs(User::factory()->admin()->create()); // Allows us to show edit button
+
         $issue = Issue::factory()->create([
             'status' => IssueStatus::CREATED,
         ]);

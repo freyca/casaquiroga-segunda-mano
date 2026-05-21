@@ -7,7 +7,6 @@ namespace App\Filament\Admin\Resources\Issues\Pages;
 use App\Enums\IssueStatus;
 use App\Enums\Role;
 use App\Filament\Admin\Resources\Issues\IssueResource;
-use App\Models\IssueNote;
 use Filament\Actions\Action;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\Textarea;
@@ -43,8 +42,7 @@ final class ViewIssue extends ViewRecord
                     ->required(),
             ])
             ->action(function (array $data): void {
-                IssueNote::query()->create([
-                    'issue_id' => $this->record->id, // @phpstan-ignore-line
+                $this->record->notes()->create([ // @phpstan-ignore-line
                     'user_id' => auth()->id(),
                     'description' => $data['note_description'],
                     'previous_state' => $this->record->status, // @phpstan-ignore-line
