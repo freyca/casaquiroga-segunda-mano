@@ -9,7 +9,6 @@ use App\Enums\IssuePriority;
 use App\Enums\IssueStatus;
 use App\Enums\Role;
 use App\Models\ComponentIssue;
-use App\Models\Issue;
 use App\Models\Machine;
 use App\Models\Note;
 use App\Models\User;
@@ -66,7 +65,7 @@ final class ComponentIssueFactory extends Factory
             foreach ($users as $userId) {
                 Note::factory()->create([
                     'noteable_id' => $issue->id,
-                    'noteable_type' => Issue::class,
+                    'noteable_type' => ComponentIssue::class,
                     'user_id' => $userId,
                     'previous_state' => $issue->status,
                     'new_state' => $issue->status,

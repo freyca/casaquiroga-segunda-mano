@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 return [
+    'component_issue' => 'solicitud de componente',
+    'component_issues' => 'solicitudes de componentes',
     'issue' => 'incidencia',
     'issues' => 'incidencias',
     'issues_management' => 'gestión de incidencias',

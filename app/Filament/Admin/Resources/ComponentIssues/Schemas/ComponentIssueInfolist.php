@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Admin\Resources\Issues\Schemas;
+namespace App\Filament\Admin\Resources\ComponentIssues\Schemas;
 
 use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\ImageEntry;
@@ -13,7 +13,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\Str;
 
-final class IssueInfolist
+final class ComponentIssueInfolist
 {
     public static function configure(Schema $schema): Schema
     {
@@ -32,10 +32,6 @@ final class IssueInfolist
                             ->label(Str::ucfirst(__('issues.user_email')))
                             ->icon(Heroicon::User),
 
-                        TextEntry::make('order.number')
-                            ->icon(Heroicon::ReceiptPercent)
-                            ->label(Str::ucfirst(__('app.order'))),
-
                         TextEntry::make('machine.name')
                             ->label(Str::ucfirst(__('issues.machine')))
                             ->icon(Heroicon::Cog8Tooth),
@@ -47,10 +43,6 @@ final class IssueInfolist
                         IconEntry::make('just_arrived')
                             ->boolean()
                             ->label(Str::ucfirst(__('issues.just_arrived'))),
-
-                        TextEntry::make('type')
-                            ->label(Str::ucfirst(__('issues.issue_type')))
-                            ->badge(),
 
                         TextEntry::make('priority')
                             ->label(Str::ucfirst(__('issues.issue_priority')))
@@ -94,8 +86,8 @@ final class IssueInfolist
                             ->label(Str::ucfirst(__('app.created_by')))
                             ->placeholder('-'),
 
-                        TextEntry::make('observations')
-                            ->label(Str::ucfirst(__('issues.observations')))
+                        TextEntry::make('description')
+                            ->label(Str::ucfirst(__('issues.description')))
                             ->placeholder('-'),
 
                         ImageEntry::make('images')

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Concerns\HasReferenceNumberContract;
 use App\Enums\IssuePriority;
 use App\Enums\IssueStatus;
 use App\Traits\HasReferenceNumber;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 #[Fillable([
     'customer_id',
@@ -25,7 +26,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
     'images',
     'reference_number',
 ])]
-final class ComponentIssue extends Model
+final class ComponentIssue extends Model implements HasReferenceNumberContract
 {
     /** @use HasFactory<ComponentIssueFactory> */
     use HasFactory;
@@ -57,11 +58,11 @@ final class ComponentIssue extends Model
     }
 
     /**
-     * @return HasMany<Note, $this>
+     * @return MorphMany<Note, $this>
      */
-    public function notes(): HasMany
+    public function notes(): MorphMany
     {
-        return $this->hasMany(Note::class);
+        return $this->morphMany(Note::class, 'noteable');
     }
 
     public function getReferencePrefix(): string
