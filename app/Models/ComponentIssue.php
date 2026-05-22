@@ -7,9 +7,8 @@ namespace App\Models;
 use App\Concerns\HasReferenceNumberContract;
 use App\Enums\IssuePriority;
 use App\Enums\IssueStatus;
-use App\Enums\IssueType;
 use App\Traits\HasReferenceNumber;
-use Database\Factories\IssueFactory;
+use Database\Factories\ComponentIssueFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,20 +18,17 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 #[Fillable([
     'customer_id',
     'created_by',
-    'order_id',
     'machine_id',
-    'priority',
     'status',
-    'type',
+    'priority',
     'description',
     'just_arrived',
-    'observations',
     'images',
     'reference_number',
 ])]
-final class Issue extends Model implements HasReferenceNumberContract
+final class ComponentIssue extends Model implements HasReferenceNumberContract
 {
-    /** @use HasFactory<IssueFactory> */
+    /** @use HasFactory<ComponentIssueFactory> */
     use HasFactory;
 
     use HasReferenceNumber;
@@ -54,14 +50,6 @@ final class Issue extends Model implements HasReferenceNumberContract
     }
 
     /**
-     * @return BelongsTo<Order, $this>
-     */
-    public function order(): BelongsTo
-    {
-        return $this->belongsTo(Order::class);
-    }
-
-    /**
      * @return BelongsTo<Machine, $this>
      */
     public function machine(): BelongsTo
@@ -79,13 +67,12 @@ final class Issue extends Model implements HasReferenceNumberContract
 
     public function getReferencePrefix(): string
     {
-        return 'SAT';
+        return 'REC';
     }
 
     protected function casts(): array
     {
         return [
-            'type' => IssueType::class,
             'priority' => IssuePriority::class,
             'status' => IssueStatus::class,
             'just_arrived' => 'boolean',

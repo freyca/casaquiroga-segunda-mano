@@ -7,19 +7,17 @@ namespace Database\Factories;
 use App\Actions\UniqueReferenceNumber;
 use App\Enums\IssuePriority;
 use App\Enums\IssueStatus;
-use App\Enums\IssueType;
 use App\Enums\Role;
-use App\Models\Issue;
+use App\Models\ComponentIssue;
 use App\Models\Machine;
 use App\Models\Note;
-use App\Models\Order;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Issue>
+ * @extends Factory<ComponentIssue>
  */
-final class IssueFactory extends Factory
+final class ComponentIssueFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -31,16 +29,13 @@ final class IssueFactory extends Factory
         return [
             'customer_id' => User::factory()->user(),
             'created_by' => User::factory()->employee(),
-            'order_id' => Order::factory(),
             'machine_id' => Machine::factory(),
 
-            'type' => $this->faker->randomElement(IssueType::cases()),
             'priority' => $this->faker->randomElement(IssuePriority::cases()),
             'status' => $this->faker->randomElement(IssueStatus::cases()),
 
             'description' => $this->faker->paragraph(),
             'just_arrived' => $this->faker->boolean(),
-            'observations' => $this->faker->optional()->sentence(),
 
             'images' => $this->faker->optional()->randomElements([
                 'image1.jpg',
@@ -48,13 +43,13 @@ final class IssueFactory extends Factory
                 'image3.jpg',
             ], $this->faker->numberBetween(0, 3)),
 
-            'reference_number' => UniqueReferenceNumber::create('SAT'),
+            'reference_number' => UniqueReferenceNumber::create('REC'),
         ];
     }
 
     public function configure(): static
     {
-        return $this->afterCreating(function (Issue $issue): void {
+        return $this->afterCreating(function (ComponentIssue $issue): void {
             $users = User::query()
                 ->where('role', Role::Employee)
                 ->inRandomOrder()
@@ -70,7 +65,7 @@ final class IssueFactory extends Factory
             foreach ($users as $userId) {
                 Note::factory()->create([
                     'noteable_id' => $issue->id,
-                    'noteable_type' => Issue::class,
+                    'noteable_type' => ComponentIssue::class,
                     'user_id' => $userId,
                     'previous_state' => $issue->status,
                     'new_state' => $issue->status,

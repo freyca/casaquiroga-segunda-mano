@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers\Filament;
 
+use App\Filament\Admin\Resources\ComponentIssues\ComponentIssueResource;
 use App\Filament\Admin\Resources\Issues\IssueResource;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -36,6 +37,7 @@ final class EmployeePanelProvider extends PanelProvider
             ->brandLogo(asset('images/cq-logo.jpg'))
             ->resources([
                 IssueResource::class,
+                ComponentIssueResource::class,
             ])
             ->discoverResources(in: app_path('Filament/Employee/Resources'), for: 'App\Filament\Employee\Resources')
             ->discoverPages(in: app_path('Filament/Employee/Pages'), for: 'App\Filament\Employee\Pages')

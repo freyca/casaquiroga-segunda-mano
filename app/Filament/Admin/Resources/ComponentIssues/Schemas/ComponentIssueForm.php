@@ -2,17 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Admin\Resources\Issues\Schemas;
+namespace App\Filament\Admin\Resources\ComponentIssues\Schemas;
 
 use App\Enums\IssuePriority;
 use App\Enums\IssueStatus;
-use App\Enums\IssueType;
-use App\Enums\OrderType;
 use App\Filament\Admin\Resources\Machines\Schemas\MachineForm;
 use App\Filament\Admin\Resources\Users\Schemas\UserForm;
-use App\Models\Issue;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -20,12 +16,11 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
-use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\Str;
 
-final class IssueForm
+final class ComponentIssueForm
 {
     public static function configure(Schema $schema): Schema
     {
@@ -37,37 +32,6 @@ final class IssueForm
                     ->columnSpanFull()
                     ->copyable()
                     ->hiddenOn('create'),
-
-                Section::make(Str::ucfirst(__('app.order')))
-                    ->schema([
-                        Hidden::make('order_id'),
-
-                        TextInput::make('order_number')
-                            ->label(Str::ucfirst(__('app.order_number')))
-                            ->required()
-                            ->disabled(fn (string $context): bool => $context !== 'create')
-                            ->afterStateHydrated(function (Set $set, ?Issue $record): void {
-                                if (! $record instanceof Issue || ! $record->relationLoaded('order')) {
-                                    return;
-                                }
-
-                                $set('order_number', $record->order?->number);
-                            }),
-
-                        ToggleButtons::make('order_type')
-                            ->label(Str::ucfirst(__('enums.order_type')))
-                            ->options(OrderType::class)
-                            ->inline()
-                            ->required()
-                            ->afterStateHydrated(function (Set $set, ?Issue $record): void {
-                                if (! $record instanceof Issue || ! $record->relationLoaded('order')) {
-                                    return;
-                                }
-
-                                $set('order_type', $record->order?->type);
-                            }),
-                    ])
-                    ->collapsible(),
 
                 Section::make(Str::ucfirst(__('issues.customer_data')))
                     ->collapsible()
@@ -123,12 +87,6 @@ final class IssueForm
                             ->options(IssueStatus::class)
                             ->required(),
 
-                        ToggleButtons::make('type')
-                            ->label(Str::ucfirst(__('issues.issue_type')))
-                            ->inline()
-                            ->options(IssueType::class)
-                            ->required(),
-
                         Textarea::make('description')
                             ->label(Str::ucfirst(__('app.description')))
                             ->required()
@@ -139,10 +97,6 @@ final class IssueForm
                     ->columnSpanFull()
                     ->collapsible()
                     ->schema([
-                        Textarea::make('observations')
-                            ->label(Str::ucfirst(__('app.observations')))
-                            ->default(null)
-                            ->columnSpanFull(),
                         FileUpload::make('images')
                             ->label(Str::ucfirst(__('app.photos')))
                             ->directory('issues/images')

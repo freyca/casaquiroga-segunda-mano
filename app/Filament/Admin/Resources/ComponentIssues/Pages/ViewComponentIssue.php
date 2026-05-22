@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Admin\Resources\Issues\Pages;
+namespace App\Filament\Admin\Resources\ComponentIssues\Pages;
 
 use App\Enums\IssueStatus;
 use App\Enums\Role;
-use App\Filament\Admin\Resources\Issues\IssueResource;
+use App\Filament\Admin\Resources\ComponentIssues\ComponentIssueResource;
 use Filament\Actions\Action;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\Textarea;
@@ -14,9 +14,9 @@ use Filament\Forms\Components\ToggleButtons;
 use Filament\Resources\Pages\ViewRecord;
 use Illuminate\Support\Str;
 
-final class ViewIssue extends ViewRecord
+final class ViewComponentIssue extends ViewRecord
 {
-    protected static string $resource = IssueResource::class;
+    protected static string $resource = ComponentIssueResource::class;
 
     protected function getHeaderActions(): array
     {

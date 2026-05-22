@@ -9,8 +9,8 @@ use App\Enums\SellStatus;
 use App\Enums\Tax;
 use App\Models\Brand;
 use App\Models\Family;
+use App\Models\Note;
 use App\Models\SecondHandMachine;
-use App\Models\SecondHandMachineNote;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -69,14 +69,12 @@ final class SecondHandMachineFactory extends Factory
     public function configure(): static
     {
         return $this->afterCreating(function (SecondHandMachine $machine): void {
-
             $users = User::query()
                 ->where('role', Role::Employee)
                 ->inRandomOrder()
                 ->take(2)
                 ->pluck('id');
 
-            // If not enough users exist, create them
             while ($users->count() < 2) {
                 $users->push(
                     User::factory()->employee()->create()->id
@@ -84,9 +82,12 @@ final class SecondHandMachineFactory extends Factory
             }
 
             foreach ($users as $userId) {
-                SecondHandMachineNote::factory()->create([
-                    'second_hand_machine_id' => $machine->id,
+                Note::factory()->create([
+                    'noteable_id' => $machine->id,
+                    'noteable_type' => SecondHandMachine::class,
                     'user_id' => $userId,
+                    'previous_state' => $machine->sell_status,
+                    'new_state' => $machine->sell_status,
                 ]);
             }
         });

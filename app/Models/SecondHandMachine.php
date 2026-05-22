@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 #[Fillable([
     'identifier_code',
@@ -81,10 +81,10 @@ final class SecondHandMachine extends Model
     }
 
     /**
-     * @return HasMany<SecondHandMachineNote, $this>
+     * @return MorphMany<Note, $this>
      */
-    public function notes(): HasMany
+    public function notes(): MorphMany
     {
-        return $this->hasMany(SecondHandMachineNote::class);
+        return $this->morphMany(Note::class, 'noteable');
     }
 }
