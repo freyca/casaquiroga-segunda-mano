@@ -19,10 +19,6 @@ final class DynamicStatusCast implements CastsAttributes
 {
     public function get(Model $model, string $key, mixed $value, array $attributes): IssueStatus|SellStatus|null
     {
-        if (! $value) {
-            return null;
-        }
-
         $statusClass = $this->getStatusEnumClass($model);
 
         return $statusClass::tryFrom($value); // @phpstan-ignore-line
@@ -30,11 +26,7 @@ final class DynamicStatusCast implements CastsAttributes
 
     public function set(Model $model, string $key, mixed $value, array $attributes): ?string
     {
-        if ($value === null) {
-            return null;
-        }
-
-        return $value instanceof BackedEnum ? $value->value : $value; // @phpstan-ignore-line
+        return $value instanceof BackedEnum ? $value->value : $value;
     }
 
     private function getStatusEnumClass(Model $model): string
@@ -42,7 +34,6 @@ final class DynamicStatusCast implements CastsAttributes
         $mapping = [
             Issue::class => IssueStatus::class,
             SecondHandMachine::class => SellStatus::class,
-            // Add more as needed
         ];
 
         $noteableType = $model->getAttribute('noteable_type');

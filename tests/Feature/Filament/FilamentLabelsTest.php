@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Filament\Admin\Resources\ComponentIssues\ComponentIssueResource;
 use App\Filament\Admin\Resources\Issues\IssueResource;
 use App\Filament\Admin\Resources\SecondHandMachines\SecondHandMachineResource as AdminSecondHandMachineResource;
 use App\Filament\Admin\Resources\Users\UserResource;
@@ -33,6 +34,16 @@ describe('FilamentLabels', function (): void {
     it('issue returns correct navigation label', function (): void {
         expect(IssueResource::getNavigationLabel())
             ->toBe(Str::ucfirst(__('issues.issue')));
+    });
+
+    it('component issue returns correct navigation group', function (): void {
+        expect(ComponentIssueResource::getNavigationGroup())
+            ->toBe(Str::ucfirst(__('issues.issues_management')));
+    });
+
+    it('component issue returns correct navigation label', function (): void {
+        expect(ComponentIssueResource::getNavigationLabel())
+            ->toBe(Str::ucfirst(__('issues.component_issue')));
     });
 
     it('admin user returns correct navigation group', function (): void {

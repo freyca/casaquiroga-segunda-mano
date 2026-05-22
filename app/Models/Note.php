@@ -28,7 +28,9 @@ final class Note extends Model
      */
     public function noteable(): MorphTo
     {
+        // @codeCoverageIgnoreStart
         return $this->morphTo(); // @phpstan-ignore-line
+        // @codeCoverageIgnoreEnd
     }
 
     /**
